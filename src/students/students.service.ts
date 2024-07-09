@@ -7,20 +7,20 @@ import { InjectModel } from '@nestjs/sequelize';
 @Injectable()
 export class StudentService {
   constructor(
-    @InjectModel(Student)
-    private readonly studentModel: typeof Student,
+    @Inject('STUDENTS_REPOSITORY')
+    private  studentsRepository: typeof Student,
   ) {}
 
   async create(createStudentDto: CreateStudentDto): Promise<Student> {
-    return this.studentModel.create(createStudentDto);
+    return this.studentsRepository.create(createStudentDto);
   }
 
   async findAll(): Promise<Student[]> {
-    return this.studentModel.findAll();
+    return this.studentsRepository.findAll();
   }
 
   async findOne(id: number): Promise<Student> {
-    return this.studentModel.findByPk(id);
+    return this.studentsRepository.findByPk(id);
   }
 
   async update(id: number, updateStudentDto: UpdateStudentDto): Promise<Student> {
