@@ -2,6 +2,7 @@
 
 import { Sequelize } from 'sequelize-typescript';
 import { Student } from '../students/student.entity'; // Assuming Student entity definition
+import { Class } from 'src/classes/class.entity';
 
 export const databaseProviders = [
   {
@@ -16,7 +17,7 @@ export const databaseProviders = [
         database: 'classroom_manegment', // Replace with your actual database name
       });
 
-      sequelize.addModels([Student]); // Add all models/entities here
+      sequelize.addModels([Student,Class]); // Add all models/entities here
 
       await sequelize.sync(); // Sync all defined models to the database
 

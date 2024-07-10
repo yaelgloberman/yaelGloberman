@@ -1,6 +1,10 @@
 import { IsString, IsInt } from 'class-validator';
 
 export class CreateStudentDto {
+
+  @IsInt()
+  id: number;
+
   @IsString()
   firstName: string;
 
@@ -12,4 +16,7 @@ export class CreateStudentDto {
 
   @IsString()
   profession: string;
+
+  @IsInt()
+  assignToClass: number;
 }

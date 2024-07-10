@@ -13,7 +13,7 @@ export class Class extends Model<Class> {
     type: DataType.STRING,
     allowNull: false,
   })
-  class_name: string;
+  className: string;
 
   @Column({
     type: DataType.INTEGER,
