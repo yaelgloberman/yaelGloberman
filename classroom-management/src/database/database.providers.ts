@@ -2,7 +2,7 @@
 
 import { Sequelize } from 'sequelize-typescript';
 import { Student } from '../students/student.entity'; // Assuming Student entity definition
-import { Class } from 'src/classes/class.entity';
+import { Class } from 'classroom-management/src/classes/class.entity';
 
 export const databaseProviders = [
   {

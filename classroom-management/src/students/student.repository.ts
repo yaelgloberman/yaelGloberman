@@ -1,5 +1,5 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { CLASS } from 'src/common/constants';
+import { CLASS } from 'classroom-management/src/common/constants';
 import { Student } from './student.entity';
 import { CreateStudentDto } from './dto/create-student.dto';
 

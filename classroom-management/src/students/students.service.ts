@@ -1,7 +1,7 @@
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { Student } from './student.entity';
 import { CreateStudentDto } from './dto/create-student.dto';
-import { ClassService } from 'src/classes/classes.service';
+import { ClassService } from 'classroom-management/src/classes/classes.service';
 import { StudentRepository } from './student.repository';
 
 @Injectable()

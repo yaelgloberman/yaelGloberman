@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { Student } from '../students/student.entity';
 import { StudentModule } from '../students/student.module';
 import { ClassModule } from '../classes/class.module';
-import { Class } from 'src/classes/class.entity';
+import { Class } from 'classroom-management/src/classes/class.entity';
 
 @Module({
   imports: [
