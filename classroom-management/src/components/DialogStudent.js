@@ -12,9 +12,10 @@ import {
   ListItemText,
 } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
-import AddIcon from "@mui/icons-material/Add";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import React from "react";
-const DialogClass = ({ data, handleClose, handleOpen, open }) => {
+import Delete from "@mui/icons-material/Delete";
+const DialogStudent = ({ data, handleClose, handleOpen, open }) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
@@ -25,7 +26,7 @@ const DialogClass = ({ data, handleClose, handleOpen, open }) => {
     <div>
         <Grid container alignItems="center" justifyContent="center">
         <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Available classes</DialogTitle>
+      <DialogTitle>Class students </DialogTitle>
       <DialogContent>
         <Box sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}>
           <List component="nav" aria-label="main mailbox folders">
@@ -36,11 +37,11 @@ const DialogClass = ({ data, handleClose, handleOpen, open }) => {
                 onClick={(event) => handleListItemClick(event, index)}
               >
                 <ListItemIcon>
-                  <SchoolIcon />
+                  <AccountCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary={student.name} />
                 <ListItemIcon>
-                  <AddIcon />
+                  <Delete />
                 </ListItemIcon>
               </ListItemButton>
             ))}
@@ -53,4 +54,4 @@ const DialogClass = ({ data, handleClose, handleOpen, open }) => {
     </div>
   );
 };
-export default DialogClass;
+export default DialogStudent;
