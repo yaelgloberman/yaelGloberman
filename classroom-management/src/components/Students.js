@@ -25,8 +25,8 @@ import { useQuery } from "react-query";
 
 import DialogClass from "./DialogClass";
 const fetchUsers = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  // const res = await fetch("http://localhost:8000/students");
+  // const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const res = await fetch("http://localhost:8000/students");
   return res.json();
 };
 
