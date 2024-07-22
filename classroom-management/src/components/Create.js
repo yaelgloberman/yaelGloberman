@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Box,
-  Grid,
- 
-  Typography,
-} from "@mui/material";
+import { TextField, Button, Box, Grid, Typography } from "@mui/material";
 import axios from "axios";
+import { createClass } from "../services/classService";
+import { createStudent } from "../services/studentService";
 
 const Create = () => {
   const [classId, setClassId] = useState("");
@@ -20,32 +15,49 @@ const Create = () => {
   const [studentProfession, setStudentProfession] = useState("");
 
   const handleCreateClass = async () => {
-    await axios.post("/api/classes", {
-      name: className,
-      totalPlaces: Number(maxSeats),
-    });
+    const classData = {
+      id: classId,
+      className: className,
+      numberOfPlaces: Number(maxSeats),
+      remainingPlaces: Number(maxSeats),
+    };
+    try {
+      await createClass(classData);
+      alert("Classe created successfully.");
+      setClassId("");
+      setClassName("");
+      setMaxSeats("");
+    } catch (error) {
+      console.error("Error creating class:", error);
+    }
   };
 
   const handleCreateStudent = async () => {
-    await axios.post("/api/students", {
+    const studentData = {
       id: studentId,
       firstName: studentFirstName,
       lastName: studentLastName,
       age: Number(studentAge),
       profession: studentProfession,
-    });
+    };
+
+    try {
+      await createStudent(studentData);
+      alert("Student created successfully.");
+      setStudentId("");
+      setStudentFirstName("");
+      setStudentLastName("");
+      setStudentAge("");
+      setStudentProfession("");
+    } catch (error) {
+      console.error("Error creating student:", error);
+    }
   };
 
   return (
     <Box display="flex" sx={{ mt: 10 }}>
       <Grid container alignItems="center" justifyContent="center">
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="center"
-          item
-          xs={5}
-        >
+        <Grid container alignItems="center" justifyContent="center" item xs={5}>
           <Typography variant="h4" sx={{ marginBottom: 2 }}>
             Create new Class
           </Typography>
@@ -77,13 +89,7 @@ const Create = () => {
           </Button>
         </Grid>
 
-        <Grid
-          item
-          container
-          alignItems="center"
-          justifyContent="center"
-          xs={5}
-        >
+        <Grid item container alignItems="center" justifyContent="center" xs={5}>
           <Typography variant="h4" sx={{ marginBottom: 2 }}>
             Add new student
           </Typography>

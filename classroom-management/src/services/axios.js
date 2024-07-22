@@ -17,3 +17,4 @@ export const classesAPI = axios.create({
     'Content-Type': 'application/json',
   },
 });
+

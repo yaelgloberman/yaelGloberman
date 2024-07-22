@@ -39,7 +39,7 @@ const DialogStudent = ({ data, handleClose, handleOpen, open }) => {
                 <ListItemIcon>
                   <AccountCircleIcon />
                 </ListItemIcon>
-                <ListItemText primary={student.name} />
+                <ListItemText primary={student.firstName} />
                 <ListItemIcon>
                   <Delete />
                 </ListItemIcon>

@@ -33,10 +33,20 @@ export const createStudent = async (studentData) => {
 
 export const assignStudentToClass = async (id, classId) => {
   try {
-    const response = await studentsAPI.post(`/${id}/assign`, { classId });
+    const response = await studentsAPI.put(`/${id}/${classId}`);
     return response.data;
   } catch (error) {
     console.error('Error assigning student to class:', error);
     throw error;
   }
 };
+export const getAllStudentsInClass = async (classId) => {
+  try {
+    const response = await studentsAPI.get(`/allStudentInClass/${classId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching all students:', error);
+    throw error;
+  }
+};
+

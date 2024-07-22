@@ -1,28 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { Grid, IconButton, Paper, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
-
-const fetchUsers = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  return res.json();
-};
+import { getAllStudents, getAllStudentsInClass } from "../services/studentService";
+import { getAvailableClasses } from "../services/classService";
 
 const Classes = () => {
-  const { data, isLoading, error } = useQuery("classes", fetchUsers);
   const [open, setOpen] = useState(false);
+  const [students, setStudents] = useState([]);
+  const [classes, setClasses] = useState([]);
 
-  const handleOpen = () => {
+  useEffect(() => {
+    // const fetchStudents = async () => {
+    //   try {
+    //     const data = await getAllStudents();
+    //     setStudents(data);
+    //   } catch (error) {
+    //     console.error("Error fetching students:", error);
+    //   }
+    // };
+    const fetchClasses = async () => {
+      try {
+        const data = await getAvailableClasses();
+        setClasses(data);
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+      }
+    };
+    // fetchStudents();
+    fetchClasses();
+  }, []);
+  const handleOpen =async (classId) => { 
+    const data = await getAllStudentsInClass(classId);
+    setStudents(data);
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose =  () => {
+   
     setOpen(false);
   };
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading classes</div>;
 
   return (
     <Grid
@@ -32,7 +50,7 @@ const Classes = () => {
       sx={{ mt: 5 }}
       spacing={2}
     >
-      {data.map((classItem) => (
+      {classes.map((classItem) => (
         <Grid key={classItem.id} item sm={6} md={2}>
           <Paper
             sx={{
@@ -41,16 +59,19 @@ const Classes = () => {
               padding: 2,
             }}
           >
-            <Typography variant="h6">{classItem.username}</Typography>
+            <Typography variant="h6">{classItem.className}</Typography>
             <Typography variant="subtitle1">
-              There are {classItem.id} seats left
+              There are {classItem.remainingPlaces} seats left
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              Out of {classItem.id}
+              Out of {classItem.numberOfPlaces}
             </Typography>
             <Grid container sx={{ mt: 4 }}>
               <Grid item xs={10}>
-                <Typography variant="h6" onClick={handleOpen}>
+                <Typography
+                  variant="h6"
+                  onClick={() => handleOpen(classItem.id)}
+                >
                   STUDENTS LIST
                 </Typography>
               </Grid>
@@ -62,7 +83,7 @@ const Classes = () => {
             </Grid>
           </Paper>
           <DialogStudent
-            data={data}
+            data={students}
             open={open}
             handleOpen={handleOpen}
             handleClose={handleClose}
