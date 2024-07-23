@@ -87,6 +87,7 @@ const Students = () => {
                     <TableCell align="center">
                       <Button
                         variant="outlined"
+                        disabled={student.assignToClass}
                         onClick={() => handleOpen(student.id)}
                       >
                         Assign to class
