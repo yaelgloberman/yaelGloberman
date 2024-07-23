@@ -1,16 +1,7 @@
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Divider,
   Grid,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Paper,
   Table,
   TableBody,
@@ -19,25 +10,20 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { deleteStudent, getAllStudents } from "../services/studentService";
+import { getAvailableClasses } from "../services/classService";
 
 import DialogClass from "./DialogClass";
-const fetchUsers = async () => {
-  const res = await fetch("http://localhost:8000/students")
-  return res.json();
-};
-
-
-const deleteStudent = (student) => {
-  console.log(student.id);
-};
 
 const Students = () => {
   const [open, setOpen] = useState(false);
+  const [students, setStudents] = useState([]);
+  const [studentId, setStudentId] = useState([]);
+  const [classes, setClasses] = useState([]);
 
-  const handleOpen = () => {
+  const handleOpen = (studentId) => {
+    setStudentId(studentId);
     setOpen(true);
   };
 
@@ -45,8 +31,26 @@ const Students = () => {
     setOpen(false);
   };
 
-  const { data, status } = useQuery("users", fetchUsers);
-
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const data = await getAllStudents();
+        setStudents(data);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+    const fetchClasses = async () => {
+      try {
+        const data = await getAvailableClasses();
+        setClasses(data);
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+      }
+    };
+    fetchStudents();
+    fetchClasses();
+  }, []);
   return (
     <Box>
       <Grid
@@ -55,60 +59,64 @@ const Students = () => {
         justifyContent="center"
         sx={{ mt: 10 }}
       >
-        {status === "error" && <p>Error fetching data</p>}
-        {status === "loading" && <p>Fetching data...</p>}
-        {status === "success" && (
-          <div>
-            <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">ID</TableCell>
-                    <TableCell align="center">First Name</TableCell>
-                    <TableCell align="center">Last Name</TableCell>
-                    <TableCell align="center">Age</TableCell>
-                    <TableCell align="center">Proffesion</TableCell>
-                    <TableCell align="center">Assign</TableCell>
-                    <TableCell align="center">Delete</TableCell>
+        <div>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">ID</TableCell>
+                  <TableCell align="center">First Name</TableCell>
+                  <TableCell align="center">Last Name</TableCell>
+                  <TableCell align="center">Age</TableCell>
+                  <TableCell align="center">Proffesion</TableCell>
+                  <TableCell align="center">Assign</TableCell>
+                  <TableCell align="center">Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {students.map((student) => (
+                  <TableRow
+                    key={student.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="center">{student.id}</TableCell>
+                    <TableCell align="center">{student.firstName}</TableCell>
+                    <TableCell align="center">{student.lastName}</TableCell>
+                    <TableCell align="center">{student.age}</TableCell>
+                    <TableCell align="center">{student.profession}</TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleOpen(student.id)}
+                      >
+                        Assign to class
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          deleteStudent(student.id);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {data.map((student) => (
-                    <TableRow
-                      key={student.name}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="center">{student.id}</TableCell>
-                      <TableCell align="center">{student.name}</TableCell>
-                      <TableCell align="center">{student.name}</TableCell>
-                      <TableCell align="center">{student.name}</TableCell>
-                      <TableCell align="center">{student.name}</TableCell>
-                      <TableCell align="center">
-                        <Button variant="outlined" onClick={handleOpen}>
-                          Assign to class
-                        </Button>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Button
-                          variant="outlined"
-                          onClick={() => {
-                            deleteStudent(student);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        )}
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
       </Grid>
-    
-    <DialogClass  data={data} open={open} handleOpen={handleOpen} handleClose={handleClose}  />
-   
+
+      <DialogClass
+        studentId={studentId}
+        data={classes}
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+      />
     </Box>
   );
 };

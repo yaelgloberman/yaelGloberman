@@ -4,10 +4,12 @@ import {
   Button,
   Box,
   Grid,
- 
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
-import axios from "axios";
+import { createClass } from "../services/classService";
+import { createStudent } from "../services/studentService"; // Correct import
 
 const Create = () => {
   const [classId, setClassId] = useState("");
@@ -19,33 +21,75 @@ const Create = () => {
   const [studentAge, setStudentAge] = useState("");
   const [studentProfession, setStudentProfession] = useState("");
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
   const handleCreateClass = async () => {
-    await axios.post("/api/classes", {
-      name: className,
-      totalPlaces: Number(maxSeats),
-    });
+    const classData = {
+      id: classId,
+      className: className,
+      numberOfPlaces: Number(maxSeats),
+      remainingPlaces: Number(maxSeats),
+    };
+    try {
+      await createClass(classData);
+      setSnackbarMessage("Class created successfully.");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+      setClassId("");
+      setClassName("");
+      setMaxSeats("");
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        setSnackbarMessage("Class already exists.");
+      } else {
+        setSnackbarMessage("Failed to create class.");
+      }
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
   };
 
   const handleCreateStudent = async () => {
-    await axios.post("/api/students", {
+    const studentData = {
       id: studentId,
       firstName: studentFirstName,
       lastName: studentLastName,
       age: Number(studentAge),
       profession: studentProfession,
-    });
+    };
+    try {
+      await createStudent(studentData);
+      setSnackbarMessage("Student created successfully.");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+      setStudentId("");
+      setStudentFirstName("");
+      setStudentLastName("");
+      setStudentAge("");
+      setStudentProfession("");
+    } catch (error) {
+      // console.log("409",error.response.status === 409, "error",error,"error.respons",error.response);
+      if (error.response && error.response.status === 409) {
+        setSnackbarMessage("Student already exists.");
+      } else {
+        setSnackbarMessage("Failed to create student.");
+      }
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
+  };
+
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
     <Box display="flex" sx={{ mt: 10 }}>
       <Grid container alignItems="center" justifyContent="center">
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="center"
-          item
-          xs={5}
-        >
+        <Grid container alignItems="center" justifyContent="center" item xs={5}>
           <Typography variant="h4" sx={{ marginBottom: 2 }}>
             Create new Class
           </Typography>
@@ -77,13 +121,7 @@ const Create = () => {
           </Button>
         </Grid>
 
-        <Grid
-          item
-          container
-          alignItems="center"
-          justifyContent="center"
-          xs={5}
-        >
+        <Grid item container alignItems="center" justifyContent="center" xs={5}>
           <Typography variant="h4" sx={{ marginBottom: 2 }}>
             Add new student
           </Typography>
@@ -129,6 +167,19 @@ const Create = () => {
           </Button>
         </Grid>
       </Grid>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
