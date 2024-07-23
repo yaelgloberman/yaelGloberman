@@ -11,14 +11,10 @@ import {
   TableRow,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getAllStudents } from "../services/studentService";
+import { deleteStudent, getAllStudents } from "../services/studentService";
 import { getAvailableClasses } from "../services/classService";
 
 import DialogClass from "./DialogClass";
-
-const deleteStudent = (student) => {
-  console.log(student.id);
-};
 
 const Students = () => {
   const [open, setOpen] = useState(false);
@@ -100,7 +96,7 @@ const Students = () => {
                       <Button
                         variant="outlined"
                         onClick={() => {
-                          deleteStudent(student);
+                          deleteStudent(student.id);
                         }}
                       >
                         Delete

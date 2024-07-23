@@ -60,6 +60,16 @@ export const dismissFromClass = async (id) => {
     throw error;
   }
 };
+export const deleteStudentFromClass = async (classId,studentId) => {
+  try {
+    const response = await classesAPI.put(`/${classId}/${studentId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error dismissing from class:', error);
+    throw error;
+  }
+};
+
 
 export const deleteClass = async (id) => {
   try {
@@ -70,3 +80,4 @@ export const deleteClass = async (id) => {
     throw error;
   }
 };
+

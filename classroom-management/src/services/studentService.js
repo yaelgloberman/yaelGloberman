@@ -31,6 +31,8 @@ export const createStudent = async (studentData) => {
   }
 };
 
+
+
 export const assignStudentToClass = async (id, classId) => {
   try {
     const response = await studentsAPI.put(`/${id}/${classId}`);
@@ -46,6 +48,16 @@ export const getAllStudentsInClass = async (classId) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching all students:', error);
+    throw error;
+  }
+};
+export const deleteStudent = async (id) => {
+  try {
+    const response = await studentsAPI.delete(`/${id}`);
+    console.log(response,"response")
+    return response.data;
+  } catch (error) {
+    console.error('Error delete student:', error);
     throw error;
   }
 };
