@@ -13,14 +13,31 @@ import {
 import React, { useEffect, useState } from "react";
 import { deleteStudent, getAllStudents } from "../services/studentService";
 import { getAvailableClasses } from "../services/classService";
-
 import DialogClass from "./DialogClass";
 
 const Students = () => {
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
-  const [studentId, setStudentId] = useState([]);
+  const [studentId, setStudentId] = useState(null);
   const [classes, setClasses] = useState([]);
+
+  const fetchStudents = async () => {
+    try {
+      const data = await getAllStudents();
+      setStudents(data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
+  const fetchClasses = async () => {
+    try {
+      const data = await getAvailableClasses();
+      setClasses(data);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
 
   const handleOpen = (studentId) => {
     setStudentId(studentId);
@@ -29,28 +46,14 @@ const Students = () => {
 
   const handleClose = () => {
     setOpen(false);
+    fetchStudents(); 
   };
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const data = await getAllStudents();
-        setStudents(data);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
-    };
-    const fetchClasses = async () => {
-      try {
-        const data = await getAvailableClasses();
-        setClasses(data);
-      } catch (error) {
-        console.error("Error fetching classes:", error);
-      }
-    };
     fetchStudents();
     fetchClasses();
   }, []);
+
   return (
     <Box>
       <Grid
@@ -68,7 +71,7 @@ const Students = () => {
                   <TableCell align="center">First Name</TableCell>
                   <TableCell align="center">Last Name</TableCell>
                   <TableCell align="center">Age</TableCell>
-                  <TableCell align="center">Proffesion</TableCell>
+                  <TableCell align="center">Profession</TableCell>
                   <TableCell align="center">Assign</TableCell>
                   <TableCell align="center">Delete</TableCell>
                 </TableRow>
@@ -98,6 +101,7 @@ const Students = () => {
                         variant="outlined"
                         onClick={() => {
                           deleteStudent(student.id);
+                          fetchStudents(); 
                         }}
                       >
                         Delete
@@ -115,8 +119,8 @@ const Students = () => {
         studentId={studentId}
         data={classes}
         open={open}
-        handleOpen={handleOpen}
         handleClose={handleClose}
+        onAssignmentComplete={fetchClasses}
       />
     </Box>
   );
