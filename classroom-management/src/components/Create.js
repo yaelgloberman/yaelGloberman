@@ -7,9 +7,11 @@ import {
   Typography,
   Snackbar,
   Alert,
+  FormHelperText,
 } from "@mui/material";
 import { createClass } from "../services/classService";
 import { createStudent } from "../services/studentService"; // Correct import
+import { validateInput } from "../utils/validation";
 
 const Create = () => {
   const [classId, setClassId] = useState("");
@@ -24,6 +26,21 @@ const Create = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [error, setError] = useState({});
+
+  const hasStudentErrors = () => {
+    return (
+      Object.keys(error).some((key) => key.startsWith("student") && error[key]) ||
+      !(studentId && studentFirstName && studentLastName && studentAge && studentProfession)
+    );
+  };
+
+  const hasClassErrors = () => {
+    return (
+      Object.keys(error).some((key) => key.startsWith("class") && error[key]) ||
+      !(classId && className && maxSeats)
+    );
+  };
 
   const handleCreateClass = async () => {
     const classData = {
@@ -80,9 +97,82 @@ const Create = () => {
     }
   };
 
-
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
+  };
+
+
+
+  const handleChangeClassId = (e) => {
+    const value = e.target.value;
+    setClassId(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      classId: validateInput(value, "classId"),
+    }));
+  };
+
+  const handleChangeClassName = (e) => {
+    const value = e.target.value;
+    setClassName(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      className: validateInput(value, "className"),
+    }));
+  };
+
+  const handleChangeMaxSeats = (e) => {
+    const value = e.target.value;
+    setMaxSeats(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      maxSeats: validateInput(value, "maxSeats"),
+    }));
+  };
+
+  const handleChangeStudentId = (e) => {
+    const value = e.target.value;
+    setStudentId(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      studentId: validateInput(value, "studentId"),
+    }));
+  };
+
+  const handleChangeStudentFirstName = (e) => {
+    const value = e.target.value;
+    setStudentFirstName(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      studentFirstName: validateInput(value, "studentFirstName"),
+    }));
+  };
+
+  const handleChangeStudentLastName = (e) => {
+    const value = e.target.value;
+    setStudentLastName(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      studentLastName: validateInput(value, "studentLastName"),
+    }));
+  };
+
+  const handleChangeStudentAge = (e) => {
+    const value = e.target.value;
+    setStudentAge(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      studentAge: validateInput(value, "studentAge"),
+    }));
+  };
+
+  const handleChangeStudentProfession = (e) => {
+    const value = e.target.value;
+    setStudentProfession(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      studentProfession: validateInput(value, "studentProfession"),
+    }));
   };
 
   return (
@@ -96,31 +186,53 @@ const Create = () => {
             <TextField
               label="Id"
               value={classId}
-              onChange={(e) => setClassId(e.target.value)}
+              onChange={handleChangeClassId}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.classId}
             />
+            {error.classId && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.classId}
+              </FormHelperText>
+            )}
             <TextField
               label="Class Name"
               value={className}
-              onChange={(e) => setClassName(e.target.value)}
+              onChange={handleChangeClassName}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.className}
             />
+            {error.className && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.className}
+              </FormHelperText>
+            )}
             <TextField
               label="Total Places"
               value={maxSeats}
-              onChange={(e) => setMaxSeats(e.target.value)}
+              onChange={handleChangeMaxSeats}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.maxSeats}
             />
+            {error.maxSeats && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.maxSeats}
+              </FormHelperText>
+            )}
           </Grid>
-          <Button variant="contained" onClick={handleCreateClass}>
+          <Button
+            variant="contained"
+            disabled={hasClassErrors()}
+            onClick={handleCreateClass}
+          >
             Create Class
           </Button>
         </Grid>
 
-        <Grid item container alignItems="center" justifyContent="center" xs={5}>
+        <Grid container alignItems="center" justifyContent="center" item xs={5}>
           <Typography variant="h4" sx={{ marginBottom: 2 }}>
             Add new student
           </Typography>
@@ -128,40 +240,74 @@ const Create = () => {
             <TextField
               label="Id"
               value={studentId}
-              onChange={(e) => setStudentId(e.target.value)}
+              onChange={handleChangeStudentId}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.studentId}
             />
+            {error.studentId && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.studentId}
+              </FormHelperText>
+            )}
             <TextField
               label="First Name"
               value={studentFirstName}
-              onChange={(e) => setStudentFirstName(e.target.value)}
+              onChange={handleChangeStudentFirstName}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.studentFirstName}
             />
+            {error.studentFirstName && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.studentFirstName}
+              </FormHelperText>
+            )}
             <TextField
               label="Last Name"
               value={studentLastName}
-              onChange={(e) => setStudentLastName(e.target.value)}
+              onChange={handleChangeStudentLastName}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.studentLastName}
             />
+            {error.studentLastName && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.studentLastName}
+              </FormHelperText>
+            )}
             <TextField
               label="Age"
               value={studentAge}
-              onChange={(e) => setStudentAge(e.target.value)}
+              onChange={handleChangeStudentAge}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.studentAge}
             />
+            {error.studentAge && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.studentAge}
+              </FormHelperText>
+            )}
             <TextField
               label="Profession"
               value={studentProfession}
-              onChange={(e) => setStudentProfession(e.target.value)}
+              onChange={handleChangeStudentProfession}
               sx={{ marginBottom: 2 }}
               fullWidth
+              error={!!error.studentProfession}
             />
+            {error.studentProfession && (
+              <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+                {error.studentProfession}
+              </FormHelperText>
+            )}
           </Grid>
-          <Button variant="contained" onClick={handleCreateStudent}>
+          <Button
+            variant="contained"
+            disabled={hasStudentErrors()}
+            onClick={handleCreateStudent}
+          >
             Create Student
           </Button>
         </Grid>
