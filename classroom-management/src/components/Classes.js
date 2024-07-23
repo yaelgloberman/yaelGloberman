@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Grid, IconButton, Paper, Typography, Snackbar, Alert } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  Paper,
+  Typography,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
 import { getAllStudentsInClass } from "../services/studentService";
@@ -12,6 +19,7 @@ const Classes = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [selectedClassId, setSelectedClassId] = useState(null);
 
   const fetchClasses = async () => {
     try {
@@ -30,13 +38,17 @@ const Classes = () => {
   }, []);
 
   const handleOpen = async (classId) => {
+    setSelectedClassId(classId);
     const data = await getAllStudentsInClass(classId);
-    setStudents(data);
-    setOpen(true);
+    if (data.length > 0) {
+      setStudents(data);
+      setOpen(true);
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
+    setSelectedClassId(null);
   };
 
   const handleDeleteClass = async (classId) => {
@@ -104,16 +116,17 @@ const Classes = () => {
                 </Grid>
               </Grid>
             </Paper>
-            <DialogStudent
-              setData={setStudents}
-              data={students}
-              open={open}
-              handleClose={handleClose}
-              onClassUpdated={fetchClasses}
-            />
           </Grid>
         ))}
       </Grid>
+      <DialogStudent
+        setData={setStudents}
+        data={students}
+        open={open}
+        handleClose={handleClose}
+        onClassUpdated={fetchClasses}
+        selectedClassId={selectedClassId}
+      />
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}

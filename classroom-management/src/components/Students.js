@@ -44,9 +44,19 @@ const Students = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setOpen(false);
-    fetchStudents(); 
+    await fetchStudents();
+  };
+
+  const handleDeleteStudent = async (studentId) => {
+    try {
+      await deleteStudent(studentId);
+      await fetchStudents(); 
+      await fetchClasses();
+    } catch (error) {
+      console.error("Error deleting student:", error);
+    }
   };
 
   useEffect(() => {
@@ -99,10 +109,7 @@ const Students = () => {
                     <TableCell align="center">
                       <Button
                         variant="outlined"
-                        onClick={() => {
-                          deleteStudent(student.id);
-                          fetchStudents(); 
-                        }}
+                        onClick={() => handleDeleteStudent(student.id)}
                       >
                         Delete
                       </Button>

@@ -70,7 +70,6 @@ const Create = () => {
       setStudentAge("");
       setStudentProfession("");
     } catch (error) {
-      // console.log("409",error.response.status === 409, "error",error,"error.respons",error.response);
       if (error.response && error.response.status === 409) {
         setSnackbarMessage("Student already exists.");
       } else {
