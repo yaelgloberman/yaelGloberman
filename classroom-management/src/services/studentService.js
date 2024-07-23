@@ -54,7 +54,6 @@ export const getAllStudentsInClass = async (classId) => {
 export const deleteStudent = async (id) => {
   try {
     const response = await studentsAPI.delete(`/${id}`);
-    console.log(response,"response")
     return response.data;
   } catch (error) {
     console.error('Error delete student:', error);

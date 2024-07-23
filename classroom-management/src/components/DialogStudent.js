@@ -1,7 +1,7 @@
+import React from "react";
 import {
   Box,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -12,27 +12,40 @@ import {
   ListItemText,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import React from "react";
 import Delete from "@mui/icons-material/Delete";
 import { deleteStudentFromClass } from "../services/classService";
-const DialogStudent = ({ setData, data, handleClose, open, onClassUpdated}) => {
+
+const DialogStudent = ({
+  setData,
+  data,
+  handleClose,
+  open,
+  onClassUpdated,
+  selectedClassId,
+}) => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-  const handleDeleteStudent = (student) => {
-    deleteStudentFromClass(student.assignToClass, student.id);
-    const updatedStudents = data.filter((student1) => student1.id !== student.id);
-    setData(updatedStudents);
-    onClassUpdated();
+
+  const handleDeleteStudent = async (student) => {
+    try {
+      await deleteStudentFromClass(selectedClassId, student.id);
+      const updatedStudents = data.filter((student1) => student1.id !== student.id);
+      setData(updatedStudents);
+      onClassUpdated();
+      handleClose();
+    } catch (error) {
+      console.error("Error deleting student:", error);
+    }
   };
 
   return (
     <div>
       <Grid container alignItems="center" justifyContent="center">
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Class students </DialogTitle>
+          <DialogTitle>Class students</DialogTitle>
           <DialogContent>
             <Box
               sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
@@ -59,8 +72,8 @@ const DialogStudent = ({ setData, data, handleClose, open, onClassUpdated}) => {
           </DialogContent>
         </Dialog>
       </Grid>
-      ;
     </div>
   );
 };
+
 export default DialogStudent;
