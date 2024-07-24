@@ -1,8 +1,10 @@
 import {
+  Alert,
   Box,
   Button,
   Grid,
   Paper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -20,6 +22,9 @@ const Students = () => {
   const [students, setStudents] = useState([]);
   const [studentId, setStudentId] = useState(null);
   const [classes, setClasses] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
   const fetchStudents = async () => {
     try {
@@ -52,11 +57,22 @@ const Students = () => {
   const handleDeleteStudent = async (studentId) => {
     try {
       await deleteStudent(studentId);
-      await fetchStudents(); 
+      await fetchStudents();
       await fetchClasses();
+      setSnackbarMessage("Student deleted successfully.");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
     } catch (error) {
-      console.error("Error deleting student:", error);
+      const errorMessage =
+        error.response?.data?.message || "Failed to delete student.";
+      setSnackbarMessage(errorMessage);
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
     }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   useEffect(() => {
@@ -129,6 +145,19 @@ const Students = () => {
         handleClose={handleClose}
         onAssignmentComplete={fetchClasses}
       />
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

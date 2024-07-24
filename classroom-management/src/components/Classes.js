@@ -10,7 +10,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
 import { getAllStudentsInClass } from "../services/studentService";
-import { getAvailableClasses, deleteClass, getAllClasses } from "../services/classService";
+import {  deleteClass, getAllClasses } from "../services/classService";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
