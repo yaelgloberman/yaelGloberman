@@ -11,31 +11,36 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
 import { getAllStudentsInClass } from "../services/studentService";
 import { getAvailableClasses, deleteClass } from "../services/classService";
+import { useDispatch, useSelector } from "react-redux";
+import { setClasses } from "../redux/slices/classesSlice";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
-  const [classes, setClasses] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [selectedClassId, setSelectedClassId] = useState(null);
-
+  const dispatch = useDispatch();
+  const classes = useSelector((state) => state.classes.classes);
   const fetchClasses = async () => {
-    try {
-      const data = await getAvailableClasses();
-      setClasses(data);
-    } catch (error) {
-      console.error("Error fetching classes:", error);
-      setSnackbarMessage("Failed to fetch classes.");
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
-    }
+    
   };
 
   useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const data = await getAvailableClasses(); 
+        dispatch(setClasses(data));
+      } catch (error) {
+        setSnackbarMessage("Failed to fetch classes.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      }
+    };
+
     fetchClasses();
-  }, []);
+  }, [dispatch]);
 
   const handleOpen = async (classId) => {
     setSelectedClassId(classId);
@@ -53,15 +58,13 @@ const Classes = () => {
 
   const handleDeleteClass = async (classId) => {
     try {
-      await deleteClass(classId);
-      setClasses((prevClasses) =>
-        prevClasses.filter((classItem) => classItem.id !== classId)
-      );
+      console.log("class",classId);
+      await deleteClass(classId); 
+      dispatch(deleteClass(classId));
       setSnackbarMessage("Class deleted successfully.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
     } catch (error) {
-      console.error("Error deleting class:", error);
       setSnackbarMessage("Failed to delete class.");
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
