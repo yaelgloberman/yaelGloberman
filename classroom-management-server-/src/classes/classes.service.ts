@@ -21,15 +21,15 @@ export class ClassService {
   ) {}
 
   async createClass(createClassDto: CreateClassDto): Promise<Class> {
-    try {
+    const classAlreadyExist = await this.classRepository.getClassById(
+      createClassDto.id,
+    );
+    if (!classAlreadyExist) {
       return await this.classRepository.createClass(createClassDto);
-    } catch (error) {
-      if (error instanceof ConflictException) {
-        throw new ConflictException('Class already exists');
-      }
-      throw new Error('Failed to create class');
     }
+    throw new HttpException('Class not created choose diffrent id', HttpStatus.CONFLICT);
   }
+
   async getAllClasses(): Promise<Class[]> {
     const classes = await this.classRepository.getAllClasses();
     if (!classes) {
@@ -79,16 +79,17 @@ export class ClassService {
   }
   async deleteClass(id: number): Promise<boolean> {
     const students = await this.studentService.getAllStudentsInClass(id);
-    await Promise.all(
-      students.map((student) =>
-        this.studentService.dismissFromClass(id, student.id),
-      ),
-    );
-    const classObjectExists = await this.classRepository.deleteClass(id);
-    if (!classObjectExists) {
-      throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
+    console.log('students', students);
+    if (students.length == 0) {
+      const classObjectExists = await this.classRepository.deleteClass(id);
+      if (!classObjectExists) {
+        throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
+      }
+      return true;
     }
-
-    return true;
+    throw new HttpException(
+      'Cannot delete class when students are assigned',
+      HttpStatus.CONFLICT,
+    );
   }
 }

@@ -30,8 +30,16 @@ const Create = () => {
 
   const hasStudentErrors = () => {
     return (
-      Object.keys(error).some((key) => key.startsWith("student") && error[key]) ||
-      !(studentId && studentFirstName && studentLastName && studentAge && studentProfession)
+      Object.keys(error).some(
+        (key) => key.startsWith("student") && error[key]
+      ) ||
+      !(
+        studentId &&
+        studentFirstName &&
+        studentLastName &&
+        studentAge &&
+        studentProfession
+      )
     );
   };
 
@@ -58,11 +66,9 @@ const Create = () => {
       setClassName("");
       setMaxSeats("");
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        setSnackbarMessage("Class already exists.");
-      } else {
-        setSnackbarMessage("Failed to create class.");
-      }
+      const errorMessage =
+        error.response?.data?.message || "Failed to create class.";
+      setSnackbarMessage(errorMessage);
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
     }
@@ -87,13 +93,11 @@ const Create = () => {
       setStudentAge("");
       setStudentProfession("");
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        setSnackbarMessage("Student already exists.");
-      } else {
-        setSnackbarMessage("Failed to create student.");
-      }
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
+      const errorMessage =
+      error.response?.data?.message || "Failed to create student.";
+    setSnackbarMessage(errorMessage);
+    setSnackbarSeverity("error");
+    setSnackbarOpen(true);
     }
   };
 
@@ -175,8 +179,8 @@ const Create = () => {
 
   return (
     <Box display="flex" sx={{ mt: 10 }}>
-      <Grid container alignItems="center" justifyContent="center" >
-        <Grid container alignItems="center" justifyContent="center" item xs={5} >
+      <Grid container alignItems="center" justifyContent="center">
+        <Grid container alignItems="center" justifyContent="center" item xs={5}>
           <Typography variant="h4" sx={{ marginBottom: 2 }}>
             Create new Class
           </Typography>

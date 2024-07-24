@@ -10,9 +10,13 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
 import { getAllStudentsInClass } from "../services/studentService";
+<<<<<<< HEAD
 import { getAvailableClasses, deleteClass } from "../services/classService";
 import { useDispatch, useSelector } from "react-redux";
 import { setClasses } from "../redux/slices/classesSlice";
+=======
+import {  deleteClass, getAllClasses } from "../services/classService";
+>>>>>>> effbbed270cfc73d1cc0f7eaee63661b165e574c
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -65,9 +69,16 @@ const Classes = () => {
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
     } catch (error) {
+<<<<<<< HEAD
       setSnackbarMessage("Failed to delete class.");
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
+=======
+      const errorMessage = error.response?.data?.message || "Failed to delete class.";
+    setSnackbarMessage(errorMessage);
+    setSnackbarSeverity("error");
+    setSnackbarOpen(true);
+>>>>>>> effbbed270cfc73d1cc0f7eaee63661b165e574c
     }
   };
 

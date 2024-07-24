@@ -20,14 +20,6 @@ export class StudentRepository {
     return students
   }
   async createStudent(newStudent: CreateStudentDto) {
-    const existingStudent = await Student.findOne({
-      where: {
-        id: newStudent.id,
-      },
-    });
-    if (existingStudent) {
-      throw new ConflictException('Student already exists');
-    }
     return Student.create(newStudent);
   }
 
