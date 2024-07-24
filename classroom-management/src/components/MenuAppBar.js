@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -6,10 +6,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import {  Drawer, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Drawer, List, ListItem, ListItemButton, ListItemText, Button } from "@mui/material";
+import { ThemeContext } from "../themeContext";
 
 export default function ButtonAppBar() {
   const [open, setOpen] = React.useState(false);
+  const { toggleTheme } = useContext(ThemeContext);  // Use the ThemeContext
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -48,6 +50,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Classes Management System
           </Typography>
+          <Button color="inherit" onClick={toggleTheme}>Toggle Theme</Button> {/* Add theme toggle button */}
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={toggleDrawer(false)}>

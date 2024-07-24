@@ -2,10 +2,11 @@ import MenuAppBar from "./components/MenuAppBar";
 
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Grid, ThemeProvider, createTheme } from "@mui/material";
+import { Grid,  createTheme } from "@mui/material";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import Routes from "./routes";
 import { useAppSelector } from "./redux/store";
+import ThemeProvider from "./themeContext";
 
 const queryClient = new QueryClient();
 
