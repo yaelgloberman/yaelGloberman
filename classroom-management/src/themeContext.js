@@ -25,7 +25,7 @@ const ThemeProvider = ({ children }) => {
             },
             text: {
               primary: "#ffffff", // White text for dark mode
-              secondary: "#61616194"
+              secondary: "#808080"
             },
           }),
         },
@@ -37,10 +37,10 @@ const ThemeProvider = ({ children }) => {
                     color: "#ffffff", // Text color for dark mode
                     backgroundColor: "#424242", // Background color for dark mode
                     '&:hover': {
-                      backgroundColor: "#616161", // Background color on hover
+                      backgroundColor: "#000000", // Background color on hover
                     },
                     '&:active': {
-                      backgroundColor: "#fff000", // Background color on click
+                      backgroundColor: "#000000", // Background color on click
                     },
                     '&:disabled': {
                       backgroundColor: "#61616194", // Background color for disabled state
@@ -65,11 +65,11 @@ const ThemeProvider = ({ children }) => {
                   },
                   "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
                     {
-                      borderColor: "#ffffff", // Border color on hover for dark mode
+                      borderColor: "#000000", // Border color on hover for dark mode
                     },
                   "&.Mui-focused .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
                     {
-                      borderColor: "#ffffff", // Border color when focused for dark mode
+                      borderColor: "#000000", // Border color when focused for dark mode
                     },
                 }),
               },

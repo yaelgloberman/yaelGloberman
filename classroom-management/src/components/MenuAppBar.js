@@ -6,12 +6,20 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Drawer, List, ListItem, ListItemButton, ListItemText, Button } from "@mui/material";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Button,
+} from "@mui/material";
 import { ThemeContext } from "../themeContext";
-
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 export default function ButtonAppBar() {
   const [open, setOpen] = React.useState(false);
-  const { toggleTheme } = useContext(ThemeContext);  // Use the ThemeContext
+  const { mode, toggleTheme } = useContext(ThemeContext);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -23,7 +31,7 @@ export default function ButtonAppBar() {
         {[
           { text: "Classes", path: "/classes" },
           { text: "Students", path: "/students" },
-          { text: "Create", path: "/create" }
+          { text: "Create", path: "/create" },
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton component={Link} to={item.path}>
@@ -50,7 +58,10 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Classes Management System
           </Typography>
-          <Button color="inherit" onClick={toggleTheme}>Toggle Theme</Button> {/* Add theme toggle button */}
+          <Typography onClick={toggleTheme}>{mode==="dark"? "light" : "dark"} mode</Typography>
+          <IconButton sx={{ ml: 1 }} color="inherit" onClick={toggleTheme}>
+            {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>{" "}
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={toggleDrawer(false)}>
