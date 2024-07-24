@@ -21,16 +21,18 @@ export class StudentService {
   ) {}
 
   async createStudent(createStudentDto: CreateStudentDto): Promise<Student> {
-    try {
-      const student =
-        await this.studentsRepository.createStudent(createStudentDto);
-      return student;
-    } catch (error) {
-      if (error instanceof ConflictException) {
-        throw new ConflictException('Student already exists');
-      }
-      throw new Error('Failed to create class');
+    const studentAlreadyExist = await this.studentsRepository.getStudentById(
+      createStudentDto.id,
+    );
+    if (studentAlreadyExist) {
+      throw new HttpException(
+        'Student already exist choose diffrent id',
+        HttpStatus.CONFLICT,
+      );
     }
+    const student =
+      await this.studentsRepository.createStudent(createStudentDto);
+    return student;
   }
 
   async getStudentById(id: number): Promise<Student> {
@@ -82,7 +84,6 @@ export class StudentService {
         await this.studentsRepository.asignStudentToClass(id, classId);
       if (updatedStudent > 0) {
         await this.classesServise.assignToClass(classId);
-
         return 'updated successfully';
       } else {
         throw new HttpException(
@@ -91,7 +92,10 @@ export class StudentService {
         );
       }
     } else {
-      throw new HttpException(' not updated', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'stuent or class not exist',
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
   async dismissFromClass(classId: number, studentId: number) {
@@ -110,13 +114,15 @@ export class StudentService {
         );
       }
     } else {
-      throw new HttpException(' not updated', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'stuent or class not exist',
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
 
   async deleteStudent(id: number): Promise<boolean> {
     const student = await this.studentsRepository.getStudentById(id);
-    
     if (student) {
       if (student.assignToClass) {
         await this.classesServise.dismissFromClass(student.assignToClass);

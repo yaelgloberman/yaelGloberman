@@ -10,7 +10,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
 import { getAllStudentsInClass } from "../services/studentService";
-import { getAvailableClasses, deleteClass } from "../services/classService";
+import {  deleteClass, getAllClasses } from "../services/classService";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ const Classes = () => {
 
   const fetchClasses = async () => {
     try {
-      const data = await getAvailableClasses();
+      const data = await getAllClasses();
       setClasses(data);
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -61,10 +61,10 @@ const Classes = () => {
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
     } catch (error) {
-      console.error("Error deleting class:", error);
-      setSnackbarMessage("Failed to delete class.");
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
+      const errorMessage = error.response?.data?.message || "Failed to delete class.";
+    setSnackbarMessage(errorMessage);
+    setSnackbarSeverity("error");
+    setSnackbarOpen(true);
     }
   };
 

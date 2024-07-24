@@ -23,15 +23,6 @@ export class ClassRepository {
   }
 
   async createClass(newClass: CreateClassDto) {
-    const existingClass = await Class.findOne({
-      where: {
-        id: newClass.id,
-      },
-    });
-
-    if (existingClass) {
-      throw new ConflictException('Class already exists');
-    }
     return Class.create(newClass);
   }
   async assignToClass(id: number) {
