@@ -10,7 +10,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { createClass } from "../services/classService";
-import { createStudent } from "../services/studentService"; // Correct import
+import { createStudent } from "../services/studentService";
 import { validateInput } from "../utils/validation";
 
 const Create = () => {
@@ -101,8 +101,6 @@ const Create = () => {
     setSnackbarOpen(false);
   };
 
-
-
   const handleChangeClassId = (e) => {
     const value = e.target.value;
     setClassId(value);
@@ -177,8 +175,8 @@ const Create = () => {
 
   return (
     <Box display="flex" sx={{ mt: 10 }}>
-      <Grid container alignItems="center" justifyContent="center">
-        <Grid container alignItems="center" justifyContent="center" item xs={5}>
+      <Grid container alignItems="center" justifyContent="center" >
+        <Grid container alignItems="center" justifyContent="center" item xs={5} >
           <Typography variant="h4" sx={{ marginBottom: 2 }}>
             Create new Class
           </Typography>
