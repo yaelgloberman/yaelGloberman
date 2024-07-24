@@ -18,5 +18,5 @@ const classesSlice = createSlice({
   },
 });
 
-export const { setClasses, addClass } = classesSlice.actions;
+export const { setClasses, addClass,deleteClass } = classesSlice.actions;
 export default classesSlice.reducer;

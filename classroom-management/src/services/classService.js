@@ -71,7 +71,7 @@ export const deleteStudentFromClass = async (classId,studentId) => {
 };
 
 
-export const deleteClass = async (id) => {
+export const deleteClassApi = async (id) => {
   try {
     const response = await classesAPI.delete(`/${id}`);
     return response.data;

@@ -9,14 +9,12 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
-import { getAllStudentsInClass } from "../services/studentService";
-<<<<<<< HEAD
-import { getAvailableClasses, deleteClass } from "../services/classService";
+// import { getAllStudentsInClass } from "../services/studentService";
 import { useDispatch, useSelector } from "react-redux";
-import { setClasses } from "../redux/slices/classesSlice";
-=======
-import {  deleteClass, getAllClasses } from "../services/classService";
->>>>>>> effbbed270cfc73d1cc0f7eaee63661b165e574c
+import { setClasses,deleteClass } from "../redux/slices/classesSlice";
+import {getAllStudentInClass  } from "../redux/slices/studentsSlice";
+import { deleteClassApi, getAllClasses } from "../services/classService";
+import { getAllStudentsInClass } from "../services/studentService";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -27,14 +25,12 @@ const Classes = () => {
   const [selectedClassId, setSelectedClassId] = useState(null);
   const dispatch = useDispatch();
   const classes = useSelector((state) => state.classes.classes);
-  const fetchClasses = async () => {
-    
-  };
+  
 
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const data = await getAvailableClasses(); 
+        const data = await getAllClasses(); 
         dispatch(setClasses(data));
       } catch (error) {
         setSnackbarMessage("Failed to fetch classes.");
@@ -62,23 +58,16 @@ const Classes = () => {
 
   const handleDeleteClass = async (classId) => {
     try {
-      console.log("class",classId);
-      await deleteClass(classId); 
+      await deleteClassApi(classId); 
       dispatch(deleteClass(classId));
       setSnackbarMessage("Class deleted successfully.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
     } catch (error) {
-<<<<<<< HEAD
-      setSnackbarMessage("Failed to delete class.");
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
-=======
       const errorMessage = error.response?.data?.message || "Failed to delete class.";
     setSnackbarMessage(errorMessage);
     setSnackbarSeverity("error");
     setSnackbarOpen(true);
->>>>>>> effbbed270cfc73d1cc0f7eaee63661b165e574c
     }
   };
 
@@ -138,7 +127,6 @@ const Classes = () => {
         data={students}
         open={open}
         handleClose={handleClose}
-        onClassUpdated={fetchClasses}
         selectedClassId={selectedClassId}
       />
       <Snackbar
