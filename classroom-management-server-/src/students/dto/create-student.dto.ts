@@ -1,9 +1,9 @@
-import { IsString, IsInt } from 'class-validator';
+import { IsString, IsInt, IsIdentityCard } from 'class-validator';
 
 export class CreateStudentDto {
 
-  @IsInt()
-  id: number;
+  @IsIdentityCard("he-IL")
+   id: string;
 
   @IsString()
   firstName: string;
