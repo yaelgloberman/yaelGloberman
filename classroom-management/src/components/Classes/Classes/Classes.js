@@ -22,6 +22,7 @@ import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
 import { getAllStudentsInClass } from "../../../services/studentService";
 import { deleteClassApi, getAllClasses } from "../../../services/classService";
 import { useStyles } from "./Classes.style";
+import OneClass from "../OneClass/OneClass";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -95,40 +96,7 @@ const Classes = () => {
       >
         {classes.map((classItem) => (
           <Grid sx={{m:1}} key={classItem.id} item sm={5} md={2}>
-            <Paper
-              sx={{
-                height: 150,
-                width: 200,
-                padding: 2,
-              }}
-            >
-              <Typography variant="h6">{classItem.className}</Typography>
-              <Typography variant="subtitle1">
-                There are {classItem.remainingPlaces} seats left
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Out of {classItem.numberOfPlaces}
-              </Typography>
-              <Grid container sx={{ mt: 4 }}>
-                <Grid item xs={10}>
-                  <Typography
-                    variant="h6"
-                    className={style.title}
-                    onClick={() => handleOpen(classItem.id)}
-                  >
-                    STUDENTS LIST
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => handleDeleteClass(classItem.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
-            </Paper>
+          <OneClass classItem={classItem} handleOpen={handleOpen} handleDeleteClass={handleDeleteClass}></OneClass>
           </Grid>
         ))}
       </Grid>
