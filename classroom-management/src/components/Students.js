@@ -13,27 +13,38 @@ import {
   TableRow,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { deleteStudent, getAllStudents } from "../services/studentService";
+import {  deleteStudentApi, getAllStudents } from "../services/studentService";
 import { getAvailableClasses } from "../services/classService";
 import DialogClass from "./DialogClass";
+import { setStudents, deleteStudent } from "../redux/slices/studentsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Students = () => {
   const [open, setOpen] = useState(false);
-  const [students, setStudents] = useState([]);
   const [studentId, setStudentId] = useState(null);
   const [classes, setClasses] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const dispatch = useDispatch();
+  const students = useSelector((state) => state.students.students);
+  
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const data = await getAllStudents();
+        dispatch(setStudents(data));
+      } catch (error) {
+        console.log(error);
+        setSnackbarMessage("Failed to fetch students.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      }
+    };
 
-  const fetchStudents = async () => {
-    try {
-      const data = await getAllStudents();
-      setStudents(data);
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }
-  };
+    fetchStudents();
+  }, [dispatch]);
+
 
   const fetchClasses = async () => {
     try {
@@ -51,13 +62,13 @@ const Students = () => {
 
   const handleClose = async () => {
     setOpen(false);
-    await fetchStudents();
+    // await fetchStudents();
   };
 
   const handleDeleteStudent = async (studentId) => {
     try {
-      await deleteStudent(studentId);
-      await fetchStudents();
+      await deleteStudentApi(studentId);
+      dispatch(deleteStudent(studentId))
       await fetchClasses();
       setSnackbarMessage("Student deleted successfully.");
       setSnackbarSeverity("success");
@@ -76,7 +87,7 @@ const Students = () => {
   };
 
   useEffect(() => {
-    fetchStudents();
+    // fetchStudents();
     fetchClasses();
   }, []);
 

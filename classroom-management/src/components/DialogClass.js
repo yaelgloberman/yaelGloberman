@@ -13,10 +13,19 @@ import {
 import SchoolIcon from "@mui/icons-material/School";
 import AddIcon from "@mui/icons-material/Add";
 import React from "react";
-import { assignStudentToClass } from "../services/studentService";
+import { assignStudentToClassApi } from "../services/studentService";
+import { useDispatch, useSelector } from "react-redux";
+import { assignStudentToClass } from "../redux/slices/studentsSlice";
 
-const DialogClass = ({ studentId, data, handleClose, open, onAssignmentComplete }) => {
+const DialogClass = ({
+  studentId,
+  data,
+  handleClose,
+  open,
+  onAssignmentComplete,
+}) => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const dispatch = useDispatch();
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -24,11 +33,12 @@ const DialogClass = ({ studentId, data, handleClose, open, onAssignmentComplete 
 
   const handleAssignToClass = async (classId, studentId) => {
     try {
-      await assignStudentToClass(classId, studentId);
+      await assignStudentToClassApi(classId, studentId);
+      dispatch(assignStudentToClass({ classId, studentId }));
       if (onAssignmentComplete) {
-        onAssignmentComplete(); 
+        onAssignmentComplete();
       }
-      handleClose(); 
+      handleClose();
     } catch (error) {
       console.error("Error assigning student to class:", error);
     }

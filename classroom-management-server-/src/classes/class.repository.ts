@@ -44,7 +44,6 @@ export class ClassRepository {
   async deleteStudentFromClass(classId: number, student: Student) {
     const classObject = await this.getClassById(classId);
     const updateClass = await this.dismissFromClass(classId);
-
     return updateClass;
   }
 

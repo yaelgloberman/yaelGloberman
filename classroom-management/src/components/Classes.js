@@ -9,33 +9,38 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogStudent from "./DialogStudent";
+// import { getAllStudentsInClass } from "../services/studentService";
+import { useDispatch, useSelector } from "react-redux";
+import { setClasses,deleteClass } from "../redux/slices/classesSlice";
+import {getAllStudentInClass, getAllStudentInClass1  } from "../redux/slices/studentsSlice";
+import { deleteClassApi, getAllClasses } from "../services/classService";
 import { getAllStudentsInClass } from "../services/studentService";
-import {  deleteClass, getAllClasses } from "../services/classService";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
-  const [classes, setClasses] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [selectedClassId, setSelectedClassId] = useState(null);
-
-  const fetchClasses = async () => {
-    try {
-      const data = await getAllClasses();
-      setClasses(data);
-    } catch (error) {
-      console.error("Error fetching classes:", error);
-      setSnackbarMessage("Failed to fetch classes.");
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
-    }
-  };
+  const dispatch = useDispatch();
+  const classes = useSelector((state) => state.classes.classes);
+  
 
   useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const data = await getAllClasses(); 
+        dispatch(setClasses(data));
+      } catch (error) {
+        setSnackbarMessage("Failed to fetch classes.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      }
+    };
+
     fetchClasses();
-  }, []);
+  }, [dispatch]);
 
   const handleOpen = async (classId) => {
     setSelectedClassId(classId);
@@ -53,10 +58,8 @@ const Classes = () => {
 
   const handleDeleteClass = async (classId) => {
     try {
-      await deleteClass(classId);
-      setClasses((prevClasses) =>
-        prevClasses.filter((classItem) => classItem.id !== classId)
-      );
+      await deleteClassApi(classId); 
+      dispatch(deleteClass(classId));
       setSnackbarMessage("Class deleted successfully.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
@@ -124,7 +127,6 @@ const Classes = () => {
         data={students}
         open={open}
         handleClose={handleClose}
-        onClassUpdated={fetchClasses}
         selectedClassId={selectedClassId}
       />
       <Snackbar

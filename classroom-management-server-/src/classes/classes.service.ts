@@ -27,7 +27,10 @@ export class ClassService {
     if (!classAlreadyExist) {
       return await this.classRepository.createClass(createClassDto);
     }
-    throw new HttpException('Class not created choose diffrent id', HttpStatus.CONFLICT);
+    throw new HttpException(
+      'Class not created choose diffrent id',
+      HttpStatus.CONFLICT,
+    );
   }
 
   async getAllClasses(): Promise<Class[]> {
@@ -79,13 +82,14 @@ export class ClassService {
   }
   async deleteClass(id: number): Promise<boolean> {
     const students = await this.studentService.getAllStudentsInClass(id);
-    console.log('students', students);
     if (students.length == 0) {
-      const classObjectExists = await this.classRepository.deleteClass(id);
-      if (!classObjectExists) {
+      const classObjectExists = await this.classRepository.getClassById(id);
+      if (classObjectExists) {
+        await this.classRepository.deleteClass(id);
+        return true;
+      } else {
         throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
       }
-      return true;
     }
     throw new HttpException(
       'Cannot delete class when students are assigned',
