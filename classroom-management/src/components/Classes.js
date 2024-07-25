@@ -12,7 +12,7 @@ import DialogStudent from "./DialogStudent";
 // import { getAllStudentsInClass } from "../services/studentService";
 import { useDispatch, useSelector } from "react-redux";
 import { setClasses,deleteClass } from "../redux/slices/classesSlice";
-import {getAllStudentInClass  } from "../redux/slices/studentsSlice";
+import {getAllStudentInClass, getAllStudentInClass1  } from "../redux/slices/studentsSlice";
 import { deleteClassApi, getAllClasses } from "../services/classService";
 import { getAllStudentsInClass } from "../services/studentService";
 

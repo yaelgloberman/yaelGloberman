@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { deleteStudentFromClassApi } from "../../services/classService";
 
-const initialState = {classes:[]};
+const initialState = { classes: [] };
 
 const classesSlice = createSlice({
-  name: 'classes',
+  name: "classes",
   initialState,
   reducers: {
     setClasses: (state, action) => {
@@ -13,10 +14,20 @@ const classesSlice = createSlice({
       state.classes.push(action.payload);
     },
     deleteClass: (state, action) => {
-      state.classes = state.classes.filter(cls => cls.id !== action.payload);
+      state.classes = state.classes.filter((cls) => cls.id !== action.payload);
+    },
+    deleteStudentFromClass: (state, action) => {
+      const classId = action.payload;
+      console.log(classId);
+      const classObj = state.classes.find((cls) => cls.id === classId);
+      console.log("classObj", classObj);
+      if (classObj) {
+        classObj.remainingPlaces = classObj.remainingPlaces + 1;
+      }
     },
   },
 });
 
-export const { setClasses, addClass,deleteClass } = classesSlice.actions;
+export const { setClasses, addClass, deleteClass, deleteStudentFromClass } =
+  classesSlice.actions;
 export default classesSlice.reducer;

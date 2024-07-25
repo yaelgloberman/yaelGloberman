@@ -33,7 +33,7 @@ export const createStudent = async (studentData) => {
 
 
 
-export const assignStudentToClass = async (id, classId) => {
+export const assignStudentToClassApi = async (id, classId) => {
   try {
     const response = await studentsAPI.put(`/${id}/${classId}`);
     return response.data;
@@ -51,7 +51,7 @@ export const getAllStudentsInClass = async (classId) => {
     throw error;
   }
 };
-export const deleteStudent = async (id) => {
+export const deleteStudentApi = async (id) => {
   try {
     const response = await studentsAPI.delete(`/${id}`);
     return response.data;

@@ -60,7 +60,7 @@ export const dismissFromClass = async (id) => {
     throw error;
   }
 };
-export const deleteStudentFromClass = async (classId,studentId) => {
+export const deleteStudentFromClassApi = async (classId,studentId) => {
   try {
     const response = await classesAPI.put(`/${classId}/${studentId}`);
     return response.data;

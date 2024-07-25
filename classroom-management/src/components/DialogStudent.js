@@ -13,29 +13,29 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Delete from "@mui/icons-material/Delete";
-import { deleteStudentFromClass } from "../services/classService";
+import { deleteStudentFromClassApi } from "../services/classService";
+import { useDispatch } from "react-redux";
+import { deleteStudentFromClass } from "../redux/slices/classesSlice";
 
 const DialogStudent = ({
   setData,
   data,
   handleClose,
   open,
-  onClassUpdated,
   selectedClassId,
 }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-
+const dispatch=useDispatch()
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
 
   const handleDeleteStudent = async (student) => {
     try {
-      await deleteStudentFromClass(selectedClassId, student.id);
-      const updatedStudents = data.filter((student1) => student1.id !== student.id);
+      await deleteStudentFromClassApi(selectedClassId,student.id );
+      const updatedStudents = data.filter((stud) => stud.id !== student.id);
+      dispatch(deleteStudentFromClass(selectedClassId))
       setData(updatedStudents);
-      onClassUpdated();
-      handleClose();
     } catch (error) {
       console.error("Error deleting student:", error);
     }
