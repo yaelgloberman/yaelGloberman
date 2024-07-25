@@ -35,7 +35,6 @@ const Students = () => {
         const data = await getAllStudents();
         dispatch(setStudents(data));
       } catch (error) {
-        console.log(error);
         setSnackbarMessage("Failed to fetch students.");
         setSnackbarSeverity("error");
         setSnackbarOpen(true);
@@ -100,52 +99,52 @@ const Students = () => {
         sx={{ mt: 10 }}
       >
         <div>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">ID</TableCell>
-                  <TableCell align="center">First Name</TableCell>
-                  <TableCell align="center">Last Name</TableCell>
-                  <TableCell align="center">Age</TableCell>
-                  <TableCell align="center">Profession</TableCell>
-                  <TableCell align="center">Assign</TableCell>
-                  <TableCell align="center">Delete</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {students.map((student) => (
-                  <TableRow
-                    key={student.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="center">{student.id}</TableCell>
-                    <TableCell align="center">{student.firstName}</TableCell>
-                    <TableCell align="center">{student.lastName}</TableCell>
-                    <TableCell align="center">{student.age}</TableCell>
-                    <TableCell align="center">{student.profession}</TableCell>
-                    <TableCell align="center">
-                      <Button
-                        variant="outlined"
-                        disabled={student.assignToClass}
-                        onClick={() => handleOpen(student.id)}
-                      >
-                        Assign to class
-                      </Button>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Button
-                        variant="outlined"
-                        onClick={() => handleDeleteStudent(student.id)}
-                      >
-                        Delete
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+        <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">ID</TableCell>
+            <TableCell align="center">First Name</TableCell>
+            <TableCell align="center">Last Name</TableCell>
+            <TableCell align="center">Age</TableCell>
+            <TableCell align="center">Profession</TableCell>
+            <TableCell align="center">Assign</TableCell>
+            <TableCell align="center">Delete</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {students.map((student) => (
+            <TableRow
+              key={student.id}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell align="center">{student.id}</TableCell>
+              <TableCell align="center">{student.firstName}</TableCell>
+              <TableCell align="center">{student.lastName}</TableCell>
+              <TableCell align="center">{student.age}</TableCell>
+              <TableCell align="center">{student.profession}</TableCell>
+              <TableCell align="center">
+                <Button
+                  variant="outlined"
+                  disabled={student.assignToClass}
+                  onClick={() => handleOpen(student.id)}
+                >
+                  Assign to class
+                </Button>
+              </TableCell>
+              <TableCell align="center">
+                <Button
+                  variant="outlined"
+                  onClick={() => handleDeleteStudent(student.id)}
+                >
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
         </div>
       </Grid>
 

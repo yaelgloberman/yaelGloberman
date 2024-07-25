@@ -11,13 +11,14 @@ export class ClassRepository {
     return await Class.findByPk(id);
   }
   async getAllClasses() {
-    return await Class.findAll();
+    return await Class.findAll({ order: ['className'] });
   }
   async getAvailableClasses() {
     const availableClasses = await Class.findAll({
       where: {
         remainingPlaces: { [Op.gt]: 0 },
       },
+      order: ['className']
     });
     return availableClasses;
   }

@@ -10,13 +10,16 @@ import { Class } from 'src/classes/class.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: 'localhost',
+      host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: 'postgres',
-      password: 'Yagllo21!',
-      database: 'classroom_manegment',
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       autoLoadModels: true,
       synchronize: true,
     }),
@@ -24,11 +27,8 @@ import { Class } from 'src/classes/class.entity';
     StudentModule,
     SequelizeModule.forFeature([Class]),
     ClassModule,
-    ConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
-
-
