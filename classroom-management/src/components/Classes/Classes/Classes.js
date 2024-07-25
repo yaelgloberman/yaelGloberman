@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+
+// Components
+import DialogStudent from "../../DialogStudent";
+
+// Mui
 import {
   Grid,
   IconButton,
@@ -8,13 +13,15 @@ import {
   Alert,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DialogStudent from "./DialogStudent";
-// import { getAllStudentsInClass } from "../services/studentService";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { setClasses,deleteClass } from "../redux/slices/classesSlice";
-import {getAllStudentInClass, getAllStudentInClass1  } from "../redux/slices/studentsSlice";
-import { deleteClassApi, getAllClasses } from "../services/classService";
-import { getAllStudentsInClass } from "../services/studentService";
+import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
+
+// Services
+import { getAllStudentsInClass } from "../../../services/studentService";
+import { deleteClassApi, getAllClasses } from "../../../services/classService";
+import { useStyles } from "./Classes.style";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -25,12 +32,12 @@ const Classes = () => {
   const [selectedClassId, setSelectedClassId] = useState(null);
   const dispatch = useDispatch();
   const classes = useSelector((state) => state.classes.classes);
-  
+  const style = useStyles({ hasStudents: students.length > 0 });
 
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const data = await getAllClasses(); 
+        const data = await getAllClasses();
         dispatch(setClasses(data));
       } catch (error) {
         setSnackbarMessage("Failed to fetch classes.");
@@ -58,22 +65,24 @@ const Classes = () => {
 
   const handleDeleteClass = async (classId) => {
     try {
-      await deleteClassApi(classId); 
+      await deleteClassApi(classId);
       dispatch(deleteClass(classId));
       setSnackbarMessage("Class deleted successfully.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
     } catch (error) {
-      const errorMessage = error.response?.data?.message || "Failed to delete class.";
-    setSnackbarMessage(errorMessage);
-    setSnackbarSeverity("error");
-    setSnackbarOpen(true);
+      const errorMessage =
+        error.response?.data?.message || "Failed to delete class.";
+      setSnackbarMessage(errorMessage);
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
     }
   };
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
+  console.log(students);
 
   return (
     <>
@@ -85,7 +94,7 @@ const Classes = () => {
         spacing={2}
       >
         {classes.map((classItem) => (
-          <Grid key={classItem.id} item sm={6} md={2}>
+          <Grid sx={{m:1}} key={classItem.id} item sm={5} md={2}>
             <Paper
               sx={{
                 height: 150,
@@ -104,6 +113,7 @@ const Classes = () => {
                 <Grid item xs={10}>
                   <Typography
                     variant="h6"
+                    className={style.title}
                     onClick={() => handleOpen(classItem.id)}
                   >
                     STUDENTS LIST

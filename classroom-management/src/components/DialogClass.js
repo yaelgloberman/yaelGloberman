@@ -14,7 +14,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import AddIcon from "@mui/icons-material/Add";
 import React from "react";
 import { assignStudentToClassApi } from "../services/studentService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { assignStudentToClass } from "../redux/slices/studentsSlice";
 
 const DialogClass = ({
@@ -24,8 +24,13 @@ const DialogClass = ({
   open,
   onAssignmentComplete,
 }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(null);
   const dispatch = useDispatch();
+
+  // Sort the classes by className for consistent ordering
+  const sortedData = data?.sort((a, b) =>
+    a.className.localeCompare(b.className)
+  );
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -54,22 +59,21 @@ const DialogClass = ({
               sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
             >
               <List component="nav" aria-label="main mailbox folders">
-                {data?.map((classObj, index) => (
+                {sortedData?.map((classObj, index) => (
                   <ListItemButton
                     key={classObj.id}
                     selected={selectedIndex === index}
-                    onClick={(event) => handleListItemClick(event, index)}
+                    onClick={(event) => {
+                      handleListItemClick(event, index);
+                      handleAssignToClass(studentId, classObj.id);
+                    }}
                   >
                     <ListItemIcon>
                       <SchoolIcon />
                     </ListItemIcon>
                     <ListItemText primary={classObj.className} />
                     <ListItemIcon>
-                      <AddIcon
-                        onClick={() =>
-                          handleAssignToClass(studentId, classObj.id)
-                        }
-                      />
+                      <AddIcon />
                     </ListItemIcon>
                   </ListItemButton>
                 ))}
@@ -79,7 +83,6 @@ const DialogClass = ({
           </DialogContent>
         </Dialog>
       </Grid>
-      ;
     </div>
   );
 };

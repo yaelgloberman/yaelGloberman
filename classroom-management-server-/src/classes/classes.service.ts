@@ -34,7 +34,7 @@ export class ClassService {
   }
 
   async getAllClasses(): Promise<Class[]> {
-    const classes = await this.classRepository.getAllClasses();
+    const classes = await this.classRepository.getAllClasses();    
     if (!classes) {
       throw new HttpException('classes not found', HttpStatus.NOT_FOUND);
     }

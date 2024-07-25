@@ -8,7 +8,7 @@ import { ClassModule } from 'src/classes/class.module';
 @Module({
   controllers: [StudentController],
   exports:[StudentService],
-  imports: [forwardRef(() => ClassModule)], // Add this line
+  imports: [forwardRef(() => ClassModule)],
   providers: [StudentRepository, StudentService, ...studentsProviders],
 })
 export class StudentModule {}
