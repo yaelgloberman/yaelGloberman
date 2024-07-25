@@ -35,7 +35,6 @@ const Students = () => {
         const data = await getAllStudents();
         dispatch(setStudents(data));
       } catch (error) {
-        console.log(error);
         setSnackbarMessage("Failed to fetch students.");
         setSnackbarSeverity("error");
         setSnackbarOpen(true);

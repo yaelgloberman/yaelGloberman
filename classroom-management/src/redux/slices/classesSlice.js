@@ -18,9 +18,7 @@ const classesSlice = createSlice({
     },
     deleteStudentFromClass: (state, action) => {
       const classId = action.payload;
-      console.log(classId);
       const classObj = state.classes.find((cls) => cls.id === classId);
-      console.log("classObj", classObj);
       if (classObj) {
         classObj.remainingPlaces = classObj.remainingPlaces + 1;
       }
