@@ -1,5 +1,4 @@
-// services/student.service.js
-import { studentsAPI } from './axios'; // Adjust the path if needed
+import { studentsAPI } from './axios'; 
 
 export const getStudentById = async (id) => {
   try {

@@ -1,8 +1,12 @@
 import React from 'react';
+
+// React router
 import { Route, Routes } from 'react-router-dom';
-import Students from './components/Students';
-import Create from './components/Create'
-import Classes from './components/Classes/classes/Classes';
+
+// Components
+import Students from './components/Students/Students/Students';
+import Create from './components/Create/Create/Create'
+import Classes from './components/Classes/Classes/Classes';
 
 const AppRoutes = () => (
   <Routes>

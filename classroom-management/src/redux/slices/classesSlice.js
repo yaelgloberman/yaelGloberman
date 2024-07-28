@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteStudentFromClassApi } from "../../services/classService";
 
 const initialState = { classes: [] };
 

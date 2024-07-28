@@ -1,5 +1,6 @@
 export const validateInput = (value, fieldType) => {
   switch (fieldType) {
+
     // Class validation
     case "classId":
       if (isNaN(value) || value.trim() === "") {
@@ -11,15 +12,16 @@ export const validateInput = (value, fieldType) => {
         return "Class name cannot be empty";
       }
 
-      if (!/[a-zA-Z]/.test(value)) {
-        return "Class Name must contain at least one letter";
+      if (!/[a-zA-Z\u0590-\u05FF]/.test(value)) {
+        return "Class Name must contain at least one letter (English or Hebrew)";
       }
       break;
     case "maxSeats":
-      if (isNaN(value) || value.trim() === "" || Number(value) < 0) {
-        return "Max seats must be a non-negative number";
+      if (isNaN(value) || value.trim() === "" || Number(value) <= 0) {
+        return "Max seats must be a positive number";
       }
       break;
+      
     // Student validation
     case "studentId":
       if (isNaN(value) || value.trim() === "") {

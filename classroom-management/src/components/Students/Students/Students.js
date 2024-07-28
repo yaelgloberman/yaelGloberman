@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from "react";
+
+// Mui
 import {
   Alert,
   Box,
@@ -12,12 +15,23 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import {  deleteStudentApi, getAllStudents } from "../services/studentService";
-import { getAvailableClasses } from "../services/classService";
-import DialogClass from "./DialogClass";
-import { setStudents, deleteStudent } from "../redux/slices/studentsSlice";
+
+// Components
+import DialogClass from "../../Dialog/DialogClass";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteStudent,
+  setStudents,
+} from "../../../redux/slices/studentsSlice";
+
+// Services
+import { getAvailableClasses } from "../../../services/classService";
+import {
+  deleteStudentApi,
+  getAllStudents,
+} from "../../../services/studentService";
 
 const Students = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +42,7 @@ const Students = () => {
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students.students);
-  
+
   useEffect(() => {
     const fetchStudents = async () => {
       try {
@@ -43,7 +57,6 @@ const Students = () => {
 
     fetchStudents();
   }, [dispatch]);
-
 
   const fetchClasses = async () => {
     try {
@@ -61,13 +74,12 @@ const Students = () => {
 
   const handleClose = async () => {
     setOpen(false);
-    // await fetchStudents();
   };
 
   const handleDeleteStudent = async (studentId) => {
     try {
       await deleteStudentApi(studentId);
-      dispatch(deleteStudent(studentId))
+      dispatch(deleteStudent(studentId));
       await fetchClasses();
       setSnackbarMessage("Student deleted successfully.");
       setSnackbarSeverity("success");
@@ -86,7 +98,6 @@ const Students = () => {
   };
 
   useEffect(() => {
-    // fetchStudents();
     fetchClasses();
   }, []);
 
@@ -99,52 +110,55 @@ const Students = () => {
         sx={{ mt: 10 }}
       >
         <div>
-        <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">ID</TableCell>
-            <TableCell align="center">First Name</TableCell>
-            <TableCell align="center">Last Name</TableCell>
-            <TableCell align="center">Age</TableCell>
-            <TableCell align="center">Profession</TableCell>
-            <TableCell align="center">Assign</TableCell>
-            <TableCell align="center">Delete</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {students.map((student) => (
-            <TableRow
-              key={student.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell align="center">{student.id}</TableCell>
-              <TableCell align="center">{student.firstName}</TableCell>
-              <TableCell align="center">{student.lastName}</TableCell>
-              <TableCell align="center">{student.age}</TableCell>
-              <TableCell align="center">{student.profession}</TableCell>
-              <TableCell align="center">
-                <Button
-                  variant="outlined"
-                  disabled={student.assignToClass}
-                  onClick={() => handleOpen(student.id)}
-                >
-                  Assign to class
-                </Button>
-              </TableCell>
-              <TableCell align="center">
-                <Button
-                  variant="outlined"
-                  onClick={() => handleDeleteStudent(student.id)}
-                >
-                  Delete
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          <TableContainer
+            component={Paper}
+            sx={{ width: "70vw", margin: "auto" }}
+          >
+            <Table  aria-label="students table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" >ID</TableCell>
+                  <TableCell align="center">First Name</TableCell>
+                  <TableCell align="center">Last Name</TableCell>
+                  <TableCell align="center">Age</TableCell>
+                  <TableCell align="center">Profession</TableCell>
+                  <TableCell align="center">Assign</TableCell>
+                  <TableCell align="center">Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {students.map((student) => (
+                  <TableRow
+                    key={student.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="center">{student.id}</TableCell>
+                    <TableCell align="center">{student.firstName}</TableCell>
+                    <TableCell align="center">{student.lastName}</TableCell>
+                    <TableCell align="center">{student.age}</TableCell>
+                    <TableCell align="center">{student.profession}</TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="outlined"
+                        disabled={student.assignToClass}
+                        onClick={() => handleOpen(student.id)}
+                      >
+                        Assign to class
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleDeleteStudent(student.id)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </Grid>
 

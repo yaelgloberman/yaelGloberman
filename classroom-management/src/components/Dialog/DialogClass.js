@@ -1,3 +1,6 @@
+import React from "react";
+
+// Mui
 import {
   Box,
   Dialog,
@@ -11,12 +14,17 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+
+// Mui icon 
 import SchoolIcon from "@mui/icons-material/School";
 import AddIcon from "@mui/icons-material/Add";
-import React from "react";
-import { assignStudentToClassApi } from "../services/studentService";
+
+// Service
+import { assignStudentToClassApi } from "../../services/studentService";
+
+// Redux
 import { useDispatch } from "react-redux";
-import { assignStudentToClass } from "../redux/slices/studentsSlice";
+import { assignStudentToClass } from "../../redux/slices/studentsSlice";
 
 const DialogClass = ({
   studentId,
@@ -27,11 +35,6 @@ const DialogClass = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(null);
   const dispatch = useDispatch();
-
-  // Sort the classes by className for consistent ordering
-  const sortedData = data?.sort((a, b) =>
-    a.className.localeCompare(b.className)
-  );
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -60,7 +63,7 @@ const DialogClass = ({
               sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
             >
               <List component="nav" aria-label="main mailbox folders">
-                {sortedData?.map((classObj, index) => (
+                {data.map((classObj, index) => (
                   <ListItemButton
                     key={classObj.id}
                     selected={selectedIndex === index}
