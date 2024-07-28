@@ -88,7 +88,7 @@ const Classes = () => {
         spacing={2}
       >
         {classes.map((classItem) => (
-          <Grid sx={{ m: 1 }} key={classItem.id} item sm={5} md={2}>
+          <Grid sx={{ m: 1 }} key={classItem.id} item  >
             <OneClass
               classItem={classItem}
               handleOpen={handleOpen}

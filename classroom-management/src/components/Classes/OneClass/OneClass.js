@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 // Style
 import { useStyles } from "./OneClass.style";
@@ -10,6 +10,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Paper, Typography, IconButton, Grid, Tooltip } from "@mui/material";
 
 const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
+  const isStudent = useMemo(
+    () => classItem.remainingPlaces - classItem.numberOfPlaces != 0,
+    classItem
+  );
+
   const classes = useStyles({
     numberOfPlaces: classItem.numberOfPlaces,
     remainingPlaces: classItem.remainingPlaces,
@@ -30,13 +35,13 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
         <Grid item xs={10}>
           <Tooltip
             title={
-              classItem.remainingPlaces - classItem.numberOfPlaces === 0
-                ? "There are no students assigned for the class"
-                : ""
+              isStudent ? "" : "There are no students assigned for the class"
             }
           >
             <Typography
-              className={classes.title}
+              className={
+                isStudent ? classes.studentListOpen : classes.studentListClose
+              }
               variant="h6"
               onClick={() => handleOpen(classItem.id)}
             >
