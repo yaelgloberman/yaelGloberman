@@ -4,13 +4,12 @@ import {
   HttpException,
   HttpStatus,
   forwardRef,
-  ConflictException,
 } from '@nestjs/common';
 import { Student } from './student.entity';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { StudentRepository } from './student.repository';
 import { ClassService } from 'src/classes/classes.service';
-import { UpdateStudentDto } from './dto/update-student.dto'; //
+import { UpdateStudentDto } from './dto/update-student.dto'; 
 
 @Injectable()
 export class StudentService {

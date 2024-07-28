@@ -9,6 +9,6 @@ import { StudentModule } from 'src/students/student.module';
   controllers: [ClassesController],
   providers: [ClassRepository, ClassService, ...classesProviders],
   exports: [ClassService],
-  imports: [forwardRef(() => StudentModule)], // Add this line
+  imports: [forwardRef(() => StudentModule)], 
 })
 export class ClassModule {}

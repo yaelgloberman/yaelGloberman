@@ -1,7 +1,6 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Class } from './class.entity';
 import { CreateClassDto } from './dto/create-class.dto';
-import { UpdateClassDto } from './dto/update-class.sto';
 import { Op } from 'sequelize';
 import { Student } from 'src/students/student.entity';
 

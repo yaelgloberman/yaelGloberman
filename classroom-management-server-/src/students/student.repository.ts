@@ -1,4 +1,4 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Student } from './student.entity';
 import { CreateStudentDto } from './dto/create-student.dto';
 

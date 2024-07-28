@@ -6,8 +6,6 @@ import {
   Delete,
   Body,
   Param,
-  HttpStatus,
-  HttpException,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ClassService } from './classes.service';

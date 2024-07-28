@@ -4,7 +4,6 @@ import {
   HttpException,
   HttpStatus,
   forwardRef,
-  ConflictException,
 } from '@nestjs/common';
 import { Class } from './class.entity';
 import { CreateClassDto } from './dto/create-class.dto';

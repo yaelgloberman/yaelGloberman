@@ -8,7 +8,7 @@ import {
   PrimaryKey,
   AutoIncrement,
 } from 'sequelize-typescript';
-import { Class } from '../classes/class.entity'; // Assuming you have a Class model defined
+import { Class } from '../classes/class.entity'; 
 
 @Table
 export class Student extends Model<Student> {
