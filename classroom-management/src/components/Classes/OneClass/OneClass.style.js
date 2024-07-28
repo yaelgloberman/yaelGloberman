@@ -2,11 +2,11 @@ import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles(() => ({
   title: (props) => ({
+    fontWeight: "400 !important",
     cursor:
       props.numberOfPlaces - props.remainingPlaces !== 0
         ? "pointer"
         : "default",
-    fontWeight: "400 !important",
   }),
   bold: {
     fontWeight: "900 !important",

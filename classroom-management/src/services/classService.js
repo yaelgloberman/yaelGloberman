@@ -40,7 +40,6 @@ export const deleteStudentFromClassApi = async (classId,studentId) => {
   }
 };
 
-
 export const deleteClassApi = async (id) => {
   try {
     const response = await classesAPI.delete(`/${id}`);

@@ -16,8 +16,8 @@ import {
 } from "@mui/material";
 
 // Mui icon
-import SchoolIcon from "@mui/icons-material/School";
 import AddIcon from "@mui/icons-material/Add";
+import SchoolIcon from "@mui/icons-material/School";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -41,12 +41,7 @@ const DialogClassStudent = ({
   setData,
   selectedClassId,
 }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState(null);
   const dispatch = useDispatch();
-
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-  };
 
   const handleAssignToClass = async (classId, studentId) => {
     try {
@@ -75,19 +70,15 @@ const DialogClassStudent = ({
     <div>
       <Grid container alignItems="center" justifyContent="center">
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>
-            {dialogTitle}
-          </DialogTitle>
+          <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogContent>
             <Box
               sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
             >
               <List component="nav" aria-label="main mailbox folders">
-                {dialogName === "classes"                  ? data.map((classObj, index) => (
-                      <ListItemButton
-                        key={classObj.id}
-                        selected={selectedIndex === index}
-                      >
+                {dialogName === "classes"
+                  ? data.map((classObj, index) => (
+                      <ListItemButton key={classObj.id}>
                         <ListItemIcon>
                           <SchoolIcon />
                         </ListItemIcon>
@@ -98,7 +89,6 @@ const DialogClassStudent = ({
                           <IconButton color="primary">
                             <AddIcon
                               onClick={(event) => {
-                                handleListItemClick(event, index);
                                 handleAssignToClass(studentId, classObj.id);
                               }}
                             />
@@ -107,10 +97,7 @@ const DialogClassStudent = ({
                       </ListItemButton>
                     ))
                   : data.map((student, index) => (
-                      <ListItemButton
-                        key={student.id}
-                        selected={selectedIndex === index}
-                      >
+                      <ListItemButton key={student.id}>
                         <ListItemIcon>
                           <AccountCircleIcon />
                         </ListItemIcon>
