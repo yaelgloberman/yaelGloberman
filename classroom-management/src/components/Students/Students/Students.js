@@ -32,6 +32,7 @@ import {
   deleteStudentApi,
   getAllStudentsApi,
 } from "../../../services/studentService";
+import DialogClassStudent from "../../Dialog/Dialog";
 
 const Students = () => {
   const [open, setOpen] = useState(false);
@@ -114,10 +115,10 @@ const Students = () => {
             component={Paper}
             sx={{ width: "70vw", margin: "auto" }}
           >
-            <Table  aria-label="students table">
+            <Table aria-label="students table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center" >ID</TableCell>
+                  <TableCell align="center">ID</TableCell>
                   <TableCell align="center">First Name</TableCell>
                   <TableCell align="center">Last Name</TableCell>
                   <TableCell align="center">Age</TableCell>
@@ -162,13 +163,22 @@ const Students = () => {
         </div>
       </Grid>
 
-      <DialogClass
+      {/* <DialogClass
         studentId={studentId}
         data={classes}
         open={open}
         handleClose={handleClose}
         onAssignmentComplete={fetchClasses}
+      /> */}
+      <DialogClassStudent
+        dialogName={"classes"}
+        studentId={studentId}
+        data={classes}
+        handleClose={handleClose}
+        open={open}
+        onAssignmentComplete={fetchClasses}
       />
+
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}

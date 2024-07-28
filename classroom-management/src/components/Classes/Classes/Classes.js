@@ -5,11 +5,7 @@ import OneClass from "../OneClass/OneClass";
 import DialogStudent from "../../Dialog/DialogStudent";
 
 // Mui
-import {
-  Grid,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import { Grid, Snackbar, Alert } from "@mui/material";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +13,11 @@ import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
 
 // Services
 import { getAllStudentsInClassApi } from "../../../services/studentService";
-import { deleteClassApi, getAllClassesApi } from "../../../services/classService";
+import {
+  deleteClassApi,
+  getAllClassesApi,
+} from "../../../services/classService";
+import DialogClassStudent from "../../Dialog/Dialog";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -88,12 +88,17 @@ const Classes = () => {
         spacing={2}
       >
         {classes.map((classItem) => (
-          <Grid sx={{m:1}} key={classItem.id} item sm={5} md={2}>
-          <OneClass classItem={classItem} handleOpen={handleOpen} handleDeleteClass={handleDeleteClass}></OneClass>
+          <Grid sx={{ m: 1 }} key={classItem.id} item sm={5} md={2}>
+            <OneClass
+              classItem={classItem}
+              handleOpen={handleOpen}
+              handleDeleteClass={handleDeleteClass}
+            ></OneClass>
           </Grid>
         ))}
       </Grid>
-      <DialogStudent
+      <DialogClassStudent
+        dialogName={"students"}
         setData={setStudents}
         data={students}
         open={open}
