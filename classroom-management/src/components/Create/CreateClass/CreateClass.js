@@ -30,7 +30,7 @@ const CreateClass = ({
       </Typography>
       <Grid sx={{ px: 25 }}>
         <TextField
-          label="Id"
+          label="* Id"
           value={classId}
           onChange={handleChangeClassId}
           sx={{ marginBottom: 2 }}
@@ -43,7 +43,7 @@ const CreateClass = ({
           </FormHelperText>
         )}
         <TextField
-          label="Class Name"
+          label="* Class Name"
           value={className}
           onChange={handleChangeClassName}
           sx={{ marginBottom: 2 }}
@@ -56,7 +56,7 @@ const CreateClass = ({
           </FormHelperText>
         )}
         <TextField
-          label="Total Places"
+          label="* Total Places"
           value={maxSeats}
           onChange={handleChangeMaxSeats}
           sx={{ marginBottom: 2 }}

@@ -181,7 +181,7 @@ const Create = () => {
 
   return (
     <Box display="flex" sx={{ mt: 10 }}>
-      <Grid container alignItems="center" justifyContent="center">
+      <Grid container  justifyContent="center">
         <CreateClass
           classId={classId}
           handleChangeClassId={handleChangeClassId}
