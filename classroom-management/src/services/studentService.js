@@ -1,16 +1,6 @@
 import { studentsAPI } from './axios'; 
 
-export const getStudentById = async (id) => {
-  try {
-    const response = await studentsAPI.get(`/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching student by ID:', error);
-    throw error;
-  }
-};
-
-export const getAllStudents = async () => {
+export const getAllStudentsApi = async () => {
   try {
     const response = await studentsAPI.get('/');
     return response.data;
@@ -20,7 +10,7 @@ export const getAllStudents = async () => {
   }
 };
 
-export const createStudent = async (studentData) => {
+export const createStudentApi = async (studentData) => {
   try {
     const response = await studentsAPI.post('/', studentData);
     return response.data;
@@ -29,7 +19,6 @@ export const createStudent = async (studentData) => {
     throw error;
   }
 };
-
 
 
 export const assignStudentToClassApi = async (id, classId) => {
@@ -41,7 +30,7 @@ export const assignStudentToClassApi = async (id, classId) => {
     throw error;
   }
 };
-export const getAllStudentsInClass = async (classId) => {
+export const getAllStudentsInClassApi = async (classId) => {
   try {
     const response = await studentsAPI.get(`/allStudentInClass/${classId}`);
     return response.data;

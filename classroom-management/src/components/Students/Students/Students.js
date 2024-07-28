@@ -27,10 +27,10 @@ import {
 } from "../../../redux/slices/studentsSlice";
 
 // Services
-import { getAvailableClasses } from "../../../services/classService";
+import { getAvailableClassesApi } from "../../../services/classService";
 import {
   deleteStudentApi,
-  getAllStudents,
+  getAllStudentsApi,
 } from "../../../services/studentService";
 
 const Students = () => {
@@ -46,7 +46,7 @@ const Students = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const data = await getAllStudents();
+        const data = await getAllStudentsApi();
         dispatch(setStudents(data));
       } catch (error) {
         setSnackbarMessage("Failed to fetch students.");
@@ -60,7 +60,7 @@ const Students = () => {
 
   const fetchClasses = async () => {
     try {
-      const data = await getAvailableClasses();
+      const data = await getAvailableClassesApi();
       setClasses(data);
     } catch (error) {
       console.error("Error fetching classes:", error);
