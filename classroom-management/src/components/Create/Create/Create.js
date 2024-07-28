@@ -19,8 +19,8 @@ import {
 import { validateInput } from "../../../utils/validation";
 
 // Services
-import { createClass } from "../../../services/classService";
-import { createStudent } from "../../../services/studentService";
+import { createClassApi } from "../../../services/classService";
+import { createStudentApi } from "../../../services/studentService";
 import CreateClass from "../CreateClass";
 import CreateStudent from "../CreateStudent";
 
@@ -69,7 +69,7 @@ const Create = () => {
       remainingPlaces: Number(maxSeats),
     };
     try {
-      await createClass(classData);
+      await createClassApi(classData);
       setSnackbarMessage("Class created successfully.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
@@ -94,7 +94,7 @@ const Create = () => {
       profession: studentProfession,
     };
     try {
-      await createStudent(studentData);
+      await createStudentApi(studentData);
       setSnackbarMessage("Student created successfully.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);

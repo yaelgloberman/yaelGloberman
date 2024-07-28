@@ -16,8 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
 
 // Services
-import { getAllStudentsInClass } from "../../../services/studentService";
-import { deleteClassApi, getAllClasses } from "../../../services/classService";
+import { getAllStudentsInClassApi } from "../../../services/studentService";
+import { deleteClassApi, getAllClassesApi } from "../../../services/classService";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -32,7 +32,7 @@ const Classes = () => {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const data = await getAllClasses();
+        const data = await getAllClassesApi();
         dispatch(setClasses(data));
       } catch (error) {
         setSnackbarMessage("Failed to fetch classes.");
@@ -46,7 +46,7 @@ const Classes = () => {
 
   const handleOpen = async (classId) => {
     setSelectedClassId(classId);
-    const data = await getAllStudentsInClass(classId);
+    const data = await getAllStudentsInClassApi(classId);
     if (data.length > 0) {
       setStudents(data);
       setOpen(true);
