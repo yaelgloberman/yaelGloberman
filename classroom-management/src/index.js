@@ -1,12 +1,25 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+
+// Pages
+import "./index.css"; 
 import App from "./App";
-import { Provider } from "react-redux";
+
+// Theme
+import theme from "./theme"; 
+
+// Redux
 import store from "./redux/store";
+import { Provider } from "react-redux";
+
+// React dom
+import ReactDOM from "react-dom/client";
+
+// Style
+import { ThemeProvider } from "@mui/material/styles";
+
+// React query
 import { QueryClient, QueryClientProvider } from "react-query";
-import theme from "./theme"; // Import your theme
-import { ThemeProvider } from "@mui/material/styles"; // Import ThemeProvider
-import "./index.css"; // Ensure global styles are imported
+
 import WebFont from "webfontloader";
  
 const queryClient = new QueryClient();

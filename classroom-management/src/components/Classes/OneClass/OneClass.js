@@ -1,13 +1,16 @@
-// components/OneClass.js
 import React from "react";
-import { Paper, Typography, IconButton, Grid } from "@mui/material";
+
+// Style
+import { useStyles } from "./OneClass.style";
+
+// Icon
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useTheme } from "@emotion/react";
-import { useStyles } from "./OneClass1.style";
+
+// Mui
+import { Paper, Typography, IconButton, Grid } from "@mui/material";
 
 const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
-  const theme = useTheme();
-  const style1 = useStyles();
+  const style = useStyles();
 
   return (
     <Paper
@@ -17,7 +20,7 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
         padding: 2,
       }}
     >
-      <Typography variant="h6" className={style1.bold}>
+      <Typography variant="h6" className={style.bold}>
         {classItem.className}
       </Typography>
       <Typography variant="subtitle1">
@@ -29,7 +32,7 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
       <Grid container sx={{ mt: 4 }}>
         <Grid item xs={10}>
           <Typography
-            className={style1.title}
+            className={style.title}
             variant="h6"
             onClick={() => handleOpen(classItem.id)}
           >

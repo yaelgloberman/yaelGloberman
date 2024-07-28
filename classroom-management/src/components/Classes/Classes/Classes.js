@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 // Components
-import DialogStudent from "../../DialogStudent";
+import OneClass from "../OneClass/OneClass";
+import DialogStudent from "../../Dialog/DialogStudent";
 
 // Mui
 import {
@@ -17,8 +18,6 @@ import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
 // Services
 import { getAllStudentsInClass } from "../../../services/studentService";
 import { deleteClassApi, getAllClasses } from "../../../services/classService";
-import { useStyles } from "./Classes.style";
-import OneClass from "../OneClass/OneClass";
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -29,7 +28,6 @@ const Classes = () => {
   const [selectedClassId, setSelectedClassId] = useState(null);
   const dispatch = useDispatch();
   const classes = useSelector((state) => state.classes.classes);
-  const style = useStyles({ hasStudents: students.length > 0 });
 
   useEffect(() => {
     const fetchClasses = async () => {

@@ -1,5 +1,4 @@
-// services/classes.service.js
-import { classesAPI } from './axios'; // Adjust the path if needed
+import { classesAPI } from './axios'; 
 
 export const getClassById = async (id) => {
   try {

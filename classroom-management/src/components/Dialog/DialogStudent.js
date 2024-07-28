@@ -1,4 +1,6 @@
 import React from "react";
+
+// Mui 
 import {
   Box,
   Dialog,
@@ -12,12 +14,18 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { deleteStudentFromClassApi } from "../services/classService";
-import { useDispatch } from "react-redux";
-import { deleteStudentFromClass } from "../redux/slices/classesSlice";
-import { useTheme } from "@emotion/react";
+
+// Mui icon
 import DeleteIcon from "@mui/icons-material/Delete";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
+// Service
+import { deleteStudentFromClassApi } from "../../services/classService";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { deleteStudentFromClass } from "../../redux/slices/classesSlice";
+
 
 const DialogStudent = ({
   setData,

@@ -1,10 +1,18 @@
-// App.js
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-import MenuAppBar from "./components/MenuAppBar";
-import Routes from "./routes";
+
+// Context
 import { ThemeProvider } from "./themeContext";
+
+//React router
+import Routes from "./routes";
+import { BrowserRouter as Router } from "react-router-dom";
+
+// Component
+import MenuAppBar from "./components/MenueAppBar/MenuAppBar";
+
+//React query
+import { QueryClient, QueryClientProvider } from "react-query";
+
 const queryClient = new QueryClient();
 
 const App = () => {

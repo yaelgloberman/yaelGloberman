@@ -1,5 +1,6 @@
-// themeContext.js
-import React, { createContext, useState, useMemo, useContext } from "react";
+import React, { createContext, useState, useMemo } from "react";
+
+// Style
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
 
 const ThemeContext = createContext({
@@ -30,13 +31,13 @@ const ThemeProvider = ({ children }) => {
           MuiIconButton: {
             styleOverrides: {
               root: {
-                color: mode === "pink" ? "#e91e63" : undefined, 
+                color: mode === "pink" ? "#e91e63" : '#2196f3', 
               },
             },
           },
         },
         typography: {
-          fontFamily: '"Rubik", "Arial", sans-serif', // Add your font here
+          fontFamily: '"Rubik", "Arial", sans-serif', 
         },
       }),
     [mode]
