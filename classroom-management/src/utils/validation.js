@@ -53,8 +53,8 @@ export const validateInput = (value, fieldType) => {
       if (value.trim() === "") {
         return "Profession cannot be empty";
       }
-      if (!/[a-zA-Z]/.test(value)) {
-        return "Profession must contain at least one letter";
+      if (!/[a-zA-Z\u0590-\u05FF]/.test(value)) {
+        return "Profession must contain at least one letter (English or Hebrew)";
       }
       break;
     default:
