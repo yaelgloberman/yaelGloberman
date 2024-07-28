@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 // Components
-import DialogClass from "../../Dialog/DialogClass";
+import DialogClassStudent from "../../Dialog/Dialog";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,6 @@ import {
   deleteStudentApi,
   getAllStudentsApi,
 } from "../../../services/studentService";
-import DialogClassStudent from "../../Dialog/Dialog";
 
 const Students = () => {
   const [open, setOpen] = useState(false);
@@ -163,15 +162,9 @@ const Students = () => {
         </div>
       </Grid>
 
-      {/* <DialogClass
-        studentId={studentId}
-        data={classes}
-        open={open}
-        handleClose={handleClose}
-        onAssignmentComplete={fetchClasses}
-      /> */}
       <DialogClassStudent
         dialogName={"classes"}
+        dialogTitle={"Available classes"}
         studentId={studentId}
         data={classes}
         handleClose={handleClose}

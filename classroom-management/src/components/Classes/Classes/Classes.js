@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // Components
 import OneClass from "../OneClass/OneClass";
-import DialogStudent from "../../Dialog/DialogStudent";
+import DialogClassStudent from "../../Dialog/Dialog";
 
 // Mui
 import { Grid, Snackbar, Alert } from "@mui/material";
@@ -17,7 +17,7 @@ import {
   deleteClassApi,
   getAllClassesApi,
 } from "../../../services/classService";
-import DialogClassStudent from "../../Dialog/Dialog";
+
 
 const Classes = () => {
   const [open, setOpen] = useState(false);
@@ -99,6 +99,7 @@ const Classes = () => {
       </Grid>
       <DialogClassStudent
         dialogName={"students"}
+        dialogTitle={'Class students'}
         setData={setStudents}
         data={students}
         open={open}

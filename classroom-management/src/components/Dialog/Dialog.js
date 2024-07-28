@@ -29,10 +29,10 @@ import { deleteStudentFromClassApi } from "../../services/classService";
 import { useDispatch } from "react-redux";
 import { assignStudentToClass } from "../../redux/slices/studentsSlice";
 import { deleteStudentFromClass } from "../../redux/slices/classesSlice";
-import DialogIten from "./DialogItem";
 
 const DialogClassStudent = ({
   dialogName,
+  dialogTitle,
   studentId,
   data,
   handleClose,
@@ -76,16 +76,14 @@ const DialogClassStudent = ({
       <Grid container alignItems="center" justifyContent="center">
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
-            {dialogName === "classes" ? "available classes" : " class students"}
+            {dialogTitle}
           </DialogTitle>
           <DialogContent>
             <Box
               sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
             >
               <List component="nav" aria-label="main mailbox folders">
-                <DialogIten data={data} handleListItemClick={handleListItemClick} handleAssignToClass={handleAssignToClass} SchoolIcon={SchoolIcon} AddIcon={AddIcon}  />
-                {dialogName === "classes"
-                  ? data.map((classObj, index) => (
+                {dialogName === "classes"                  ? data.map((classObj, index) => (
                       <ListItemButton
                         key={classObj.id}
                         selected={selectedIndex === index}

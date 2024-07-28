@@ -16,9 +16,7 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
   });
 
   return (
-    <Paper
-    className={classes.paper}
-    >
+    <Paper className={classes.paper}>
       <Typography variant="h6" className={classes.bold}>
         {classItem.className}
       </Typography>
@@ -34,7 +32,7 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
             title={
               classItem.remainingPlaces - classItem.numberOfPlaces === 0
                 ? "There are no students assigned for the class"
-                : "Click to open students list"
+                : ""
             }
           >
             <Typography
