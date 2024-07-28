@@ -2,27 +2,22 @@ import React, { useState } from "react";
 
 // Mui
 import {
-  TextField,
-  Button,
   Box,
   Grid,
-  Typography,
   Snackbar,
   Alert,
-  FormHelperText,
 } from "@mui/material";
-
-//Component
-// import {CreateClass} from "./CreateClass"
 
 //Validation
 import { validateInput } from "../../../utils/validation";
 
+//Component
+import CreateClass from "../CreateClass/CreateClass";
+import CreateStudent from "../CreateStudent/CreateStudent";
+
 // Services
 import { createClassApi } from "../../../services/classService";
 import { createStudentApi } from "../../../services/studentService";
-import CreateClass from "../CreateClass";
-import CreateStudent from "../CreateStudent";
 
 const Create = () => {
   const [classId, setClassId] = useState("");

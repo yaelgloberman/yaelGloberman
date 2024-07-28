@@ -1,10 +1,15 @@
+// Style
+import { useStyles } from "./CreateClass.style";
+
+// Mui
 import { Button, FormHelperText, Grid, TextField, Typography } from "@mui/material";
 
 const CreateClass = ({classId,handleChangeClassId,error,className,handleChangeClassName,maxSeats,handleChangeMaxSeats,hasClassErrors,handleCreateClass}) => {
+  const classes=useStyles()
 
     return (
       <Grid container alignItems="center" justifyContent="center" item xs={5}>
-        <Typography variant="h4" sx={{ marginBottom: 2 }}>
+        <Typography variant="h4" className={classes.marginB2}>
           Create new Class
         </Typography>
         <Grid sx={{ px: 25 }}>
@@ -17,7 +22,7 @@ const CreateClass = ({classId,handleChangeClassId,error,className,handleChangeCl
             error={!!error.classId}
           />
           {error.classId && (
-            <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+            <FormHelperText error className={classes.marginB2}>
               {error.classId}
             </FormHelperText>
           )}
@@ -30,7 +35,7 @@ const CreateClass = ({classId,handleChangeClassId,error,className,handleChangeCl
             error={!!error.className}
           />
           {error.className && (
-            <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+            <FormHelperText error className={classes.marginB2}>
               {error.className}
             </FormHelperText>
           )}
@@ -43,7 +48,7 @@ const CreateClass = ({classId,handleChangeClassId,error,className,handleChangeCl
             error={!!error.maxSeats}
           />
           {error.maxSeats && (
-            <FormHelperText error sx={{ marginTop: 0, marginBottom: 2 }}>
+            <FormHelperText error className={classes.marginB2}>
               {error.maxSeats}
             </FormHelperText>
           )}
