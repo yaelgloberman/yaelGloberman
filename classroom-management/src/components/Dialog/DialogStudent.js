@@ -75,7 +75,7 @@ const DialogStudent = ({
                     <ListItemIcon>
                       <IconButton
                         aria-label="delete"
-                        onClick={() => handleDeleteStudent(student.id)}
+                        onClick={() => handleDeleteStudent(student)}
                       >
                         <DeleteIcon />
                       </IconButton>
