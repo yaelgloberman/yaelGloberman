@@ -1,3 +1,4 @@
+// Mui
 import {
   Button,
   FormHelperText,
@@ -5,6 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 // Style
 import { useStyles } from "./CreateStudent.style";
 const CreateStudent = ({
@@ -30,7 +32,7 @@ const CreateStudent = ({
       </Typography>
       <Grid sx={{ px: 25 }}>
         <TextField
-          label="Id"
+          label="* Id"
           value={studentId}
           onChange={handleChangeStudentId}
           className={classes.marginB2}
@@ -43,7 +45,7 @@ const CreateStudent = ({
           </FormHelperText>
         )}
         <TextField
-          label="First Name"
+          label="* First Name"
           value={studentFirstName}
           onChange={handleChangeStudentFirstName}
           className={classes.marginB2}
@@ -56,7 +58,7 @@ const CreateStudent = ({
           </FormHelperText>
         )}
         <TextField
-          label="Last Name"
+          label="* Last Name"
           value={studentLastName}
           onChange={handleChangeStudentLastName}
           className={classes.marginB2}
@@ -69,7 +71,7 @@ const CreateStudent = ({
           </FormHelperText>
         )}
         <TextField
-          label="Age"
+          label="* Age"
           value={studentAge}
           onChange={handleChangeStudentAge}
           className={classes.marginB2}
@@ -82,7 +84,7 @@ const CreateStudent = ({
           </FormHelperText>
         )}
         <TextField
-          label="Profession"
+          label="* Profession"
           value={studentProfession}
           onChange={handleChangeStudentProfession}
           className={classes.marginB2}

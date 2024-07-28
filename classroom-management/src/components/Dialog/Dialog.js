@@ -85,7 +85,7 @@ const DialogClassStudent = ({
 
                         <ListItemText primary={classObj.className} />
 
-                        <ListItemIcon>
+                        <ListItemIcon sx={{justifyContent:'flex-end'}}>
                           <IconButton color="primary">
                             <AddIcon
                               onClick={(event) => {
@@ -105,10 +105,11 @@ const DialogClassStudent = ({
                         <ListItemText
                           primary={`${student.firstName} ${student.lastName}`}
                         />
-                        <ListItemIcon>
+                        <ListItemIcon sx={{justifyContent:'flex-end'}}>
                           <IconButton
                             aria-label="delete"
                             onClick={() => handleDeleteStudent(student)}
+                            
                           >
                             <DeleteIcon />
                           </IconButton>
