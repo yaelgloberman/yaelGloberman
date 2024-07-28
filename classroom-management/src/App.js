@@ -12,6 +12,7 @@ import MenuAppBar from "./components/MenueAppBar/MenuAppBar";
 
 //React query
 import { QueryClient, QueryClientProvider } from "react-query";
+import Classes from "./components/Classes/Classes/Classes";
 
 const queryClient = new QueryClient();
 

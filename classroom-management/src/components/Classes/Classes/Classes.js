@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
 
+// Mui
+import { Grid } from "@mui/material";
+
 // Components
 import OneClass from "../OneClass/OneClass";
-import DialogStudent from "../../Dialog/DialogStudent";
-
-// Mui
-import {
-  Grid,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import ErrorSnackbar from "../../ErrorSnackbar";
+import DialogClassStudent from "../../Dialog/Dialog";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
 
 // Services
+import {
+  deleteClassApi,
+  getAllClassesApi,
+} from "../../../services/classService";
 import { getAllStudentsInClassApi } from "../../../services/studentService";
-import { deleteClassApi, getAllClassesApi } from "../../../services/classService";
 
 const Classes = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [selectedClassId, setSelectedClassId] = useState(null);
-  const dispatch = useDispatch();
   const classes = useSelector((state) => state.classes.classes);
 
   useEffect(() => {
@@ -88,31 +88,32 @@ const Classes = () => {
         spacing={2}
       >
         {classes.map((classItem) => (
-          <Grid sx={{m:1}} key={classItem.id} item sm={5} md={2}>
-          <OneClass classItem={classItem} handleOpen={handleOpen} handleDeleteClass={handleDeleteClass}></OneClass>
+          <Grid sx={{ m: 1 }} key={classItem.id} item sm={5} md={2}>
+            <OneClass
+              classItem={classItem}
+              handleOpen={handleOpen}
+              handleDeleteClass={handleDeleteClass}
+            ></OneClass>
           </Grid>
         ))}
       </Grid>
-      <DialogStudent
+
+      <DialogClassStudent
+        dialogName={"students"}
+        dialogTitle={"Class students"}
         setData={setStudents}
         data={students}
         open={open}
         handleClose={handleClose}
         selectedClassId={selectedClassId}
       />
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity={snackbarSeverity}
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+
+      <ErrorSnackbar
+        snackbarOpen={snackbarOpen}
+        snackbarSeverity={snackbarSeverity}
+        snackbarMessage={snackbarMessage}
+        handleSnackbarClose={handleSnackbarClose}
+      />
     </>
   );
 };

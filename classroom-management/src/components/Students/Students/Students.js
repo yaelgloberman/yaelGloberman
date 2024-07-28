@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 
 // Mui
 import {
-  Alert,
   Box,
   Button,
   Grid,
   Paper,
-  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -17,7 +15,8 @@ import {
 } from "@mui/material";
 
 // Components
-import DialogClass from "../../Dialog/DialogClass";
+import ErrorSnackbar from "../../ErrorSnackbar";
+import DialogClassStudent from "../../Dialog/Dialog";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -114,10 +113,10 @@ const Students = () => {
             component={Paper}
             sx={{ width: "70vw", margin: "auto" }}
           >
-            <Table  aria-label="students table">
+            <Table aria-label="students table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center" >ID</TableCell>
+                  <TableCell align="center">ID</TableCell>
                   <TableCell align="center">First Name</TableCell>
                   <TableCell align="center">Last Name</TableCell>
                   <TableCell align="center">Age</TableCell>
@@ -128,10 +127,7 @@ const Students = () => {
               </TableHead>
               <TableBody>
                 {students.map((student) => (
-                  <TableRow
-                    key={student.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
+                  <TableRow key={student.id}>
                     <TableCell align="center">{student.id}</TableCell>
                     <TableCell align="center">{student.firstName}</TableCell>
                     <TableCell align="center">{student.lastName}</TableCell>
@@ -162,26 +158,22 @@ const Students = () => {
         </div>
       </Grid>
 
-      <DialogClass
+      <DialogClassStudent
+        dialogName={"classes"}
+        dialogTitle={"Available classes"}
         studentId={studentId}
         data={classes}
-        open={open}
         handleClose={handleClose}
+        open={open}
         onAssignmentComplete={fetchClasses}
       />
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity={snackbarSeverity}
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+
+      <ErrorSnackbar
+        snackbarOpen={snackbarOpen}
+        snackbarSeverity={snackbarSeverity}
+        snackbarMessage={snackbarMessage}
+        handleSnackbarClose={handleSnackbarClose}
+      />
     </Box>
   );
 };

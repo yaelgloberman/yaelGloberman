@@ -7,20 +7,17 @@ import { useStyles } from "./OneClass.style";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 // Mui
-import { Paper, Typography, IconButton, Grid } from "@mui/material";
+import { Paper, Typography, IconButton, Grid, Tooltip } from "@mui/material";
 
 const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
-  const style = useStyles();
+  const classes = useStyles({
+    numberOfPlaces: classItem.numberOfPlaces,
+    remainingPlaces: classItem.remainingPlaces,
+  });
 
   return (
-    <Paper
-      sx={{
-        height: 150,
-        width: 200,
-        padding: 2,
-      }}
-    >
-      <Typography variant="h6" className={style.bold}>
+    <Paper className={classes.paper}>
+      <Typography variant="h6" className={classes.bold}>
         {classItem.className}
       </Typography>
       <Typography variant="subtitle1">
@@ -31,13 +28,21 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
       </Typography>
       <Grid container sx={{ mt: 4 }}>
         <Grid item xs={10}>
-          <Typography
-            className={style.title}
-            variant="h6"
-            onClick={() => handleOpen(classItem.id)}
+          <Tooltip
+            title={
+              classItem.remainingPlaces - classItem.numberOfPlaces === 0
+                ? "There are no students assigned for the class"
+                : ""
+            }
           >
-            STUDENTS LIST
-          </Typography>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              onClick={() => handleOpen(classItem.id)}
+            >
+              STUDENTS LIST
+            </Typography>
+          </Tooltip>
         </Grid>
         <Grid item xs={2}>
           <IconButton

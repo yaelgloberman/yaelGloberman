@@ -20,7 +20,6 @@ export const createStudentApi = async (studentData) => {
   }
 };
 
-
 export const assignStudentToClassApi = async (id, classId) => {
   try {
     const response = await studentsAPI.put(`/${id}/${classId}`);

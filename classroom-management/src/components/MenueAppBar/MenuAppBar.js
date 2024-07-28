@@ -36,7 +36,7 @@ const MenuAppBar = () => {
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 200 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {[
           { text: "Classes", path: "/classes" },
@@ -54,7 +54,7 @@ const MenuAppBar = () => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <AppBar position="static">
         <Toolbar>
           <IconButton

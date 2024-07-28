@@ -1,28 +1,19 @@
 import React, { useState } from "react";
 
 // Mui
-import {
-  TextField,
-  Button,
-  Box,
-  Grid,
-  Typography,
-  Snackbar,
-  Alert,
-  FormHelperText,
-} from "@mui/material";
-
-//Component
-// import {CreateClass} from "./CreateClass"
+import { Box, Grid } from "@mui/material";
 
 //Validation
 import { validateInput } from "../../../utils/validation";
 
+//Component
+import ErrorSnackbar from "../../ErrorSnackbar";
+import CreateClass from "../CreateClass/CreateClass";
+import CreateStudent from "../CreateStudent/CreateStudent";
+
 // Services
 import { createClassApi } from "../../../services/classService";
 import { createStudentApi } from "../../../services/studentService";
-import CreateClass from "../CreateClass";
-import CreateStudent from "../CreateStudent";
 
 const Create = () => {
   const [classId, setClassId] = useState("");
@@ -218,20 +209,12 @@ const Create = () => {
           hasStudentErrors={hasStudentErrors}
         />
       </Grid>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity={snackbarSeverity}
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+      <ErrorSnackbar
+        snackbarOpen={snackbarOpen}
+        snackbarSeverity={snackbarSeverity}
+        snackbarMessage={snackbarMessage}
+        handleSnackbarClose={handleSnackbarClose}
+      />
     </Box>
   );
 };
