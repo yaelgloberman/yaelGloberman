@@ -6,16 +6,18 @@ import {
   DialogTitle,
   Divider,
   Grid,
+  IconButton,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Delete from "@mui/icons-material/Delete";
 import { deleteStudentFromClassApi } from "../services/classService";
 import { useDispatch } from "react-redux";
 import { deleteStudentFromClass } from "../redux/slices/classesSlice";
+import { useTheme } from "@emotion/react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const DialogStudent = ({
   setData,
@@ -25,16 +27,17 @@ const DialogStudent = ({
   selectedClassId,
 }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-const dispatch=useDispatch()
+  const dispatch = useDispatch();
+
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
 
   const handleDeleteStudent = async (student) => {
     try {
-      await deleteStudentFromClassApi(selectedClassId,student.id );
+      await deleteStudentFromClassApi(selectedClassId, student.id);
       const updatedStudents = data.filter((stud) => stud.id !== student.id);
-      dispatch(deleteStudentFromClass(selectedClassId))
+      dispatch(deleteStudentFromClass(selectedClassId));
       setData(updatedStudents);
     } catch (error) {
       console.error("Error deleting student:", error);
@@ -62,7 +65,12 @@ const dispatch=useDispatch()
                     </ListItemIcon>
                     <ListItemText primary={student.firstName} />
                     <ListItemIcon>
-                      <Delete onClick={() => handleDeleteStudent(student)} />
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDeleteStudent(student.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
                     </ListItemIcon>
                   </ListItemButton>
                 ))}

@@ -6,13 +6,9 @@ import DialogStudent from "../../DialogStudent";
 // Mui
 import {
   Grid,
-  IconButton,
-  Paper,
-  Typography,
   Snackbar,
   Alert,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";

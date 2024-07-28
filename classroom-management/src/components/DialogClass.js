@@ -5,6 +5,7 @@ import {
   DialogTitle,
   Divider,
   Grid,
+  IconButton,
   List,
   ListItemButton,
   ListItemIcon,
@@ -73,7 +74,9 @@ const DialogClass = ({
                     </ListItemIcon>
                     <ListItemText primary={classObj.className} />
                     <ListItemIcon>
-                      <AddIcon />
+                      <IconButton color="primary">
+                        <AddIcon />
+                      </IconButton>{" "}
                     </ListItemIcon>
                   </ListItemButton>
                 ))}

@@ -1,13 +1,15 @@
-import { Paper, Typography,IconButton, Grid, Snackbar, Alert } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import {  } from "@mui/material";
+// components/OneClass.js
+import React from "react";
+import { Paper, Typography, IconButton, Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useStyles } from "./OneClass.style";
+import { useTheme } from "@emotion/react";
+import { useStyles } from "./OneClass1.style";
 
-const OneClass = ({classItem,handleOpen,handleDeleteClass}) => {
-    const style = useStyles();
+const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
+  const theme = useTheme();
+  const style1 = useStyles();
 
-    return (
+  return (
     <Paper
       sx={{
         height: 150,
@@ -15,7 +17,9 @@ const OneClass = ({classItem,handleOpen,handleDeleteClass}) => {
         padding: 2,
       }}
     >
-      <Typography variant="h6">{classItem.className}</Typography>
+      <Typography variant="h6" className={style1.bold}>
+        {classItem.className}
+      </Typography>
       <Typography variant="subtitle1">
         There are {classItem.remainingPlaces} seats left
       </Typography>
@@ -25,8 +29,8 @@ const OneClass = ({classItem,handleOpen,handleDeleteClass}) => {
       <Grid container sx={{ mt: 4 }}>
         <Grid item xs={10}>
           <Typography
+            className={style1.title}
             variant="h6"
-            className={style.title}
             onClick={() => handleOpen(classItem.id)}
           >
             STUDENTS LIST
@@ -44,4 +48,5 @@ const OneClass = ({classItem,handleOpen,handleDeleteClass}) => {
     </Paper>
   );
 };
+
 export default OneClass;
