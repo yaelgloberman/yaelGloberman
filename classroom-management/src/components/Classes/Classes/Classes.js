@@ -77,7 +77,6 @@ const Classes = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
-  console.log(students);
 
   return (
     <>
