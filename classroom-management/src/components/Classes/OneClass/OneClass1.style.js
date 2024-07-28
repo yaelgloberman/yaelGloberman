@@ -4,7 +4,9 @@ export const useStyles = makeStyles(() => ({
   title: () => ({
      cursor: "pointer" ,
   }),
-
+  bold:{
+    fontWeight: '900 !important',
+  }
 
 }));
 

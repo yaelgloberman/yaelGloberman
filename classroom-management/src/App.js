@@ -1,29 +1,19 @@
-import MenuAppBar from "./components/MenuAppBar";
-
+// App.js
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Grid,  createTheme } from "@mui/material";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
+import MenuAppBar from "./components/MenuAppBar";
 import Routes from "./routes";
-import { useAppSelector } from "./redux/store";
-import ThemeProvider from "./themeContext";
-
+import { ThemeProvider } from "./themeContext";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const darkMode = useAppSelector((state) => state.theme.darkMode);
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? "dark" : "light",
-    },
-  });
-
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <Router>
           <MenuAppBar />
-            <Routes />
+          <Routes />
         </Router>
       </ThemeProvider>
     </QueryClientProvider>

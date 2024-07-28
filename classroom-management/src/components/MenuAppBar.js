@@ -1,3 +1,4 @@
+// components/MenuAppBar.js
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -6,18 +7,19 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import {
   Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
-  Button,
 } from "@mui/material";
-import { ThemeContext } from "../themeContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-export default function ButtonAppBar() {
+import { ThemeContext } from "../themeContext";
+
+const MenuAppBar = () => {
   const [open, setOpen] = React.useState(false);
   const { mode, toggleTheme } = useContext(ThemeContext);
 
@@ -52,16 +54,14 @@ export default function ButtonAppBar() {
             color="inherit"
             aria-label="menu"
             onClick={toggleDrawer(true)}
+            sx={{ color: 'white' }} // Keep this IconButton white
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h5" component="div" >
             Classes Management System
           </Typography>
-          <Typography onClick={toggleTheme}>{mode==="dark"? "light" : "dark"} mode</Typography>
-          <IconButton sx={{ ml: 1 }} color="inherit" onClick={toggleTheme}>
-            {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>{" "}
+          <LoyaltyIcon sx={{mx:2}} onClick={toggleTheme}/>
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -69,4 +69,6 @@ export default function ButtonAppBar() {
       </Drawer>
     </Box>
   );
-}
+};
+
+export default MenuAppBar;
