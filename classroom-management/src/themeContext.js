@@ -2,6 +2,8 @@ import React, { createContext, useState, useMemo } from "react";
 
 // Style
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
+import { BLUE, PINK } from "./constants";
+
 
 const ThemeContext = createContext({
   mode: "light",
@@ -21,17 +23,14 @@ const ThemeProvider = ({ children }) => {
         palette: {
           mode: mode === "pink" ? "light" : mode,
           primary: {
-            main: mode === "pink" ? "#e91e63" : "#1976d2", 
-          },
-          secondary: {
-            main: mode === "pink" ? "#f48fb1" : "#ff4081", 
+            main: mode === "pink" ? PINK : BLUE, 
           },
         },
         components: {
           MuiIconButton: {
             styleOverrides: {
               root: {
-                color: mode === "pink" ? "#e91e63" : '#2196f3', 
+                color: mode === "pink" ? PINK : BLUE, 
               },
             },
           },

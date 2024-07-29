@@ -66,7 +66,7 @@ const MenuAppBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h5" component="div">
-            Classes Management System
+            Shob Classes
           </Typography>
           <LoyaltyIcon className={classes.margin} onClick={toggleTheme} />
         </Toolbar>
