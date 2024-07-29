@@ -12,12 +12,13 @@ export class ClassRepository {
   async getAllClasses() {
     return await Class.findAll({ order: ['className'] });
   }
+
   async getAvailableClasses() {
     const availableClasses = await Class.findAll({
       where: {
         remainingPlaces: { [Op.gt]: 0 },
       },
-      order: ['className']
+      order: ['className'],
     });
     return availableClasses;
   }
@@ -25,6 +26,7 @@ export class ClassRepository {
   async createClass(newClass: CreateClassDto) {
     return Class.create(newClass);
   }
+
   async assignToClass(id: number) {
     const classObject = await this.getClassById(id);
     const updatedClass = await Class.update(
@@ -51,8 +53,8 @@ export class ClassRepository {
     const classObject = await this.getClassById(id);
     if (classObject) {
       await classObject.destroy();
-      return true;
+      // return true;
     }
-    return false;
+    // return false;
   }
 }

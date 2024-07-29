@@ -69,8 +69,7 @@ export class StudentService {
   ): Promise<Student> {
     const student = await this.studentsRepository.getStudentById(id);
     if (student) {
-      await student.update(updateStudentDto);
-      return student;
+      return await student.update(updateStudentDto);
     }
     return null;
   }

@@ -59,9 +59,9 @@ export class ClassService {
     await this.classRepository.assignToClass(classId);
   }
 
-  async dismissFromClass(classId: number) {
-    await this.classRepository.dismissFromClass(classId);
-  }
+  // async dismissFromClass(classId: number) {
+  //  
+  // }
 
   async deleteStudentFromClass(classId: number, studentId: number) {
     await this.studentService.dismissFromClass(classId, studentId);

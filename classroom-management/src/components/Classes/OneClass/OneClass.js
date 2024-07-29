@@ -11,8 +11,8 @@ import { Paper, Typography, IconButton, Grid, Tooltip } from "@mui/material";
 
 const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
   const isStudent = useMemo(
-    () => classItem.remainingPlaces - classItem.numberOfPlaces != 0,
-    classItem
+    () => classItem.remainingPlaces - classItem.numberOfPlaces !== 0,
+    [classItem]
   );
 
   const classes = useStyles({
