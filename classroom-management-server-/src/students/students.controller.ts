@@ -14,15 +14,16 @@ import { CreateStudentDto } from './dto/create-student.dto';
 @ApiTags('students')
 @Controller('students')
 export class StudentController {
+  
   constructor(private readonly studentService: StudentService) {}
 
   @Post()
-  async createStudent(@Body() createStudentDto: CreateStudentDto) {
+  async createStudent(@Body() createStudentDto: CreateStudentDto) {    
     return await this.studentService.createStudent(createStudentDto);
   }
 
   @Get(':id')
-  async getStudentById(@Param('id') id: number) {
+  async getStudentById(@Param('id') id: string) {
     return await this.studentService.getStudentById(id);
   }
 
@@ -31,19 +32,13 @@ export class StudentController {
     return await this.studentService.getAllStudents();
   }
   
-  @Get('/allStudentInClass/:classId')
-  async getAllStudentsInClass(@Param('classId') id: number) {
-    return await this.studentService.getAllStudentsInClass(id);
-  }
-
-
   @Put(':id/:classId')
-  async asignStudentToClass(@Param('id') id: number, @Param('classId') classId: number) {
+  async asignStudentToClass(@Param('id') id: string, @Param('classId') classId: number) {
     return await this.studentService.asignStudentToClass(id, classId);
   }
 
   @Delete(':id')
-  async deleteStudent(@Param('id') id: number) {
+  async deleteStudent(@Param('id') id: string) {
     return await this.studentService.deleteStudent(id);
   }
   

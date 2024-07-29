@@ -19,7 +19,7 @@ const Create = () => {
   const [classId, setClassId] = useState("");
   const [className, setClassName] = useState("");
   const [maxSeats, setMaxSeats] = useState("");
-  
+
   const [studentId, setStudentId] = useState("");
   const [studentFirstName, setStudentFirstName] = useState("");
   const [studentLastName, setStudentLastName] = useState("");
@@ -55,7 +55,7 @@ const Create = () => {
 
   const handleCreateClass = async () => {
     const classData = {
-      id: classId,
+      id: Number(classId),
       className: className,
       numberOfPlaces: Number(maxSeats),
       remainingPlaces: Number(maxSeats),

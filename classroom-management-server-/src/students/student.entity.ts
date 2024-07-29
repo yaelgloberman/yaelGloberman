@@ -6,18 +6,19 @@ import {
   ForeignKey,
   BelongsTo,
   PrimaryKey,
-  AutoIncrement,
 } from 'sequelize-typescript';
-import { Class } from '../classes/class.entity'; 
+import { Class } from '../classes/class.entity';
+import { IStudent } from './stuednt.interface';
 
-@Table
-export class Student extends Model<Student> {
-  @AutoIncrement
+@Table({ timestamps: true, paranoid: true })
+export class Student extends Model<Student> implements IStudent {
+  
   @PrimaryKey
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
+    allowNull: false,
   })
-  id: number;
+  id: string;
 
   @Column({
     type: DataType.STRING,
@@ -33,7 +34,7 @@ export class Student extends Model<Student> {
 
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
+    allowNull: true,
   })
   age: number;
 
@@ -47,7 +48,7 @@ export class Student extends Model<Student> {
   @Column({
     type: DataType.INTEGER,
   })
-  assignToClass: number;
+  classId: number;
 
   @BelongsTo(() => Class)
   class: Class;

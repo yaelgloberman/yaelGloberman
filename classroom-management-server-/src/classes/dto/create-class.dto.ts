@@ -10,6 +10,4 @@ export class CreateClassDto {
   @IsInt()
   numberOfPlaces: number;
 
-  @IsInt()
-  remainingPlaces: number;
 }

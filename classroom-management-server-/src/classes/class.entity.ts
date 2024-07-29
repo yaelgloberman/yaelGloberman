@@ -1,7 +1,9 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Student } from 'src/students/student.entity';
+import { IClass } from './class.interface';
 
-@Table
-export class Class extends Model<Class> {
+@Table({ timestamps: true, paranoid: true })
+export class Class extends Model<Class> implements IClass {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -21,9 +23,6 @@ export class Class extends Model<Class> {
   })
   numberOfPlaces: number;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  remainingPlaces: number;
+  @HasMany(() => Student)
+  students: Student[];
 }

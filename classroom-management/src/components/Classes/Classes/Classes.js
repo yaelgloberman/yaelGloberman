@@ -10,7 +10,11 @@ import DialogClassStudent from "../../Dialog/Dialog";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
+import {
+  deleteClass,
+  selectSelectedClass,
+  setClasses,
+} from "../../../redux/slices/classesSlice";
 
 // Services
 import {
@@ -44,11 +48,12 @@ const Classes = () => {
     fetchClasses();
   }, [dispatch]);
 
-  const handleOpen = async (classId) => {
-    setSelectedClassId(classId);
-    const data = await getAllStudentsInClassApi(classId);
-    if (data.length > 0) {
-      setStudents(data);
+  
+
+  const handleOpen = async (classItem) => {
+    setSelectedClassId(classItem.id);
+    if (classItem.students.length > 0) {
+      setStudents(classItem.students);
       setOpen(true);
     }
   };
@@ -88,10 +93,10 @@ const Classes = () => {
         spacing={2}
       >
         {classes.map((classItem) => (
-          <Grid sx={{ m: 1 }} key={classItem.id} item  >
+          <Grid sx={{ m: 1 }} key={classItem.id} item>
             <OneClass
               classItem={classItem}
-              handleOpen={handleOpen}
+              handleOpen={()=>handleOpen(classItem)}
               handleDeleteClass={handleDeleteClass}
             ></OneClass>
           </Grid>
