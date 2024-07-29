@@ -1,23 +1,21 @@
 import { Alert, Snackbar } from "@mui/material";
 
 const ErrorSnackbar = ({
-  snackbarOpen,
-  snackbarSeverity,
   snackbarMessage,
   handleSnackbarClose,
 }) => {
   return (
     <Snackbar
-      open={snackbarOpen}
+      open={snackbarMessage.open}
       autoHideDuration={6000}
       onClose={handleSnackbarClose}
     >
       <Alert
         onClose={handleSnackbarClose}
-        severity={snackbarSeverity}
+        severity={snackbarMessage.severity}
         sx={{ width: "100%" }}
       >
-        {snackbarMessage}
+        {snackbarMessage.message}
       </Alert>
     </Snackbar>
   );

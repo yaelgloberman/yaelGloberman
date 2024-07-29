@@ -12,7 +12,6 @@ import DialogClassStudent from "../../Dialog/Dialog";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteClass,
-  selectSelectedClass,
   setClasses,
 } from "../../../redux/slices/classesSlice";
 
@@ -27,11 +26,13 @@ const Classes = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [selectedClassId, setSelectedClassId] = useState(null);
   const classes = useSelector((state) => state.classes.classes);
+  const [snackbarMessage, setSnackbarMessage] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -39,9 +40,11 @@ const Classes = () => {
         const data = await getAllClassesApi();
         dispatch(setClasses(data));
       } catch (error) {
-        setSnackbarMessage("Failed to fetch classes.");
-        setSnackbarSeverity("error");
-        setSnackbarOpen(true);
+        setSnackbarMessage({
+          open: true,
+          severity: "error",
+          message: "Failed to fetch classes.",
+        });
       }
     };
 
@@ -67,20 +70,27 @@ const Classes = () => {
     try {
       await deleteClassApi(classId);
       dispatch(deleteClass(classId));
-      setSnackbarMessage("Class deleted successfully.");
-      setSnackbarSeverity("success");
-      setSnackbarOpen(true);
+      setSnackbarMessage({
+        open: true,
+        severity: "error",
+        message: "Class deleted successfully.",
+      });
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Failed to delete class.";
-      setSnackbarMessage(errorMessage);
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
+        setSnackbarMessage({
+          open: true,
+          severity: "error",
+          message: errorMessage,
+        });
     }
   };
 
   const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
+    setSnackbarMessage((prevSnackbar) => ({
+      ...prevSnackbar,
+      open: false,
+    }));
   };
 
   return (
@@ -114,8 +124,6 @@ const Classes = () => {
       />
 
       <ErrorSnackbar
-        snackbarOpen={snackbarOpen}
-        snackbarSeverity={snackbarSeverity}
         snackbarMessage={snackbarMessage}
         handleSnackbarClose={handleSnackbarClose}
       />

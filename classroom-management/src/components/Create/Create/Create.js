@@ -25,11 +25,12 @@ const Create = () => {
   const [studentLastName, setStudentLastName] = useState("");
   const [studentAge, setStudentAge] = useState("");
   const [studentProfession, setStudentProfession] = useState("");
-
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [error, setError] = useState({});
+  const [snackbarMessage, setSnackbarMessage] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
 
   const hasStudentErrors = () => {
     return (
@@ -62,18 +63,22 @@ const Create = () => {
     };
     try {
       await createClassApi(classData);
-      setSnackbarMessage("Class created successfully.");
-      setSnackbarSeverity("success");
-      setSnackbarOpen(true);
+      setSnackbarMessage({
+        open: true,
+        severity: "success",
+        message: "Class created successfully.",
+      });
       setClassId("");
       setClassName("");
       setMaxSeats("");
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Failed to create class.";
-      setSnackbarMessage(errorMessage);
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
+        setSnackbarMessage({
+          open: true,
+          severity: "error",
+          message: errorMessage,
+        });
     }
   };
 
@@ -87,9 +92,11 @@ const Create = () => {
     };
     try {
       await createStudentApi(studentData);
-      setSnackbarMessage("Student created successfully.");
-      setSnackbarSeverity("success");
-      setSnackbarOpen(true);
+      setSnackbarMessage({
+        open: true,
+        severity: "success",
+        message: "Student created successfully.",
+      });
       setStudentId("");
       setStudentFirstName("");
       setStudentLastName("");
@@ -98,14 +105,21 @@ const Create = () => {
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Failed to create student.";
-      setSnackbarMessage(errorMessage);
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
+
+        setSnackbarMessage({
+          open: true,
+          severity: "error",
+          message: errorMessage,
+        });
+    
     }
   };
 
   const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
+    setSnackbarMessage((prevSnackbar) => ({
+      ...prevSnackbar,
+      open: false,
+    }));
   };
 
   const handleChangeClassId = (e) => {
@@ -182,7 +196,7 @@ const Create = () => {
 
   return (
     <Box display="flex" sx={{ mt: 10 }}>
-      <Grid container  justifyContent="center">
+      <Grid container justifyContent="center">
         <CreateClass
           classId={classId}
           handleChangeClassId={handleChangeClassId}
@@ -211,8 +225,6 @@ const Create = () => {
         />
       </Grid>
       <ErrorSnackbar
-        snackbarOpen={snackbarOpen}
-        snackbarSeverity={snackbarSeverity}
         snackbarMessage={snackbarMessage}
         handleSnackbarClose={handleSnackbarClose}
       />
