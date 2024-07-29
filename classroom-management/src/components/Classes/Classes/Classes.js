@@ -4,24 +4,19 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 
 // Services
-import {
-  deleteClassApi,
-  getAllClassesApi,
-} from "../../../services/classService";
+import * as api from '../../../services/classService';
 
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
 import DialogClassStudent from "../../Dialog/Dialog";
 
-
-
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import {
   deleteClass,
   setClasses,
 } from "../../../redux/slices/classesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Classes = () => {
   const dispatch = useDispatch();
@@ -38,7 +33,7 @@ const Classes = () => {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const data = await getAllClassesApi();
+        const data = await api.getAllClasses();
         dispatch(setClasses(data));
       } catch (error) {
         setSnackbarMessage({
@@ -69,11 +64,11 @@ const Classes = () => {
 
   const handleDeleteClass = async (classId) => {
     try {
-      await deleteClassApi(classId);
+      await api.deleteClass(classId);
       dispatch(deleteClass(classId));
       setSnackbarMessage({
         open: true,
-        severity: "error",
+        severity: "success",
         message: "Class deleted successfully.",
       });
     } catch (error) {

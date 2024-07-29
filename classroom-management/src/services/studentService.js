@@ -1,6 +1,6 @@
 import { studentsAPI } from './axios'; 
 
-export const getAllStudentsApi = async () => {
+export const getAllStudents = async () => {
   try {
     const response = await studentsAPI.get('/');
     return response.data;
@@ -10,7 +10,7 @@ export const getAllStudentsApi = async () => {
   }
 };
 
-export const createStudentApi = async (studentData) => {
+export const createStudent = async (studentData) => {
   try {
     const response = await studentsAPI.post('/', studentData);
     return response.data;
@@ -20,7 +20,7 @@ export const createStudentApi = async (studentData) => {
   }
 };
 
-export const assignStudentToClassApi = async (id, classId) => {
+export const assignStudentToClass = async (id, classId) => {
   try {
     const response = await studentsAPI.put(`/${id}/${classId}`);
     return response.data;
@@ -29,16 +29,8 @@ export const assignStudentToClassApi = async (id, classId) => {
     throw error;
   }
 };
-export const getAllStudentsInClassApi = async (classId) => {
-  try {
-    const response = await studentsAPI.get(`/allStudentInClass/${classId}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching all students:', error);
-    throw error;
-  }
-};
-export const deleteStudentApi = async (id) => {
+
+export const deleteStudent = async (id) => {
   try {
     const response = await studentsAPI.delete(`/${id}`);
     return response.data;

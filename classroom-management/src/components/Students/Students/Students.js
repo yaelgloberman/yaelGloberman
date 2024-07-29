@@ -29,11 +29,8 @@ import {
 import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
 
 // Services
-import { getAvailableClassesApi } from "../../../services/classService";
-import {
-  deleteStudentApi,
-  getAllStudentsApi,
-} from "../../../services/studentService";
+import * as cApi from "../../../services/classService";
+import * as sApi from "../../../services/studentService";
 
 const Students = () => {
   const [open, setOpen] = useState(false);
@@ -50,7 +47,7 @@ const Students = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const data = await getAllStudentsApi();
+        const data = await sApi.getAllStudents();
         dispatch(setStudents(data));
       } catch (error) {
         setSnackbarMessage({
@@ -66,7 +63,7 @@ const Students = () => {
 
   const fetchClasses = async () => {
     try {
-      const data = await getAvailableClassesApi();
+      const data = await cApi.getAvailableClasses();
       setClasses(data);
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -84,7 +81,7 @@ const Students = () => {
 
   const handleDeleteStudent = async (studentId) => {
     try {
-      await deleteStudentApi(studentId);
+      await sApi.deleteStudent(studentId);
       dispatch(deleteStudent(studentId));
       await fetchClasses();
       setSnackbarMessage({
@@ -146,7 +143,7 @@ const Students = () => {
                     <TableCell align="center">
                       <Button
                         variant="outlined"
-                        disabled={student.assignToClass}
+                        disabled={student.classId}
                         onClick={() => handleOpen(student.id)}
                       >
                         Assign to class

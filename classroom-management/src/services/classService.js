@@ -1,6 +1,6 @@
 import { classesAPI } from './axios'; 
 
-export const getAllClassesApi = async () => {
+export const getAllClasses = async () => {
   try {
     const response = await classesAPI.get('/');
     return response.data;
@@ -10,7 +10,7 @@ export const getAllClassesApi = async () => {
   }
 };
 
-export const getAvailableClassesApi = async () => {
+export const getAvailableClasses= async () => {
   try {
     const response = await classesAPI.get('/availableClasses');
     return response.data;
@@ -20,7 +20,7 @@ export const getAvailableClassesApi = async () => {
   }
 };
 
-export const createClassApi = async (classData) => {
+export const createClass = async (classData) => {
   try {
     const response = await classesAPI.post('/', classData);
     return response.data;
@@ -30,7 +30,7 @@ export const createClassApi = async (classData) => {
   }
 };
 
-export const deleteStudentFromClassApi = async (classId,studentId) => {
+export const deleteStudentFromClass = async (classId,studentId) => {
   try {
     const response = await classesAPI.put(`/${classId}/${studentId}`);
     return response.data;
@@ -40,7 +40,7 @@ export const deleteStudentFromClassApi = async (classId,studentId) => {
   }
 };
 
-export const deleteClassApi = async (id) => {
+export const deleteClass = async (id) => {
   try {
     const response = await classesAPI.delete(`/${id}`);
     return response.data;

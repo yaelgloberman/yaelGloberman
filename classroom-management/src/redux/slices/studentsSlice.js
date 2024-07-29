@@ -21,7 +21,7 @@ const studentsSlice = createSlice({
       const {studentId ,classId} = action.payload;
       const student = state.students.find(stud => stud.id === classId);
       if (student) {
-        student.assignToClass = studentId;
+        student.classId = studentId;
       }
     }
   },

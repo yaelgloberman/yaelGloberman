@@ -15,16 +15,10 @@ const classesSlice = createSlice({
     deleteClass: (state, action) => {
       state.classes = state.classes.filter((cls) => cls.id !== action.payload);
     },
-    deleteStudentFromClass: (state, action) => {
-      const classId = action.payload;
-      const classObj = state.classes.find((cls) => cls.id === classId);
-      if (classObj) {
-        classObj.remainingPlaces = classObj.remainingPlaces + 1;
-      }
-    },
+    
   },
 });
 
-export const { setClasses, addClass, deleteClass, deleteStudentFromClass } =
+export const { setClasses, addClass, deleteClass } =
   classesSlice.actions;
 export default classesSlice.reducer;

@@ -12,8 +12,8 @@ import CreateClass from "../CreateClass/CreateClass";
 import CreateStudent from "../CreateStudent/CreateStudent";
 
 // Services
-import { createClassApi } from "../../../services/classService";
-import { createStudentApi } from "../../../services/studentService";
+import * as cApi  from "../../../services/classService";
+import * as sApi   from "../../../services/studentService";
 
 const Create = () => {
   const [classId, setClassId] = useState("");
@@ -62,7 +62,7 @@ const Create = () => {
       remainingPlaces: Number(maxSeats),
     };
     try {
-      await createClassApi(classData);
+      await cApi.createClass(classData);
       setSnackbarMessage({
         open: true,
         severity: "success",
@@ -91,7 +91,7 @@ const Create = () => {
       profession: studentProfession,
     };
     try {
-      await createStudentApi(studentData);
+      await sApi.createStudent(studentData);
       setSnackbarMessage({
         open: true,
         severity: "success",
