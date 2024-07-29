@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 import { Class } from './class.entity';
 import { CreateClassDto } from './dto/create-class.dto';
-import { UpdateClassDto } from './dto/update-class.sto';
 import { ClassRepository } from './class.repository';
 import { StudentService } from '../students/students.service';
 
@@ -18,6 +17,7 @@ export class ClassService {
     @Inject(forwardRef(() => StudentService))
     private readonly studentService: StudentService,
   ) {}
+
 
   async createClass(createClassDto: CreateClassDto): Promise<Class> {
     const classAlreadyExist = await this.classRepository.getClassById(
@@ -33,12 +33,13 @@ export class ClassService {
   }
 
   async getAllClasses(): Promise<Class[]> {
-    const classes = await this.classRepository.getAllClasses();    
+    const classes = await this.classRepository.getAllClasses();
     if (!classes) {
       throw new HttpException('classes not found', HttpStatus.NOT_FOUND);
     }
     return classes;
   }
+
 
   async getAvailableClasses(): Promise<Class[]> {
     const classes = await this.classRepository.getAvailableClasses();
@@ -55,44 +56,20 @@ export class ClassService {
     return classObjest;
   }
 
-  async assignToClass(classId: number) {
-    await this.classRepository.assignToClass(classId);
-  }
+  async deleteClass(id: number) {
+    const myClass = await this.classRepository.getClassById(id);
 
-  // async dismissFromClass(classId: number) {
-  //  
-  // }
-
-  async deleteStudentFromClass(classId: number, studentId: number) {
-    await this.studentService.dismissFromClass(classId, studentId);
-    return await this.classRepository.dismissFromClass(classId);
-  }
-
-  async updateClass(
-    id: number,
-    updateClassDto: UpdateClassDto,
-  ): Promise<Class> {
-    const classObject = await this.classRepository.getClassById(id);
-    if (classObject) {
-      await classObject.update(updateClassDto);
-      return classObject;
+    if (!myClass) {
+      throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
     }
-    return null;
-  }
-  async deleteClass(id: number): Promise<boolean> {
-    const students = await this.studentService.getAllStudentsInClass(id);
-    if (students.length == 0) {
-      const classObjectExists = await this.classRepository.getClassById(id);
-      if (classObjectExists) {
-        await this.classRepository.deleteClass(id);
-        return true;
-      } else {
-        throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
-      }
+
+    if (myClass?.students?.length === 0) {
+      await this.classRepository.deleteClass(id);
+    } else {
+      throw new HttpException(
+        'Cannot delete class when students are assigned',
+        HttpStatus.CONFLICT,
+      );
     }
-    throw new HttpException(
-      'Cannot delete class when students are assigned',
-      HttpStatus.CONFLICT,
-    );
   }
 }
