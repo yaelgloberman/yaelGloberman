@@ -10,14 +10,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Paper, Typography, IconButton, Grid, Tooltip } from "@mui/material";
 
 const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
-  const isStudent = useMemo(
-    () => classItem.remainingPlaces - classItem.numberOfPlaces !== 0,
-    [classItem]
-  );
 
+  const { remainingPlaces, isStudent } = useMemo(() => {
+    const remainingPlaces = classItem.numberOfPlaces - classItem.students.length;
+    console.log("classItem.students.length",classItem.students.length);
+    const isStudent = remainingPlaces !== 0;
+    return { remainingPlaces, isStudent };
+  }, [classItem]);
+  
   const classes = useStyles({
     numberOfPlaces: classItem.numberOfPlaces,
-    remainingPlaces: classItem.remainingPlaces,
   });
 
   return (
@@ -26,7 +28,8 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
         {classItem.className}
       </Typography>
       <Typography variant="subtitle1">
-        There are {classItem.remainingPlaces} seats left
+        There are {remainingPlaces} seats
+        left
       </Typography>
       <Typography variant="body2" color="textSecondary">
         Out of {classItem.numberOfPlaces}
