@@ -13,7 +13,6 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
 
   const { remainingPlaces, isStudent } = useMemo(() => {
     const remainingPlaces = classItem.numberOfPlaces - classItem.students.length;
-    console.log("classItem.students.length",classItem.students.length);
     const isStudent = remainingPlaces !== 0;
     return { remainingPlaces, isStudent };
   }, [classItem]);

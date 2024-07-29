@@ -20,11 +20,13 @@ const Create = () => {
   const [className, setClassName] = useState("");
   const [maxSeats, setMaxSeats] = useState("");
 
-  const [studentId, setStudentId] = useState("");
-  const [studentFirstName, setStudentFirstName] = useState("");
-  const [studentLastName, setStudentLastName] = useState("");
-  const [studentAge, setStudentAge] = useState("");
-  const [studentProfession, setStudentProfession] = useState("");
+  const [student, setStudent] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    age: "",
+    profession: "",
+  });
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -35,14 +37,7 @@ const Create = () => {
     return (
       Object.keys(error).some(
         (key) => key.startsWith("student") && error[key]
-      ) ||
-      !(
-        studentId &&
-        studentFirstName &&
-        studentLastName &&
-        studentAge &&
-        studentProfession
-      )
+      ) || !student
     );
   };
 
@@ -78,23 +73,13 @@ const Create = () => {
   };
 
   const handleCreateStudent = async () => {
-    const studentData = {
-      id: studentId,
-      firstName: studentFirstName,
-      lastName: studentLastName,
-      age: Number(studentAge),
-      profession: studentProfession,
-    };
+    const studentData = { student };
     try {
       await createStudentApi(studentData);
       setSnackbarMessage("Student created successfully.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
-      setStudentId("");
-      setStudentFirstName("");
-      setStudentLastName("");
-      setStudentAge("");
-      setStudentProfession("");
+      setStudent("");
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Failed to create student.";
@@ -135,54 +120,28 @@ const Create = () => {
     }));
   };
 
-  const handleChangeStudentId = (e) => {
-    const value = e.target.value;
-    setStudentId(value);
-    setError((prevErrors) => ({
-      ...prevErrors,
-      studentId: validateInput(value, "studentId"),
-    }));
+  const validateInput = (value, fieldName) => {
+    if (value.trim() === "") {
+      return `${fieldName} is required`;
+    }
+    return "";
   };
 
-  const handleChangeStudentFirstName = (e) => {
-    const value = e.target.value;
-    setStudentFirstName(value);
-    setError((prevErrors) => ({
-      ...prevErrors,
-      studentFirstName: validateInput(value, "studentFirstName"),
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      [name]: value,
     }));
-  };
-
-  const handleChangeStudentLastName = (e) => {
-    const value = e.target.value;
-    setStudentLastName(value);
     setError((prevErrors) => ({
       ...prevErrors,
-      studentLastName: validateInput(value, "studentLastName"),
-    }));
-  };
-
-  const handleChangeStudentAge = (e) => {
-    const value = e.target.value;
-    setStudentAge(value);
-    setError((prevErrors) => ({
-      ...prevErrors,
-      studentAge: validateInput(value, "studentAge"),
-    }));
-  };
-
-  const handleChangeStudentProfession = (e) => {
-    const value = e.target.value;
-    setStudentProfession(value);
-    setError((prevErrors) => ({
-      ...prevErrors,
-      studentProfession: validateInput(value, "studentProfession"),
+      [name]: validateInput(value, name),
     }));
   };
 
   return (
     <Box display="flex" sx={{ mt: 10 }}>
-      <Grid container  justifyContent="center">
+      <Grid container justifyContent="center">
         <CreateClass
           classId={classId}
           handleChangeClassId={handleChangeClassId}
@@ -194,21 +153,16 @@ const Create = () => {
           hasClassErrors={hasClassErrors}
           handleCreateClass={handleCreateClass}
         />
-        <CreateStudent
-          studentId={studentId}
-          handleChangeStudentId={handleChangeStudentId}
-          error={error}
-          studentFirstName={studentFirstName}
-          handleChangeStudentFirstName={handleChangeStudentFirstName}
-          studentLastName={studentLastName}
-          handleChangeStudentLastName={handleChangeStudentLastName}
-          studentAge={studentAge}
-          handleChangeStudentAge={handleChangeStudentAge}
-          studentProfession={studentProfession}
-          handleChangeStudentProfession={handleChangeStudentProfession}
-          handleCreateStudent={handleCreateStudent}
-          hasStudentErrors={hasStudentErrors}
-        />
+        
+       
+          <CreateStudent
+            error={error}
+            student={student}
+            handleChange={handleChange}
+            handleCreateStudent={handleCreateStudent}
+            hasStudentErrors={hasStudentErrors}
+          />
+        
       </Grid>
       <ErrorSnackbar
         snackbarOpen={snackbarOpen}

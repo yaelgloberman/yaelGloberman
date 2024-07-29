@@ -1,3 +1,5 @@
+import React from "react";
+
 // Mui
 import {
   Button,
@@ -9,18 +11,11 @@ import {
 
 // Style
 import { useStyles } from "./CreateStudent.style";
+
 const CreateStudent = ({
-  studentId,
-  handleChangeStudentId,
   error,
-  studentFirstName,
-  handleChangeStudentFirstName,
-  studentLastName,
-  handleChangeStudentLastName,
-  studentAge,
-  handleChangeStudentAge,
-  studentProfession,
-  handleChangeStudentProfession,
+  student,
+  handleChange,
   handleCreateStudent,
   hasStudentErrors,
 }) => {
@@ -33,67 +28,72 @@ const CreateStudent = ({
       <Grid sx={{ px: 25 }}>
         <TextField
           label="* Id"
-          value={studentId}
-          onChange={handleChangeStudentId}
+          name="id"
+          value={student?.id}
+          onChange={handleChange}
           className={classes.marginB2}
           fullWidth
-          error={!!error.studentId}
+          error={!!error.id}
         />
-        {error.studentId && (
+        {error.id && (
           <FormHelperText error className={classes.marginB2}>
-            {error.studentId}
+            {error.id}
           </FormHelperText>
         )}
         <TextField
           label="* First Name"
-          value={studentFirstName}
-          onChange={handleChangeStudentFirstName}
+          name="firstName"
+          value={student?.firstName}
+          onChange={handleChange}
           className={classes.marginB2}
           fullWidth
-          error={!!error.studentFirstName}
+          error={!!error.firstName}
         />
-        {error.studentFirstName && (
+        {error.firstName && (
           <FormHelperText error className={classes.marginB2}>
-            {error.studentFirstName}
+            {error.firstName}
           </FormHelperText>
         )}
         <TextField
           label="* Last Name"
-          value={studentLastName}
-          onChange={handleChangeStudentLastName}
+          name="lastName"
+          value={student?.lastName}
+          onChange={handleChange}
           className={classes.marginB2}
           fullWidth
-          error={!!error.studentLastName}
+          error={!!error.lastName}
         />
-        {error.studentLastName && (
+        {error.lastName && (
           <FormHelperText error className={classes.marginB2}>
-            {error.studentLastName}
+            {error.lastName}
           </FormHelperText>
         )}
         <TextField
           label="* Age"
-          value={studentAge}
-          onChange={handleChangeStudentAge}
+          name="age"
+          value={student?.age}
+          onChange={handleChange}
           className={classes.marginB2}
           fullWidth
-          error={!!error.studentAge}
+          error={!!error.age}
         />
-        {error.studentAge && (
+        {error.age && (
           <FormHelperText error className={classes.marginB2}>
-            {error.studentAge}
+            {error.age}
           </FormHelperText>
         )}
         <TextField
           label="* Profession"
-          value={studentProfession}
-          onChange={handleChangeStudentProfession}
+          name="profession"
+          value={student?.profession}
+          onChange={handleChange}
           className={classes.marginB2}
           fullWidth
-          error={!!error.studentProfession}
+          error={!!error.profession}
         />
-        {error.studentProfession && (
+        {error.profession && (
           <FormHelperText error className={classes.marginB2}>
-            {error.studentProfession}
+            {error.profession}
           </FormHelperText>
         )}
       </Grid>

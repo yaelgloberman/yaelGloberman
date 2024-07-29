@@ -1,83 +1,172 @@
-// Style
-import { useStyles } from "./CreateClass.style";
+import React, { useState } from "react";
 
 // Mui
-import {
-  Button,
-  FormHelperText,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
-const CreateClass = ({
-  classId,
-  handleChangeClassId,
-  error,
-  className,
-  handleChangeClassName,
-  maxSeats,
-  handleChangeMaxSeats,
-  hasClassErrors,
-  handleCreateClass,
-}) => {
-  const classes = useStyles();
+//Validation
+import { validateInput } from "../../../utils/validation";
+
+//Component
+import ErrorSnackbar from "../../ErrorSnackbar";
+import CreateClass from "../CreateClass/CreateClass";
+import CreateStudent from "../CreateStudent/CreateStudent";
+
+// Services
+import { createClassApi } from "../../../services/classService";
+import { createStudentApi } from "../../../services/studentService";
+
+const Create = () => {
+  const [classId, setClassId] = useState("");
+  const [className, setClassName] = useState("");
+  const [maxSeats, setMaxSeats] = useState("");
+
+  const [student, setStudent] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    age: "",
+    profession: "",
+  });
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [error, setError] = useState({});
+
+  const hasStudentErrors = () => {
+    return (
+      Object.keys(error).some((key) => key.startsWith("student") && error[key]) ||
+      !student
+    );
+  };
+
+  const hasClassErrors = () => {
+    return (
+      Object.keys(error).some((key) => key.startsWith("class") && error[key]) ||
+      !(classId && className && maxSeats)
+    );
+  };
+
+  const handleCreateClass = async () => {
+    const classData = {
+      id: Number(classId),
+      className: className,
+      numberOfPlaces: Number(maxSeats),
+      remainingPlaces: Number(maxSeats),
+    };
+    try {
+      await createClassApi(classData);
+      setSnackbarMessage("Class created successfully.");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+      setClassId("");
+      setClassName("");
+      setMaxSeats("");
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to create class.";
+      setSnackbarMessage(errorMessage);
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleCreateStudent = async () => {
+    const studentData = { ...student };
+    try {
+      await createStudentApi(studentData);
+      setSnackbarMessage("Student created successfully.");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+      setStudent({
+        id: "",
+        firstName: "",
+        lastName: "",
+        age: "",
+        profession: "",
+      });
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to create student.";
+      setSnackbarMessage(errorMessage);
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleChangeClassId = (e) => {
+    const value = e.target.value;
+    setClassId(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      classId: validateInput(value, "classId"),
+    }));
+  };
+
+  const handleChangeClassName = (e) => {
+    const value = e.target.value;
+    setClassName(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      className: validateInput(value, "className"),
+    }));
+  };
+
+  const handleChangeMaxSeats = (e) => {
+    const value = e.target.value;
+    setMaxSeats(value);
+    setError((prevErrors) => ({
+      ...prevErrors,
+      maxSeats: validateInput(value, "maxSeats"),
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      [name]: value,
+    }));
+    setError((prevErrors) => ({
+      ...prevErrors,
+      [name]: validateInput(value, name),
+    }));
+  };
 
   return (
-    <Grid container alignItems="center" justifyContent="center" item xs={5}>
-      <Typography variant="h4" className={classes.marginB2}>
-        Create new Class
-      </Typography>
-      <Grid sx={{ px: 25 }}>
-        <TextField
-          label="* Id"
-          value={classId}
-          onChange={handleChangeClassId}
-          sx={{ marginBottom: 2 }}
-          fullWidth
-          error={!!error.classId}
+    <Box display="flex" sx={{ mt: 10 }}>
+      <Grid container justifyContent="center">
+        <CreateClass
+          classId={classId}
+          handleChangeClassId={handleChangeClassId}
+          error={error}
+          className={className}
+          handleChangeClassName={handleChangeClassName}
+          maxSeats={maxSeats}
+          handleChangeMaxSeats={handleChangeMaxSeats}
+          hasClassErrors={hasClassErrors}
+          handleCreateClass={handleCreateClass}
         />
-        {error.classId && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.classId}
-          </FormHelperText>
-        )}
-        <TextField
-          label="* Class Name"
-          value={className}
-          onChange={handleChangeClassName}
-          sx={{ marginBottom: 2 }}
-          fullWidth
-          error={!!error.className}
+        <CreateStudent
+          error={error}
+          student={student}
+          handleChange={handleChange}
+          handleCreateStudent={handleCreateStudent}
+          hasStudentErrors={hasStudentErrors}
         />
-        {error.className && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.className}
-          </FormHelperText>
-        )}
-        <TextField
-          label="* Total Places"
-          value={maxSeats}
-          onChange={handleChangeMaxSeats}
-          sx={{ marginBottom: 2 }}
-          fullWidth
-          error={!!error.maxSeats}
-        />
-        {error.maxSeats && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.maxSeats}
-          </FormHelperText>
-        )}
       </Grid>
-      <Button
-        variant="contained"
-        disabled={hasClassErrors()}
-        onClick={handleCreateClass}
-      >
-        Create Class
-      </Button>
-    </Grid>
+      <ErrorSnackbar
+        snackbarOpen={snackbarOpen}
+        snackbarSeverity={snackbarSeverity}
+        snackbarMessage={snackbarMessage}
+        handleSnackbarClose={handleSnackbarClose}
+      />
+    </Box>
   );
 };
 
-export default CreateClass;
+export default Create;
