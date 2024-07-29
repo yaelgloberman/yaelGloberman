@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 // Style
 import { useStyles } from "./MenuAppBar.style";
 
+// Constants
+import { PATHS, WHITE } from "../../constants";
+
 // Context
 import { ThemeContext } from "../../themeContext";
 
@@ -33,15 +36,12 @@ const MenuAppBar = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const paths = Object.values(PATHS);
 
   const DrawerList = (
     <Box sx={{ width: 200 }} role="presentation">
       <List>
-        {[
-          { text: "Classes", path: "/classes" },
-          { text: "Students", path: "/students" },
-          { text: "Create", path: "/create" },
-        ].map((item) => (
+        {paths.map((item) => (
           <ListItem key={item.text} disablePadding onClick={handleClose}>
             <ListItemButton component={Link} to={item.path}>
               <ListItemText primary={item.text} />
@@ -61,7 +61,7 @@ const MenuAppBar = () => {
             color="inherit"
             aria-label="menu"
             onClick={() => setOpen(true)}
-            sx={{ color: "white" }}
+            sx={{ color: WHITE }}
           >
             <MenuIcon />
           </IconButton>

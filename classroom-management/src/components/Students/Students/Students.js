@@ -25,6 +25,9 @@ import {
   setStudents,
 } from "../../../redux/slices/studentsSlice";
 
+// CONSTANTS
+import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
+
 // Services
 import { getAvailableClassesApi } from "../../../services/classService";
 import {
@@ -32,7 +35,6 @@ import {
   getAllStudentsApi,
 } from "../../../services/studentService";
 
-import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
 const Students = () => {
   const [open, setOpen] = useState(false);
   const [studentId, setStudentId] = useState(null);

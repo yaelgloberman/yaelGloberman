@@ -3,10 +3,18 @@ import React, { useEffect, useState } from "react";
 // Mui
 import { Grid } from "@mui/material";
 
+// Services
+import {
+  deleteClassApi,
+  getAllClassesApi,
+} from "../../../services/classService";
+
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
 import DialogClassStudent from "../../Dialog/Dialog";
+
+
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -14,13 +22,6 @@ import {
   deleteClass,
   setClasses,
 } from "../../../redux/slices/classesSlice";
-
-// Services
-import {
-  deleteClassApi,
-  getAllClassesApi,
-} from "../../../services/classService";
-import { getAllStudentsInClassApi } from "../../../services/studentService";
 
 const Classes = () => {
   const dispatch = useDispatch();
