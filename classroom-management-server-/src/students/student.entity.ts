@@ -6,17 +6,14 @@ import {
   ForeignKey,
   BelongsTo,
   PrimaryKey,
-  AutoIncrement,
 } from 'sequelize-typescript';
 import { Class } from '../classes/class.entity';
 import { IStudent } from './stuednt.interface';
-import { IsIdentityCard, IsString } from 'class-validator';
 
-@Table
+@Table({ timestamps: true, paranoid: true })
 export class Student extends Model<Student> implements IStudent {
   
   @PrimaryKey
-  @IsString()
   @Column({
     type: DataType.STRING,
     allowNull: false,

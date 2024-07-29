@@ -1,7 +1,11 @@
-import { IsString, IsNumber, IsIdentityCard } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsIdentityCard,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateStudentDto {
-  
   @IsIdentityCard('he-IL')
   @IsString()
   id: string;
@@ -18,6 +22,7 @@ export class CreateStudentDto {
   @IsString()
   profession: string;
 
+  @IsOptional()
   @IsNumber()
-  classId: number;
+  classId?: number;
 }

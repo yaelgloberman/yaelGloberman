@@ -4,36 +4,27 @@ import { CreateStudentDto } from './dto/create-student.dto';
 
 @Injectable()
 export class StudentRepository {
-  async getStudentById(id: number) {
+
+  async getStudentById(id: string) {
     return await Student.findByPk(id);
   }
+
   async getAllStudents() {
     return await Student.findAll();
   }
-  async getAllStudentsInClass(id:number) {
-    const students= await Student.findAll({
-      where:{
-        assignToClass: id
-      }
-    })
-    
-    return students
-  }
+
   async createStudent(newStudent: CreateStudentDto) {
     return Student.create(newStudent);
   }
 
-  async asignStudentToClass(id: number, classId: number) {
-    const student = await Student.update(
-      { assignToClass: classId },
-      { where: { id }, returning: true },
-    );
-    return student;
+  async asignStudentToClass(id: string, classId: number) {
+    await Student.update({ classId: classId }, { where: { id } });
   }
-  async unAsignStudentFronClass(id: number) {
+
+  async unAsignStudentFronClass(id: string) {
     const student = await Student.update(
-      { assignToClass: null },
-      { where: { id } ,returning: true},
+      { classId: null },
+      { where: { id }},
     );
     return student;
   }
