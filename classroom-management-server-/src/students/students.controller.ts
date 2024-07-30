@@ -18,7 +18,7 @@ export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
   @Post()
-  async createStudent(@Body() createStudentDto: CreateStudentDto) {    
+  async createStudent(@Body() createStudentDto: CreateStudentDto) {   
     return await this.studentService.createStudent(createStudentDto);
   }
 

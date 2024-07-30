@@ -16,8 +16,9 @@ export class CreateStudentDto {
   @IsString()
   lastName: string;
 
+  @IsOptional()
   @IsNumber()
-  age: number;
+  age?: number;
 
   @IsString()
   profession: string;

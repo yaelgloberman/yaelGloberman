@@ -32,6 +32,7 @@ export class Student extends Model<Student> implements IStudent {
   })
   lastName: string;
 
+  
   @Column({
     type: DataType.INTEGER,
     allowNull: true,

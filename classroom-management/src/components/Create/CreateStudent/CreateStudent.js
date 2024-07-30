@@ -1,101 +1,139 @@
-// Mui
-import {
-  Button,
-  FormHelperText,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-
-// Style
+import React, { useState } from "react";
+import { Button, Grid, Typography } from "@mui/material";
 import { useStyles } from "./CreateStudent.style";
-const CreateStudent = ({
-  studentId,
-  handleChangeStudentId,
-  error,
-  studentFirstName,
-  handleChangeStudentFirstName,
-  studentLastName,
-  handleChangeStudentLastName,
-  studentAge,
-  handleChangeStudentAge,
-  studentProfession,
-  handleChangeStudentProfession,
-  handleCreateStudent,
-  hasStudentErrors,
-}) => {
+import * as api from "../../../services/studentService";
+import FormField from "../FormField";
+
+const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
   const classes = useStyles();
+  const [student, setStudent] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    age: "",
+    profession: "",
+  });
+  const { id, firstName, lastName, age, profession } = student;
+
+  const setStudentProperty = (property, value) => {
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      [property]: value,
+    }));
+  };
+
+  const hasStudentErrors = () => {
+    return (
+      Object.keys(error).some(
+        (key) =>
+          key.startsWith("student") &&
+          error[key] &&
+          !(
+            key === "studentAge" &&
+            error[key] === "Age must be a non-negative number"
+          )
+      ) ||
+      id === "" ||
+      firstName === "" ||
+      lastName === "" ||
+      profession === ""
+    );
+  };
+  const handleCreateStudent = async () => {
+    try {
+      if (age === "" || age == null) {
+        const studentWithoutAge = {
+          id: id,
+          firstName: firstName,
+          lastName: lastName,
+          profession: profession,
+        };
+
+        await api.createStudent(studentWithoutAge);
+      } else {
+        const objectStudentData = {
+          id: id,
+          firstName: firstName,
+          lastName: lastName,
+          age: Number(age),
+          profession: profession,
+        };
+        await api.createStudent(objectStudentData);
+      }
+      setSnackbarMessage({
+        open: true,
+        severity: "success",
+        message: "Student created successfully.",
+      });
+      setStudent({
+        id: "",
+        firstName: "",
+        lastName: "",
+        age: "",
+        profession: "",
+      });
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to create student.";
+      setSnackbarMessage({
+        open: true,
+        severity: "error",
+        message: errorMessage,
+      });
+    }
+  };
+
   return (
     <Grid container alignItems="center" justifyContent="center" item xs={5}>
       <Typography variant="h4" className={classes.marginB2}>
         Add new student
       </Typography>
       <Grid sx={{ px: 25 }}>
-        <TextField
+        <FormField
           label="* Id"
-          value={studentId}
-          onChange={handleChangeStudentId}
-          className={classes.marginB2}
-          fullWidth
-          error={!!error.studentId}
+          value={id}
+          property="id"
+          validationType="studentId"
+          setData={setStudentProperty}
+          error={error}
+          setError={setError}
         />
-        {error.studentId && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.studentId}
-          </FormHelperText>
-        )}
-        <TextField
+        <FormField
           label="* First Name"
-          value={studentFirstName}
-          onChange={handleChangeStudentFirstName}
-          className={classes.marginB2}
-          fullWidth
-          error={!!error.studentFirstName}
+          value={firstName}
+          property="firstName"
+          validationType="studentFirstName"
+          setData={setStudentProperty}
+          error={error}
+          setError={setError}
         />
-        {error.studentFirstName && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.studentFirstName}
-          </FormHelperText>
-        )}
-        <TextField
+        <FormField
           label="* Last Name"
-          value={studentLastName}
-          onChange={handleChangeStudentLastName}
-          className={classes.marginB2}
-          fullWidth
-          error={!!error.studentLastName}
+          value={lastName}
+          property="lastName"
+          validationType="studentLastName"
+          setData={setStudentProperty}
+          error={error}
+          setError={setError}
         />
-        {error.studentLastName && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.studentLastName}
-          </FormHelperText>
-        )}
-        <TextField
-          label="* Age"
-          value={studentAge}
-          onChange={handleChangeStudentAge}
-          className={classes.marginB2}
-          fullWidth
-          error={!!error.studentAge}
+        <FormField
+          label="Age"
+          value={age}
+          property="age"
+          validationType="studentAge"
+          setData={setStudentProperty}
+          error={error}
+          setError={setError}
         />
-        {error.studentAge && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.studentAge}
-          </FormHelperText>
-        )}
-        <TextField
+        <FormField
           label="* Profession"
-          value={studentProfession}
-          onChange={handleChangeStudentProfession}
-          className={classes.marginB2}
-          fullWidth
-          error={!!error.studentProfession}
+          value={profession}
+          property="profession"
+          validationType="studentProfession"
+          setData={setStudentProperty}
+          error={error}
+          setError={setError}
         />
-        {error.studentProfession && (
-          <FormHelperText error className={classes.marginB2}>
-            {error.studentProfession}
-          </FormHelperText>
-        )}
       </Grid>
       <Button
         variant="contained"

@@ -30,7 +30,7 @@ import { useDispatch } from "react-redux";
 import { assignStudentToClass } from "../../redux/slices/studentsSlice";
 // import { deleteStudentFromClass } from "../../redux/slices/classesSlice";
 
-const DialogClassStudent = ({
+const GenericDialog = ({
   dialogName,
   dialogTitle,
   studentId,
@@ -125,4 +125,4 @@ const DialogClassStudent = ({
   );
 };
 
-export default DialogClassStudent;
+export default GenericDialog;
