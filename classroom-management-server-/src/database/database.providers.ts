@@ -1,24 +1,23 @@
-
 import { Sequelize } from 'sequelize-typescript';
-import { Student } from '../students/student.entity'; 
+import { Student } from '../students/student.entity';
 import { Class } from 'src/classes/class.entity';
 
 export const databaseProviders = [
   {
-    provide: 'SEQUELIZE', 
+    provide: 'SEQUELIZE',
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: 'localhost',
-        port: 5432,
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
         username: 'postgres',
-        password: 'Yagllo21!', 
-        database: 'classroom_manegment', 
+        database: process.env.DB_DATABASE,
+        password: process.env.DB_PASSWORD,
       });
 
-      sequelize.addModels([Class,Student]); 
+      sequelize.addModels([Class, Student]);
 
-      await sequelize.sync(); 
+      await sequelize.sync();
 
       return sequelize;
     },

@@ -49,12 +49,11 @@ export class StudentService {
   async asignStudentToClass(
     id: string,
     classId: number,
-    updateStudentDto: UpdateStudentDto,
   ) {
     const student = await this.studentsRepository.getStudentById(id);
     const classObj = await this.classesService.getClassById(classId);
     if (student && classObj) {
-      await this.studentsRepository.asignStudentToClass(id, classId);
+      await this.studentsRepository.asignStudentToClass(id,classId);
     } else {
       throw new NotFoundException('Stuent or class not exist');
     }

@@ -36,9 +36,9 @@ export class StudentController {
   async asignStudentToClass(
     @Param('id') id: string,
     @Param('classId') classId: number,
-    @Body() updateStudentDto: UpdateStudentDto
+    
   ) {
-     await this.studentService.asignStudentToClass(id, classId,updateStudentDto);
+     await this.studentService.asignStudentToClass(id, classId);
   }
 
 
