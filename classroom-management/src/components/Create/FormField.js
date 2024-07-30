@@ -12,7 +12,7 @@ const FormField = ({
   setData,
 }) => {
   const classes = useStyles();
-  
+
   const handleChange = (e) => {
     const newValue = e.target.value;
     setData(property, newValue);
