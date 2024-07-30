@@ -22,13 +22,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 // Service
-import { assignStudentToClassApi } from "../../services/studentService";
-import { deleteStudentFromClassApi } from "../../services/classService";
+import * as sApi from "../../services/studentService";
+import * as cApi  from "../../services/classService";
 
 // Redux
 import { useDispatch } from "react-redux";
 import { assignStudentToClass } from "../../redux/slices/studentsSlice";
-import { deleteStudentFromClass } from "../../redux/slices/classesSlice";
+// import { deleteStudentFromClass } from "../../redux/slices/classesSlice";
 
 const DialogClassStudent = ({
   dialogName,
@@ -45,7 +45,7 @@ const DialogClassStudent = ({
 
   const handleAssignToClass = async (classId, studentId) => {
     try {
-      await assignStudentToClassApi(classId, studentId);
+      await sApi.assignStudentToClass(classId, studentId);
       dispatch(assignStudentToClass({ classId, studentId }));
       if (onAssignmentComplete) {
         onAssignmentComplete();
@@ -57,9 +57,9 @@ const DialogClassStudent = ({
   };
   const handleDeleteStudent = async (student) => {
     try {
-      await deleteStudentFromClassApi(selectedClassId, student.id);
+      await cApi.deleteStudentFromClass(selectedClassId, student.id);
       const updatedStudents = data.filter((stud) => stud.id !== student.id);
-      dispatch(deleteStudentFromClass(selectedClassId));
+      // dispatch(deleteStudentFromClass(selectedClassId));
       setData(updatedStudents);
     } catch (error) {
       console.error("Error deleting student:", error);
@@ -85,7 +85,7 @@ const DialogClassStudent = ({
 
                         <ListItemText primary={classObj.className} />
 
-                        <ListItemIcon sx={{justifyContent:'flex-end'}}>
+                        <ListItemIcon sx={{ justifyContent: "flex-end" }}>
                           <IconButton color="primary">
                             <AddIcon
                               onClick={(event) => {
@@ -105,11 +105,10 @@ const DialogClassStudent = ({
                         <ListItemText
                           primary={`${student.firstName} ${student.lastName}`}
                         />
-                        <ListItemIcon sx={{justifyContent:'flex-end'}}>
+                        <ListItemIcon sx={{ justifyContent: "flex-end" }}>
                           <IconButton
                             aria-label="delete"
                             onClick={() => handleDeleteStudent(student)}
-                            
                           >
                             <DeleteIcon />
                           </IconButton>

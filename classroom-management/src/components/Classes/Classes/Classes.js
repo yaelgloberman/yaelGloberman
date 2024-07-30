@@ -3,45 +3,44 @@ import React, { useEffect, useState } from "react";
 // Mui
 import { Grid } from "@mui/material";
 
+// Services
+import * as api from '../../../services/classService';
+
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
 import DialogClassStudent from "../../Dialog/Dialog";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import {
   deleteClass,
-  selectSelectedClass,
   setClasses,
 } from "../../../redux/slices/classesSlice";
-
-// Services
-import {
-  deleteClassApi,
-  getAllClassesApi,
-} from "../../../services/classService";
-import { getAllStudentsInClassApi } from "../../../services/studentService";
+import { useDispatch, useSelector } from "react-redux";
 
 const Classes = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [selectedClassId, setSelectedClassId] = useState(null);
   const classes = useSelector((state) => state.classes.classes);
+  const [snackbarMessage, setSnackbarMessage] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
 
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const data = await getAllClassesApi();
+        const data = await api.getAllClasses();
         dispatch(setClasses(data));
       } catch (error) {
-        setSnackbarMessage("Failed to fetch classes.");
-        setSnackbarSeverity("error");
-        setSnackbarOpen(true);
+        setSnackbarMessage({
+          open: true,
+          severity: "error",
+          message: "Failed to fetch classes.",
+        });
       }
     };
 
@@ -65,22 +64,29 @@ const Classes = () => {
 
   const handleDeleteClass = async (classId) => {
     try {
-      await deleteClassApi(classId);
+      await api.deleteClass(classId);
       dispatch(deleteClass(classId));
-      setSnackbarMessage("Class deleted successfully.");
-      setSnackbarSeverity("success");
-      setSnackbarOpen(true);
+      setSnackbarMessage({
+        open: true,
+        severity: "success",
+        message: "Class deleted successfully.",
+      });
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Failed to delete class.";
-      setSnackbarMessage(errorMessage);
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
+        setSnackbarMessage({
+          open: true,
+          severity: "error",
+          message: errorMessage,
+        });
     }
   };
 
   const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
+    setSnackbarMessage((prevSnackbar) => ({
+      ...prevSnackbar,
+      open: false,
+    }));
   };
 
   return (
@@ -114,8 +120,6 @@ const Classes = () => {
       />
 
       <ErrorSnackbar
-        snackbarOpen={snackbarOpen}
-        snackbarSeverity={snackbarSeverity}
         snackbarMessage={snackbarMessage}
         handleSnackbarClose={handleSnackbarClose}
       />
