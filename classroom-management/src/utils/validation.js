@@ -2,7 +2,6 @@ const validateClassId = (value) => {
   if (isNaN(value) || value.trim() === "") {
     return "Id must be a number";
   }
-  return "";
 };
 
 const validateClassName = (value) => {
@@ -12,21 +11,18 @@ const validateClassName = (value) => {
   if (!/[a-zA-Z\u0590-\u05FF]/.test(value)) {
     return "Class Name must contain at least one letter (English or Hebrew)";
   }
-  return "";
 };
 
 const validateNumberOfPlaces = (value) => {
   if (isNaN(value) || value.trim() === "" || Number(value) <= 0) {
     return "Max seats must be a positive number";
   }
-  return "";
 };
 
 const validateStudentId = (value) => {
   if (isNaN(value) || value.trim() === "") {
     return "Student ID must be a number";
   }
-  return "";
 };
 
 const validateStudentFirstName = (value) => {
@@ -36,7 +32,6 @@ const validateStudentFirstName = (value) => {
   if (/\d/.test(value)) {
     return "First name cannot contain numbers";
   }
-  return "";
 };
 
 const validateStudentLastName = (value) => {
@@ -46,14 +41,12 @@ const validateStudentLastName = (value) => {
   if (/\d/.test(value)) {
     return "Last name cannot contain numbers";
   }
-  return "";
 };
 
 const validateStudentAge = (value) => {
   if (isNaN(value) || value.trim() === "" || Number(value) < 0) {
     return "Age must be a non-negative number";
   }
-  return "";
 };
 
 const validateStudentProfession = (value) => {
@@ -63,7 +56,6 @@ const validateStudentProfession = (value) => {
   if (!/[a-zA-Z\u0590-\u05FF]/.test(value)) {
     return "Profession must contain at least one letter (English or Hebrew)";
   }
-  return "";
 };
 
 const validationFunctions = {
@@ -76,7 +68,8 @@ const validationFunctions = {
   studentAge: validateStudentAge,
   studentProfession: validateStudentProfession,
 };
+
 export const validateInput = (value, fieldType) => {
   const validate = validationFunctions[fieldType];
-  return validate ? validate(value) : "";
+  return  validate(value) ;
 };
