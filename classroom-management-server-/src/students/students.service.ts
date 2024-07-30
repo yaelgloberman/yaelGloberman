@@ -4,6 +4,8 @@ import {
   HttpException,
   HttpStatus,
   forwardRef,
+  NotFoundException,
+  ConflictException,
 } from '@nestjs/common';
 import { Student } from './student.entity';
 import { StudentRepository } from './student.repository';
@@ -23,9 +25,8 @@ export class StudentService {
     try {
       await this.studentsRepository.createStudent(createStudentDto);
     } catch (error) {
-      throw new HttpException(
+      throw new ConflictException(
         'Student already exist choose diffrent id',
-        HttpStatus.CONFLICT,
       );
     }
   }
@@ -33,7 +34,7 @@ export class StudentService {
     try {
       return await this.studentsRepository.getStudentById(id);
     } catch (error) {
-      throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('Stuents not found');
     }
   }
 
@@ -41,10 +42,7 @@ export class StudentService {
     try {
       return await this.studentsRepository.getAllStudents();
     } catch (error) {
-      throw new HttpException(
-        'Students not found / empty',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException('Students not found');
     }
   }
 
@@ -58,10 +56,7 @@ export class StudentService {
     if (student && classObj) {
       await this.studentsRepository.asignStudentToClass(id, classId);
     } else {
-      throw new HttpException(
-        'stuent or class not exist',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException('Stuent or class not exist');
     }
   }
 
@@ -69,7 +64,7 @@ export class StudentService {
     try {
       await this.studentsRepository.deleteStudent(id);
     } catch (error) {
-      throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('Could not delete student');
     }
   }
 }
