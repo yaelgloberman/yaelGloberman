@@ -23,7 +23,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 // Service
 import * as sApi from "../../services/studentService";
-import * as cApi  from "../../services/classService";
+import * as cApi from "../../services/classService";
 
 // Redux
 import { useDispatch } from "react-redux";
@@ -55,11 +55,11 @@ const GenericDialog = ({
       console.error("Error assigning student to class:", error);
     }
   };
+
   const handleDeleteStudent = async (student) => {
     try {
       await cApi.deleteStudentFromClass(selectedClassId, student.id);
       const updatedStudents = data.filter((stud) => stud.id !== student.id);
-      // dispatch(deleteStudentFromClass(selectedClassId));
       setData(updatedStudents);
     } catch (error) {
       console.error("Error deleting student:", error);
@@ -82,9 +82,7 @@ const GenericDialog = ({
                         <ListItemIcon>
                           <SchoolIcon />
                         </ListItemIcon>
-
                         <ListItemText primary={classObj.className} />
-
                         <ListItemIcon sx={{ justifyContent: "flex-end" }}>
                           <IconButton color="primary">
                             <AddIcon
@@ -101,7 +99,6 @@ const GenericDialog = ({
                         <ListItemIcon>
                           <AccountCircleIcon />
                         </ListItemIcon>
-
                         <ListItemText
                           primary={`${student.firstName} ${student.lastName}`}
                         />

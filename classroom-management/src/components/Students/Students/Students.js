@@ -14,29 +14,30 @@ import {
   TableRow,
 } from "@mui/material";
 
-// Components
-import ErrorSnackbar from "../../ErrorSnackbar";
-import GenericDialog from "../../GenericDialog/GenericDialog";
-
 // Redux
-import { useDispatch, useSelector } from "react-redux";
 import {
   deleteStudent,
   setStudents,
 } from "../../../redux/slices/studentsSlice";
-
-// CONSTANTS
-import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
+import { useDispatch, useSelector } from "react-redux";
 
 // Services
 import * as cApi from "../../../services/classService";
 import * as sApi from "../../../services/studentService";
 
+// Components
+import ErrorSnackbar from "../../ErrorSnackbar";
+import GenericDialog from "../../GenericDialog/GenericDialog";
+
+// Constant
+import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
+
+
 const Students = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [studentId, setStudentId] = useState(null);
   const [classes, setClasses] = useState([]);
-  const dispatch = useDispatch();
   const students = useSelector((state) => state.students.students);
   const [snackbarMessage, setSnackbarMessage] = useState({
     open: false,

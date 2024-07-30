@@ -4,19 +4,16 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 
 // Services
-import * as api from '../../../services/classService';
+import * as api from "../../../services/classService";
+
+// Redux
+import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
 import GenericDialog from "../../GenericDialog/GenericDialog";
-
-// Redux
-import {
-  deleteClass,
-  setClasses,
-} from "../../../redux/slices/classesSlice";
-import { useDispatch, useSelector } from "react-redux";
 
 const Classes = () => {
   const dispatch = useDispatch();
@@ -47,8 +44,6 @@ const Classes = () => {
     fetchClasses();
   }, [dispatch]);
 
-  
-
   const handleOpen = async (classItem) => {
     setSelectedClassId(classItem.id);
     if (classItem.students.length > 0) {
@@ -74,11 +69,11 @@ const Classes = () => {
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Failed to delete class.";
-        setSnackbarMessage({
-          open: true,
-          severity: "error",
-          message: errorMessage,
-        });
+      setSnackbarMessage({
+        open: true,
+        severity: "error",
+        message: errorMessage,
+      });
     }
   };
 
@@ -102,7 +97,7 @@ const Classes = () => {
           <Grid sx={{ m: 1 }} key={classItem.id} item>
             <OneClass
               classItem={classItem}
-              handleOpen={()=>handleOpen(classItem)}
+              handleOpen={() => handleOpen(classItem)}
               handleDeleteClass={handleDeleteClass}
             ></OneClass>
           </Grid>
