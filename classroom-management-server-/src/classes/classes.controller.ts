@@ -17,7 +17,7 @@ export class ClassesController {
 
   @Post()
   async create(@Body() createClassDto: CreateClassDto) {
-    return await this.classService.createClass(createClassDto);
+     await this.classService.createClass(createClassDto);
   }
 
   @Get()

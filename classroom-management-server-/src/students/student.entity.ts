@@ -7,8 +7,8 @@ import {
   BelongsTo,
   PrimaryKey,
 } from 'sequelize-typescript';
-import { Class } from '../classes/class.entity';
 import { IStudent } from './stuednt.interface';
+import { Class } from '../classes/class.entity';
 
 @Table({ timestamps: true, paranoid: true })
 export class Student extends Model<Student> implements IStudent {
