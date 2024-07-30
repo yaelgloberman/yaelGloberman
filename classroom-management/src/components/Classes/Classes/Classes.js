@@ -9,7 +9,7 @@ import * as api from '../../../services/classService';
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
-import DialogClassStudent from "../../Dialog/Dialog";
+import GenericDialog from "../../GenericDialog/GenericDialog";
 
 // Redux
 import {
@@ -109,7 +109,7 @@ const Classes = () => {
         ))}
       </Grid>
 
-      <DialogClassStudent
+      <GenericDialog
         dialogName={"students"}
         dialogTitle={"Class students"}
         setData={setStudents}

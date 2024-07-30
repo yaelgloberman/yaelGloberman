@@ -16,7 +16,7 @@ import {
 
 // Components
 import ErrorSnackbar from "../../ErrorSnackbar";
-import DialogClassStudent from "../../Dialog/Dialog";
+import GenericDialog from "../../GenericDialog/GenericDialog";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -165,7 +165,7 @@ const Students = () => {
         </div>
       </Grid>
 
-      <DialogClassStudent
+      <GenericDialog
         dialogName={"classes"}
         dialogTitle={"Available classes"}
         studentId={studentId}
