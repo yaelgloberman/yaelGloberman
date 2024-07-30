@@ -21,7 +21,7 @@ export const validateInput = (value, fieldType) => {
         return "Max seats must be a positive number";
       }
       break;
-      
+
     // Student validation
     case "studentId":
       if (isNaN(value) || value.trim() === "") {
