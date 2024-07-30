@@ -16,7 +16,7 @@ export const validateInput = (value, fieldType) => {
         return "Class Name must contain at least one letter (English or Hebrew)";
       }
       break;
-    case "maxSeats":
+    case "numberOfPlaces":
       if (isNaN(value) || value.trim() === "" || Number(value) <= 0) {
         return "Max seats must be a positive number";
       }

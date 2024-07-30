@@ -3,16 +3,11 @@ import React, { useState } from "react";
 // Mui
 import { Box, Grid } from "@mui/material";
 
-//Validation
-import { validateInput } from "../../../utils/validation";
-
 //Component
 import ErrorSnackbar from "../../ErrorSnackbar";
 import CreateClass from "../CreateClass/CreateClass";
 import CreateStudent from "../CreateStudent/CreateStudent";
 
-// Services
-import * as sApi from "../../../services/studentService";
 
 const Create = () => {
  
