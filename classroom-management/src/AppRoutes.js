@@ -1,18 +1,17 @@
-import React from 'react';
+import React from "react";
+
+// Constant
+import { ROUTES } from "./constants";
 
 // React router
-import { Route, Routes } from 'react-router-dom';
-
-// Components
-import Students from './components/Students/Students/Students';
-import Create from './components/Create/Create/Create'
-import Classes from './components/Classes/Classes/Classes';
+import { Route, Routes } from "react-router-dom";
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/classes" element={<Classes />} />
-    <Route path="/students" element={<Students />} />
-    <Route path="/create" element={<Create />} />
+    {Object.keys(ROUTES).map((key) => {
+      const [path, Component] = ROUTES[key];
+      return <Route key={key} path={path} element={<Component />} />;
+    })}
   </Routes>
 );
 
