@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
 import { Class } from './class.entity';
-import { CreateClassDto } from './dto/create-class.dto';
 import sequelize, { Op } from 'sequelize';
+import { Injectable } from '@nestjs/common';
 import { Student } from 'src/students/student.entity';
+import { CreateClassDto } from './dto/create-class.dto';
 
 @Injectable()
 export class ClassRepository {
@@ -15,7 +15,7 @@ export class ClassRepository {
       ],
     });
   }
- 
+
   async getAllClasses() {
     return await Class.findAll({
       order: ['className'],
@@ -28,7 +28,7 @@ export class ClassRepository {
   }
 
   async createClass(newClass: CreateClassDto) {
-    return Class.create(newClass);
+    Class.create(newClass);
   }
 
   async getAvailableClasses() {
@@ -58,11 +58,7 @@ export class ClassRepository {
     return classes;
   }
 
-  
   async deleteClass(id: number) {
-    const classObject = await this.getClassById(id);
-    if (classObject) {
-      await classObject.destroy();
-    }
+    await Class.destroy({ where: { id } });
   }
 }

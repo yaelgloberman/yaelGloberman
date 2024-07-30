@@ -10,16 +10,16 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { StudentService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
+import { UpdateStudentDto } from './dto/update-student.dto';
 
 @ApiTags('students')
 @Controller('students')
 export class StudentController {
-  
   constructor(private readonly studentService: StudentService) {}
 
   @Post()
-  async createStudent(@Body() createStudentDto: CreateStudentDto) {   
-    return await this.studentService.createStudent(createStudentDto);
+  async createStudent(@Body() createStudentDto: CreateStudentDto) {
+    await this.studentService.createStudent(createStudentDto);
   }
 
   @Get(':id')
@@ -31,15 +31,19 @@ export class StudentController {
   async getAllStudents() {
     return await this.studentService.getAllStudents();
   }
-  
+
   @Put(':id/:classId')
-  async asignStudentToClass(@Param('id') id: string, @Param('classId') classId: number) {
-    return await this.studentService.asignStudentToClass(id, classId);
+  async asignStudentToClass(
+    @Param('id') id: string,
+    @Param('classId') classId: number,
+    @Body() updateStudentDto: UpdateStudentDto
+  ) {
+     await this.studentService.asignStudentToClass(id, classId,updateStudentDto);
   }
+
 
   @Delete(':id')
   async deleteStudent(@Param('id') id: string) {
-    return await this.studentService.deleteStudent(id);
+    await this.studentService.deleteStudent(id);
   }
-  
 }
