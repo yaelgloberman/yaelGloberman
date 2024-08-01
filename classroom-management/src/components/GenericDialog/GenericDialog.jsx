@@ -16,20 +16,21 @@ import {
   Typography,
 } from "@mui/material";
 
+
+// Service
+import * as sApi from "../../services/studentService";
+import * as cApi from "../../services/classService";
+
 // Mui icon
 import AddIcon from "@mui/icons-material/Add";
 import SchoolIcon from "@mui/icons-material/School";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-// Service
-import * as sApi from "../../services/studentService";
-import * as cApi from "../../services/classService";
-
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { assignStudentToClass } from "../../redux/slices/studentsSlice";
+import { useDispatch } from "react-redux";
 import { useStyles } from "./GenericDialog.style";
+import { assignStudentToClass } from "../../redux/slices/studentsSlice";
 
 const GenericDialog = ({
   dialogName,

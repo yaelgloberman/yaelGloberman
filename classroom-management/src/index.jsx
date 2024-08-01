@@ -11,6 +11,9 @@ import theme from "./theme";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
+//Font
+import WebFont from "webfontloader";
+
 // React dom
 import ReactDOM from "react-dom/client";
 
@@ -20,7 +23,6 @@ import { ThemeProvider } from "@mui/material/styles";
 // React query
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import WebFont from "webfontloader";
  
 const queryClient = new QueryClient();
 
