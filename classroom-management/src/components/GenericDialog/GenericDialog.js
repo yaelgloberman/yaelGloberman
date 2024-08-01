@@ -13,6 +13,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@mui/material";
 
 // Mui icon
@@ -26,9 +27,9 @@ import * as sApi from "../../services/studentService";
 import * as cApi from "../../services/classService";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { assignStudentToClass } from "../../redux/slices/studentsSlice";
-// import { deleteStudentFromClass } from "../../redux/slices/classesSlice";
+import { useStyles } from "./GenericDialog.style";
 
 const GenericDialog = ({
   dialogName,
@@ -42,6 +43,7 @@ const GenericDialog = ({
   selectedClassId,
 }) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const handleAssignToClass = async (classId, studentId) => {
     try {
@@ -68,13 +70,15 @@ const GenericDialog = ({
 
   return (
     <div>
-      <Grid container alignItems="center" justifyContent="center">
+      <Grid container sx={{ display: "flex" }}>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{dialogTitle}</DialogTitle>
+          <DialogTitle>
+            <Typography variant="h6" align="center" className={classes.title}>
+              {dialogTitle}
+            </Typography>
+          </DialogTitle>
           <DialogContent>
-            <Box
-              sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
-            >
+            <Box sx={{ width: "228px", bgcolor: "background.paper" }}>
               <List component="nav" aria-label="main mailbox folders">
                 {dialogName === "classes"
                   ? data.map((classObj, index) => (

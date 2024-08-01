@@ -31,7 +31,7 @@ import GenericDialog from "../../GenericDialog/GenericDialog";
 
 // Constant
 import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
-
+import { useStyles } from "./Students.style";
 
 const Students = () => {
   const dispatch = useDispatch();
@@ -44,6 +44,7 @@ const Students = () => {
     severity: "success",
     message: "",
   });
+  const classesStyle=useStyles()
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -113,57 +114,51 @@ const Students = () => {
   }, []);
 
   return (
-    <Box>
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="center"
-        sx={{ mt: 10 }}
-      >
-        <div>
-          <TableContainer
-            component={Paper}
-            sx={{ width: "70vw", margin: "auto" }}
-          >
-            <Table aria-label="students table">
-              <TableHead>
-                <TableRow>
-                  {TABLE_HEADER.map((tableHeader) => (
-                    <TableCell align="center">{tableHeader}</TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {students.map((student) => (
-                  <TableRow key={student.id}>
-                    {TABLE_BODY.map((prop, index) => (
-                      <TableCell key={index} align="center">
-                        {student[prop]}
-                      </TableCell>
-                    ))}
-                    <TableCell align="center">
-                      <Button
-                        variant="outlined"
-                        disabled={student.classId}
-                        onClick={() => handleOpen(student.id)}
-                      >
-                        Assign to class
-                      </Button>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Button
-                        variant="outlined"
-                        onClick={() => handleDeleteStudent(student.id)}
-                      >
-                        Delete
-                      </Button>
-                    </TableCell>
-                  </TableRow>
+    <Box className={classesStyle.table}
+      
+    >
+      <Grid container justifyContent="center">
+        <TableContainer component={Paper} sx={{ width: "70vw" }}>
+          <Table aria-label="students table">
+            <TableHead>
+              <TableRow>
+                {TABLE_HEADER.map((tableHeader) => (
+                  <TableCell align="center" key={tableHeader}>
+                    {tableHeader}
+                  </TableCell>
                 ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {students.map((student) => (
+                <TableRow key={student.id}>
+                  {TABLE_BODY.map((prop, index) => (
+                    <TableCell className={classesStyle.cell} key={index} align="center">
+                      {student[prop]}
+                    </TableCell>
+                  ))}
+                  <TableCell align="center">
+                    <Button
+                      variant="outlined"
+                      disabled={student.classId}
+                      onClick={() => handleOpen(student.id)}
+                    >
+                      Assign to class
+                    </Button>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleDeleteStudent(student.id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Grid>
 
       <GenericDialog

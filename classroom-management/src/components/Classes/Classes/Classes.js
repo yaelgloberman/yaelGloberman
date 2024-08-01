@@ -6,15 +6,15 @@ import { Grid } from "@mui/material";
 // Services
 import * as api from "../../../services/classService";
 
-// Redux
-import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
-import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
 import GenericDialog from "../../GenericDialog/GenericDialog";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
 const Classes = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -90,7 +90,7 @@ const Classes = () => {
         container
         alignItems="center"
         justifyContent="center"
-        sx={{ mt: 5 }}
+        sx={{ mt: 5 , px:2}}
         spacing={2}
       >
         {classes.map((classItem) => (

@@ -1,25 +1,45 @@
 import { makeStyles } from "@mui/styles";
-// import { makeStyles } from '@material-ui/styles';
 
 export const useStyles = makeStyles(() => ({
-  studentListClose:  {
-    
-      fontWeight: "400 !important",
-
+  studentListClose: {
+    fontWeight: "400 !important",
+    fontSize: "1rem !important",
+    paddingTop: "5px !important",
   },
-  studentListOpen:  {
-    
+
+  studentListOpen: {
     fontWeight: "400 !important",
     cursor: "pointer",
+    fontSize: "1rem",
+    paddingTop: "5px !important",
+  },
 
-},
- 
   bold: {
     fontWeight: "900 !important",
   },
+
   paper: {
-    height: "150px",
-    width: "200px",
-    padding: "16px",
+    height: "188px",
+    width: "199px",
+    padding: "1.25rem",
+    margin: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+
+  className: {
+    fontWeight: "900 !important",
+    fontSize: "1.25rem !important",
+    marginBottom: "0.5rem !important"
+  },
+
+  remainingPlaces: {
+    fontSize: "1rem !important",
+    marginBottom: "0.25rem !important"
+  },
+
+  maxPlaces: {
+    fontSize: "0.875rem !important",
   },
 }));

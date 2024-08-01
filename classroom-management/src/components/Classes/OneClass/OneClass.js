@@ -10,31 +10,34 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Paper, Typography, IconButton, Grid, Tooltip } from "@mui/material";
 
 const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
-
   const { remainingPlaces, isStudent } = useMemo(() => {
-    const remainingPlaces = classItem.numberOfPlaces - classItem.students.length;
-    const isStudent = remainingPlaces !== 0;
+    const remainingPlaces =
+      classItem.numberOfPlaces - classItem.students.length;
+    const isStudent = remainingPlaces >= 0;
     return { remainingPlaces, isStudent };
   }, [classItem]);
-  
-  const classes = useStyles({
-    numberOfPlaces: classItem.numberOfPlaces,
-  });
+
+  const classes = useStyles();
 
   return (
     <Paper className={classes.paper}>
-      <Typography variant="h6" className={classes.bold}>
-        {classItem.className}
-      </Typography>
-      <Typography variant="subtitle1">
-        There are {remainingPlaces} seats
-        left
-      </Typography>
-      <Typography variant="body2" color="textSecondary">
-        Out of {classItem.numberOfPlaces}
-      </Typography>
-      <Grid container sx={{ mt: 4 }}>
-        <Grid item xs={10}>
+      <Grid>
+        <Typography className={classes.className}>
+          {classItem.className}
+        </Typography>
+        <Typography variant="subtitle1" className={classes.remainingPlaces}>
+          There are {remainingPlaces} seats left
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          className={classes.maxPlaces}
+        >
+          Out of {classItem.numberOfPlaces}
+        </Typography>
+      </Grid>
+      <Grid container sx={{ justifyContent: "space-around" }}>
+        <Grid>
           <Tooltip
             title={
               isStudent ? "" : "There are no students assigned for the class"
@@ -51,8 +54,9 @@ const OneClass = ({ classItem, handleOpen, handleDeleteClass }) => {
             </Typography>
           </Tooltip>
         </Grid>
-        <Grid item xs={2}>
+        <Grid>
           <IconButton
+            className={classes.deleteIcon}
             aria-label="delete"
             onClick={() => handleDeleteClass(classItem.id)}
           >
