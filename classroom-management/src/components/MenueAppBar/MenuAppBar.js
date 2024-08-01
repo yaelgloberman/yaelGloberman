@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useStyles } from "./MenuAppBar.style";
 
 // Constants
-import { PATHS, WHITE } from "../../constants";
+import { PATHS } from "../../constants";
 
 // Context
 import { ThemeContext } from "../../themeContext";
@@ -39,7 +39,7 @@ const MenuAppBar = () => {
   const paths = Object.values(PATHS);
 
   const DrawerList = (
-    <Box sx={{ width: 200 }} role="presentation">
+    <Box sx={{ width: "9rem" }} role="presentation">
       <List>
         {paths.map((item) => (
           <ListItem key={item.text} disablePadding onClick={handleClose}>
@@ -55,20 +55,19 @@ const MenuAppBar = () => {
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
             onClick={() => setOpen(true)}
-            sx={{ color: WHITE }}
           >
-            <MenuIcon />
+            <MenuIcon className={classes.menuIcon} />
           </IconButton>
-          <Typography variant="h5" component="div">
+          <Typography className={classes.shobClasses} component="div">
             Shob Classes
           </Typography>
-          <LoyaltyIcon className={classes.margin} onClick={toggleTheme} />
+          <LoyaltyIcon className={classes.loyaltyIcon} onClick={toggleTheme} />
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={handleClose}>
