@@ -3,14 +3,14 @@ import { makeStyles } from "@mui/styles";
 export const useStyles = makeStyles(() => ({
   studentListClose: {
     fontWeight: "400 !important",
-    fontSize: "1rem !important",
+    fontSize: "1.3rem !important",
     paddingTop: "5px !important",
   },
 
   studentListOpen: {
     fontWeight: "400 !important",
     cursor: "pointer",
-    fontSize: "1rem",
+    fontSize: "1.3rem !important",
     paddingTop: "5px !important",
   },
 

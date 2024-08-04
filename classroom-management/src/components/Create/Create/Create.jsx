@@ -8,16 +8,13 @@ import ErrorSnackbar from "../../ErrorSnackbar";
 import CreateClass from "../CreateClass/CreateClass";
 import CreateStudent from "../CreateStudent/CreateStudent";
 
-
 const Create = () => {
- 
   const [error, setError] = useState({});
   const [snackbarMessage, setSnackbarMessage] = useState({
     open: false,
     severity: "success",
     message: "",
   });
-
 
   const handleSnackbarClose = () => {
     setSnackbarMessage((prevSnackbar) => ({
@@ -27,9 +24,9 @@ const Create = () => {
   };
 
   return (
-    <Box display="flex" sx={{ mt: 10 }}>
-      <Grid container justifyContent="center">
-        <CreateClass
+    <Box display="flex" sx={{ marginTop: "50px" }}  >
+      <Grid container justifyContent="space-around" >
+      <CreateClass
           error={error}
           setError={setError}
           setSnackbarMessage={setSnackbarMessage}

@@ -1,6 +1,6 @@
-import { useStyles } from "./CreateClass/CreateClass.style";
 import { FormHelperText, TextField } from "@mui/material";
-import { validateInput } from "../../utils/validation";
+import { validateInput } from "../../../utils/validation";
+import { useStyles } from "./FormField.style";
 
 const FormField = ({
   error,

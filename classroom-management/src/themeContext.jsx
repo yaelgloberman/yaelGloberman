@@ -36,7 +36,7 @@ const ThemeProvider = ({ children }) => {
           },
         },
         typography: {
-          fontFamily: '"Rubik", "Arial", sans-serif', 
+          fontFamily: '"Heebo", "Arial", sans-serif', 
         },
       }),
     [mode]
