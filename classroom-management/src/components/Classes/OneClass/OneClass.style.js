@@ -19,8 +19,8 @@ export const useStyles = makeStyles(() => ({
   },
 
   paper: {
-    height: "188px",
-    width: "199px",
+    height: "11.75rem",
+    width: "12.5rem",
     padding: "1.25rem",
     margin: "1rem",
     display: "flex",

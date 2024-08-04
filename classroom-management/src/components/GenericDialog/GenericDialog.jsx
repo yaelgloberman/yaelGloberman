@@ -79,7 +79,7 @@ const GenericDialog = ({
             </Typography>
           </DialogTitle>
           <DialogContent>
-            <Box sx={{ width: "228px", bgcolor: "background.paper" }}>
+            <Box sx={{ width: "14.25rem", bgcolor: "background.paper" }}>
               <List component="nav" aria-label="main mailbox folders">
                 {dialogName === "classes"
                   ? data.map((classObj, index) => (

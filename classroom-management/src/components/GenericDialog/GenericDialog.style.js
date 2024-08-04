@@ -2,8 +2,8 @@ import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles(() => ({
   title: {
-    fontWeight: "400 !important",
-    fontSize: "20px !important",
-    marginButton:"54px !important"
+    fontWeight: "25rem !important",
+    fontSize: "1.25rem !important",
+    marginButton:"3.375rem !important"
   },
 }));

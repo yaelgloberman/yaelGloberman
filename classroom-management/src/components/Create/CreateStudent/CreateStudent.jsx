@@ -85,10 +85,10 @@ const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
 
   return (
     <Grid container justifyContent="center" item xs={2}>
-      <Typography variant="h4" paddingBottom="20px">
+      <Typography variant="h4" paddingBottom="1.25rem">
         Add new student
       </Typography>
-      <Grid width="200px">
+      <Grid width="12.5rem">
         <FormField
           label="ID *"
           value={id}

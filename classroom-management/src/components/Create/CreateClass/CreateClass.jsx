@@ -54,7 +54,7 @@ const CreateClass = ({ error, setError, setSnackbarMessage }) => {
 
   return (
       <Grid container justifyContent="center" height="20rem" item xs={2}>
-      <Typography variant="h4" paddingBottom="20px">Create new class</Typography>
+      <Typography variant="h4" paddingBottom="1.25rem">Create new class</Typography>
         <Grid width="14rem" >
           <FormField
             label="Class ID *"

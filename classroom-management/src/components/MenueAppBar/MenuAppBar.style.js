@@ -5,20 +5,20 @@ export const useStyles = makeStyles(() => ({
     height: "6rem"
   },
   menuIcon: {
-    height: "34px !important",
-    width: "34px !important",
+    height: "2.125rem !important",
+    width: "2.125rem !important",
     color: 'white !important',
-    marginRight: "16px !important",
+    marginRight: "1rem !important",
     marginLeft: "35px !important"
   },
   shobClasses:{
-    fontSize: "32px !important",
-    fontWeight: "400px !important",
-    marginRight: "20px !important"
+    fontSize: "2rem !important",
+    fontWeight: "25rem !important",
+    marginRight: "1.25rem !important"
   },
   loyaltyIcon: {
-    width: "34px !important",
-    height: "34px !important",
+    width: "2.125rem !important",
+    height: "2.125rem !important",
     color: 'white !important',
     cursor: "pointer"
   },

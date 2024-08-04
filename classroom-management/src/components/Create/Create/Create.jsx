@@ -24,7 +24,7 @@ const Create = () => {
   };
 
   return (
-    <Box display="flex" sx={{ marginTop: "50px" }}  >
+    <Box display="flex" sx={{ marginTop: "3.125rem" }}  >
       <Grid container justifyContent="space-around" >
       <CreateClass
           error={error}
