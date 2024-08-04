@@ -17,7 +17,7 @@ export class StudentRepository {
     return Student.create(newStudent);
   }
 
-  async asignStudentToClass(id: string, classId:number) {
+  async asignStudentToClass(id: string, classId: number) {
     await Student.update({ classId: classId }, { where: { id } });
   }
 

@@ -16,7 +16,6 @@ import {
   Typography,
 } from "@mui/material";
 
-
 // Service
 import * as sApi from "../../services/studentService";
 import * as cApi from "../../services/classService";
@@ -30,7 +29,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // Redux
 import { useDispatch } from "react-redux";
 import { useStyles } from "./GenericDialog.style";
-import { assignStudentToClass } from "../../redux/slices/studentsSlice";
+import { assignStudentToClass , unAssignStudentToClass } from "../../redux/slices/studentsSlice";
 
 const GenericDialog = ({
   dialogName,
@@ -41,7 +40,6 @@ const GenericDialog = ({
   open,
   onAssignmentComplete,
   setData,
-  selectedClassId,
 }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -61,9 +59,10 @@ const GenericDialog = ({
 
   const handleDeleteStudent = async (student) => {
     try {
-      await cApi.deleteStudentFromClass(selectedClassId, student.id);
-      const updatedStudents = data.filter((stud) => stud.id !== student.id);
-      setData(updatedStudents);
+      await sApi.unAssignStudentFromClass(student.id);
+      dispatch(unAssignStudentToClass(student))
+      // const updatedStudents = data.filter((stud) => stud.id !== student.id);
+      // setData(updatedStudents);
     } catch (error) {
       console.error("Error deleting student:", error);
     }
@@ -80,15 +79,18 @@ const GenericDialog = ({
           </DialogTitle>
           <DialogContent>
             <Box sx={{ width: "14.25rem", bgcolor: "background.paper" }}>
-              <List component="nav" aria-label="main mailbox folders">
+              <List component="nav">
                 {dialogName === "classes"
-                  ? data.map((classObj, index) => (
+                  ? data.map((classObj) => (
                       <ListItemButton key={classObj.id}>
                         <ListItemIcon>
                           <SchoolIcon />
                         </ListItemIcon>
-                        <ListItemText primary={classObj.className} />
-                        <ListItemIcon sx={{ justifyContent: "flex-end" }}>
+                        <ListItemText
+                          className={classes.center}
+                          primary={classObj.className}
+                        />
+                        <ListItemIcon className={classes.end}>
                           <IconButton color="primary">
                             <AddIcon
                               onClick={(event) => {
@@ -105,14 +107,15 @@ const GenericDialog = ({
                           <AccountCircleIcon />
                         </ListItemIcon>
                         <ListItemText
+                          className={classes.center}
                           primary={`${student.firstName} ${student.lastName}`}
                         />
-                        <ListItemIcon sx={{ justifyContent: "flex-end" }}>
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => handleDeleteStudent(student)}
-                          >
-                            <DeleteIcon />
+                        <ListItemIcon className={classes.end}>
+                          <IconButton>
+                            <DeleteIcon
+                              aria-label="delete"
+                              onClick={() => handleDeleteStudent(student)}
+                            />
                           </IconButton>
                         </ListItemIcon>
                       </ListItemButton>

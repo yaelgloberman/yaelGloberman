@@ -23,9 +23,16 @@ const studentsSlice = createSlice({
       if (student) {
         student.classId = studentId;
       }
-    }
+    },
+    unAssignStudentToClass: (state, action) => {
+      const { studentId } = action.payload;
+      const student = state.students.find(stud => stud.id === studentId);
+      if (student) {
+        student.classId = null; 
+      }
+    },
   },
 });
 
-export const { setStudents, addStudent, deleteStudent, assignStudentToClass } = studentsSlice.actions;
+export const { setStudents, addStudent, deleteStudent, assignStudentToClass ,unAssignStudentToClass} = studentsSlice.actions;
 export default studentsSlice.reducer;

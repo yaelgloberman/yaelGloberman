@@ -1,8 +1,6 @@
 import {
   Injectable,
   Inject,
-  HttpException,
-  HttpStatus,
   forwardRef,
   NotFoundException,
   ConflictException,
@@ -25,9 +23,7 @@ export class StudentService {
     try {
       await this.studentsRepository.createStudent(createStudentDto);
     } catch (error) {
-      throw new ConflictException(
-        'Student already exist choose diffrent id',
-      );
+      throw new ConflictException('Student already exist choose diffrent id');
     }
   }
   async getStudentById(id: string): Promise<Student> {
@@ -46,17 +42,18 @@ export class StudentService {
     }
   }
 
-  async asignStudentToClass(
-    id: string,
-    classId: number,
-  ) {
+  async asignStudentToClass(id: string, classId: number) {
     const student = await this.studentsRepository.getStudentById(id);
     const classObj = await this.classesService.getClassById(classId);
     if (student && classObj) {
-      await this.studentsRepository.asignStudentToClass(id,classId);
+      await this.studentsRepository.asignStudentToClass(id, classId);
     } else {
       throw new NotFoundException('Stuent or class not exist');
     }
+  }
+
+  async unAsignStudentFronClass(id: string) {
+    await this.studentsRepository.unAsignStudentFronClass(id);
   }
 
   async deleteStudent(id: string) {
