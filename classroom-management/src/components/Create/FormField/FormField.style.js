@@ -1,10 +1,8 @@
 import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles(() => ({
-  marginB2: {
-    marginBottom: "16px !important",
-  },
-  buttom:{
-    height:"39px"
+  fieldSize:{
+    height:'59px',
+    width: '245px',
   }
 }));

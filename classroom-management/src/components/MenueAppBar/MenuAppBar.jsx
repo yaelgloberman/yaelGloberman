@@ -67,7 +67,7 @@ const MenuAppBar = () => {
           <Typography className={classes.shobClasses} component="div">
             Shob Classes
           </Typography>
-          <LoyaltyIcon className={classes.loyaltyIcon} onClick={toggleTheme} />
+          <LoyaltyIcon className={classes.loyaltyIcon}  onClick={toggleTheme} />
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={handleClose}>

@@ -1,11 +1,11 @@
 import React from "react";
 
 // Pages
-import "./index.css"; 
+import "./index.css";
 import App from "./App";
 
 // Theme
-import theme from "./theme"; 
+import theme from "./theme";
 
 // Redux
 import store from "./redux/store";
@@ -23,13 +23,12 @@ import { ThemeProvider } from "@mui/material/styles";
 // React query
 import { QueryClient, QueryClientProvider } from "react-query";
 
- 
 const queryClient = new QueryClient();
 
 WebFont.load({
   google: {
-    families: ["Rubik:300,400,500,600,700"]
-  }
+    families: ["Heebo:300,400,500,600,700"],
+  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

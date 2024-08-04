@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useStyles } from "./CreateClass.style";
 import { Button, Grid, Typography } from "@mui/material";
 import * as api from "../../../services/classService";
-import FormField from "../FormField";
+import FormField from "../FormField/FormField";
 
 const CreateClass = ({ error, setError, setSnackbarMessage }) => {
   const classes = useStyles();
@@ -53,47 +53,47 @@ const CreateClass = ({ error, setError, setSnackbarMessage }) => {
   };
 
   return (
-    <Grid container alignItems="center" justifyContent="center" item xs={5}>
-      <Typography variant="h4" className={classes.marginB2}>
-        Create new Class
-      </Typography>
-      <Grid sx={{ px: 25 }}>
-        <FormField
-          label="* Id"
-          value={id}
-          property="id"
-          validationType="classId"
-          setData={setClassProperty}
-          error={error}
-          setError={setError}
-        />
-        <FormField
-          label="* Class Name"
-          value={className}
-          property="className"
-          validationType="className"
-          setData={setClassProperty}
-          error={error}
-          setError={setError}
-        />
-        <FormField
-          label="* Total Places"
-          value={numberOfPlaces}
-          property="numberOfPlaces"
-          validationType="numberOfPlaces"
-          setData={setClassProperty}
-          error={error}
-          setError={setError}
-        />
+      <Grid container justifyContent="center" height="200px" item xs={2}>
+      <Typography variant="h4" paddingBottom="20px">Create new class</Typography>
+        <Grid width="200px" >
+          <FormField
+            label="Class ID *"
+            value={id}
+            property="id"
+            validationType="classId"
+            setData={setClassProperty}
+            error={error}
+            setError={setError}
+          />
+
+          <FormField
+            label="Name *"
+            value={className}
+            property="className"
+            validationType="className"
+            setData={setClassProperty}
+            error={error}
+            setError={setError}
+          />
+          <FormField
+            label="Max Seats *"
+            value={numberOfPlaces}
+            property="numberOfPlaces"
+            validationType="numberOfPlaces"
+            setData={setClassProperty}
+            error={error}
+            setError={setError}
+          />
+        </Grid>
+        <Button
+          variant="contained"
+          className={classes.buttom}
+          disabled={hasClassErrors()}
+          onClick={handleCreateClass}
+        >
+          CREATE CLASS
+        </Button>
       </Grid>
-      <Button
-        variant="contained"
-        disabled={hasClassErrors()}
-        onClick={handleCreateClass}
-      >
-        Create Class
-      </Button>
-    </Grid>
   );
 };
 

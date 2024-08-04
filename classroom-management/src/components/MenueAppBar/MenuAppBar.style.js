@@ -20,5 +20,6 @@ export const useStyles = makeStyles(() => ({
     width: "34px !important",
     height: "34px !important",
     color: 'white !important',
+    cursor: "pointer"
   },
 }));

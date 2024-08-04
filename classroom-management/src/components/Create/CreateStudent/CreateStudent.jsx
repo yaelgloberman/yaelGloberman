@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { useStyles } from "./CreateStudent.style";
 import * as api from "../../../services/studentService";
-import FormField from "../FormField";
+import FormField from "../FormField/FormField";
 
 const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
   const classes = useStyles();
@@ -84,13 +84,13 @@ const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
   };
 
   return (
-    <Grid container alignItems="center" justifyContent="center" item xs={5}>
-      <Typography variant="h4" className={classes.marginB2}>
+    <Grid container justifyContent="center" item xs={2}>
+      <Typography variant="h4" paddingBottom="20px">
         Add new student
       </Typography>
-      <Grid sx={{ px: 25 }}>
+      <Grid width="200px">
         <FormField
-          label="* Id"
+          label="ID *"
           value={id}
           property="id"
           validationType="studentId"
@@ -99,7 +99,7 @@ const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
           setError={setError}
         />
         <FormField
-          label="* First Name"
+          label="First Name *"
           value={firstName}
           property="firstName"
           validationType="studentFirstName"
@@ -108,7 +108,7 @@ const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
           setError={setError}
         />
         <FormField
-          label="* Last Name"
+          label="Last Name *"
           value={lastName}
           property="lastName"
           validationType="studentLastName"
@@ -126,7 +126,7 @@ const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
           setError={setError}
         />
         <FormField
-          label="* Profession"
+          label="Profession *"
           value={profession}
           property="profession"
           validationType="studentProfession"
@@ -140,7 +140,7 @@ const CreateStudent = ({ error, setError, setSnackbarMessage }) => {
         disabled={hasStudentErrors()}
         onClick={handleCreateStudent}
       >
-        Create Student
+        ADD STUDENT
       </Button>
     </Grid>
   );
