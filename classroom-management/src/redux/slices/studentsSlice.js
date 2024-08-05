@@ -18,21 +18,27 @@ const studentsSlice = createSlice({
       );
     },
     assignStudentToClass: (state, action) => {
-      const {studentId ,classId} = action.payload;
-      const student = state.students.find(stud => stud.id === classId);
+      const { studentId, classId } = action.payload;
+      const student = state.students.find((stud) => stud.id === classId);
       if (student) {
         student.classId = studentId;
       }
     },
     unAssignStudentToClass: (state, action) => {
       const { studentId } = action.payload;
-      const student = state.students.find(stud => stud.id === studentId);
+      const student = state.students.find((stud) => stud.id === studentId);
       if (student) {
-        student.classId = null; 
+        student.classId = null;
       }
     },
   },
 });
 
-export const { setStudents, addStudent, deleteStudent, assignStudentToClass ,unAssignStudentToClass} = studentsSlice.actions;
+export const {
+  setStudents,
+  addStudent,
+  deleteStudent,
+  assignStudentToClass,
+  unAssignStudentToClass,
+} = studentsSlice.actions;
 export default studentsSlice.reducer;

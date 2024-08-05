@@ -29,7 +29,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // Redux
 import { useDispatch } from "react-redux";
 import { useStyles } from "./GenericDialog.style";
-import { assignStudentToClass , unAssignStudentToClass } from "../../redux/slices/studentsSlice";
+import {
+  assignStudentToClass,
+  unAssignStudentToClass,
+} from "../../redux/slices/studentsSlice";
 
 const GenericDialog = ({
   dialogName,
@@ -39,10 +42,11 @@ const GenericDialog = ({
   handleClose,
   open,
   onAssignmentComplete,
-  setData,
+  onUnassignStudent
 }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+
 
   const handleAssignToClass = async (classId, studentId) => {
     try {
@@ -60,9 +64,12 @@ const GenericDialog = ({
   const handleDeleteStudent = async (student) => {
     try {
       await sApi.unAssignStudentFromClass(student.id);
-      dispatch(unAssignStudentToClass(student))
-      // const updatedStudents = data.filter((stud) => stud.id !== student.id);
-      // setData(updatedStudents);
+      const studentId=student.id;
+      dispatch(unAssignStudentToClass({studentId}));
+      if (onUnassignStudent) {
+        onUnassignStudent();
+      }
+      handleClose();
     } catch (error) {
       console.error("Error deleting student:", error);
     }

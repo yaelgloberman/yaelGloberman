@@ -22,8 +22,7 @@ export class StudentRepository {
   }
 
   async unAsignStudentFronClass(id: string) {
-    const student = await Student.update({ classId: null }, { where: { id } });
-    return student;
+    await Student.update({ classId: null }, { where: { id } });
   }
 
   async deleteStudent(id: string) {

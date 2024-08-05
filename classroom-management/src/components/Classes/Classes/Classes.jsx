@@ -6,7 +6,6 @@ import { Grid } from "@mui/material";
 // Services
 import * as api from "../../../services/classService";
 
-
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
@@ -27,20 +26,19 @@ const Classes = () => {
     message: "",
   });
 
+  const fetchClasses = async () => {
+    try {
+      const data = await api.getAllClasses();
+      dispatch(setClasses(data));
+    } catch (error) {
+      setSnackbarMessage({
+        open: true,
+        severity: "error",
+        message: "Failed to fetch classes.",
+      });
+    }
+  };
   useEffect(() => {
-    const fetchClasses = async () => {
-      try {
-        const data = await api.getAllClasses();
-        dispatch(setClasses(data));
-      } catch (error) {
-        setSnackbarMessage({
-          open: true,
-          severity: "error",
-          message: "Failed to fetch classes.",
-        });
-      }
-    };
-
     fetchClasses();
   }, [dispatch]);
 
@@ -90,7 +88,7 @@ const Classes = () => {
         container
         alignItems="center"
         justifyContent="center"
-        sx={{ mt: 5 , px:2}}
+        sx={{ mt: 5, px: 2 }}
         spacing={2}
       >
         {classes.map((classItem) => (
@@ -107,11 +105,11 @@ const Classes = () => {
       <GenericDialog
         dialogName={"students"}
         dialogTitle={"Class students"}
-        setData={setStudents}
         data={students}
         open={open}
         handleClose={handleClose}
         selectedClassId={selectedClassId}
+        onUnassignStudent={fetchClasses}
       />
 
       <ErrorSnackbar
