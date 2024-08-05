@@ -1,3 +1,3 @@
-export {default as Class} from './ClassPage';
-export {default as Create} from './CreatePage';
-export {default as Student} from './StudentPage';
+export {default as Class} from './class';
+export {default as Create} from './create';
+export {default as Student} from './student';

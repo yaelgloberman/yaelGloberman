@@ -1,6 +1,12 @@
-import { FormHelperText, TextField } from "@mui/material";
-import { validateInput } from "../../../utils/validation";
+// Style
 import { useStyles } from "./FormField.style";
+
+// Validation
+import { validateInput } from "../../../utils/validation";
+
+// Mui
+import { FormHelperText, TextField } from "@mui/material";
+
 
 const FormField = ({
   error,

@@ -3,20 +3,19 @@ import React, { useEffect, useState } from "react";
 // Mui
 import { Box, Grid } from "@mui/material";
 
-// Components
-import { ErrorSnackbar,GenericDialog ,StudentsTable} from "../../components";
-
-// Redux
-import { setStudents } from "../../redux/slices/studentsSlice";
-import { useDispatch, useSelector } from "react-redux";
+// Style
+import { useStyles } from "./Students.style";
 
 // Services
 import * as cApi from "../../services/classService";
 import * as sApi from "../../services/studentService";
 
-// Constant
-import { useStyles } from "./Students.style";
-// import StudentsTable from "../StudentsTable/StudentsTable";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { setStudents } from "../../redux/slices/studentsSlice";
+
+// Components
+import { ErrorSnackbar, GenericDialog, StudentsTable } from "../../components";
 
 const Students = () => {
   const dispatch = useDispatch();

@@ -1,8 +1,17 @@
 import { useState } from "react";
-import { useStyles } from "./CreateClass.style";
-import { Button, Grid, Typography } from "@mui/material";
-import * as api from "../../../services/classService";
+
+// Component
 import FormField from "../FormField/FormField";
+
+// Style
+import { useStyles } from "./CreateClass.style";
+
+// Service
+import * as api from "../../../services/classService";
+
+// Mui
+import { Button, Grid, Typography } from "@mui/material";
+
 
 const CreateClass = ({ error, setError, setSnackbarMessage }) => {
   const classes = useStyles();

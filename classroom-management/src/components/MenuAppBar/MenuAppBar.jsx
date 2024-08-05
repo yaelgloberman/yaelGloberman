@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-// Style
-import { useStyles } from "./MenuAppBar.style";
-
 // Constants
 import { PATHS } from "../../constants";
+
+// Style
+import { useStyles } from "./MenuAppBar.style";
 
 // Context
 import { ThemeContext } from "../../themeContext";
@@ -30,7 +30,7 @@ import LoyaltyIcon from "@mui/icons-material/Loyalty";
 
 const MenuAppBar = () => {
   const [open, setOpen] = React.useState(false);
-  const { toggleTheme } = useContext(ThemeContext);
+  const { changeModeColor } = useContext(ThemeContext);
   const classes = useStyles();
 
   const handleClose = () => {
@@ -67,9 +67,10 @@ const MenuAppBar = () => {
           <Typography className={classes.shobClasses} component="div">
             Shob Classes
           </Typography>
-          <LoyaltyIcon className={classes.loyaltyIcon}  onClick={toggleTheme} />
+          <LoyaltyIcon className={classes.loyaltyIcon}  onClick={changeModeColor} />
         </Toolbar>
       </AppBar>
+
       <Drawer open={open} onClose={handleClose}>
         {DrawerList}
       </Drawer>

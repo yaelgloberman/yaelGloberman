@@ -1,52 +1,55 @@
-import React, { createContext, useState, useMemo } from "react";
-
-// Style
+import React, { createContext, useState, useMemo, useContext } from "react";
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
-import { BLUE, PINK } from "./constants";
-
+import { themes } from "./constants";
 
 const ThemeContext = createContext({
-  mode: "light",
-  toggleTheme: () => {},
+  mode: "blue",
+  changeModeColor: () => {},
 });
 
-const ThemeProvider = ({ children }) => {
-  const [mode, setMode] = useState("light");
+const themeKeys = Object.keys(themes);
 
-  const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === "light" ? "pink" : "light"));
+const ThemeProvider = ({ children }) => {
+  const [modeIndex, setModeIndex] = useState(0);
+
+  const changeModeColor = () => {
+    setModeIndex((prevModeIndex) => (prevModeIndex + 1) % themeKeys.length);
   };
+
+  const mode = themeKeys[modeIndex];
+  const primaryColor = themes[mode];
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode: mode === "pink" ? "light" : mode,
           primary: {
-            main: mode === "pink" ? PINK : BLUE, 
+            main: primaryColor,
           },
         },
         components: {
           MuiIconButton: {
             styleOverrides: {
               root: {
-                color: mode === "pink" ? PINK : BLUE, 
+                color: primaryColor,
               },
             },
           },
         },
         typography: {
-          fontFamily: '"Heebo", "Arial", sans-serif', 
+          fontFamily: '"Heebo",  sans-serif'
         },
       }),
-    [mode]
+    [primaryColor]
   );
 
   return (
-    <ThemeContext.Provider value={{ mode, toggleTheme }}>
+    <ThemeContext.Provider value={{ mode, changeModeColor }}>
       <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };
 
 export { ThemeProvider, ThemeContext };
+
+export const useTheme = () => useContext(ThemeContext);

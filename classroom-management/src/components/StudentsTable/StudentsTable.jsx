@@ -1,3 +1,4 @@
+//Mui 
 import {
   Button,
   Paper,
@@ -8,14 +9,19 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TABLE_BODY, TABLE_HEADER } from "../../constants";
+
+// Style
 import { useStyles } from "./StudentsTable.style";
+
+// Services
+import * as sApi from "../../services/studentService";
+
+// Constants
+import { TABLE_BODY, TABLE_HEADER } from "../../constants";
 
 // Redux
 import { deleteStudent } from "../../redux/slices/studentsSlice";
 
-// Services
-import * as sApi from "../../services/studentService";
 
 const StudentsTable = ({
   students,
@@ -26,7 +32,7 @@ const StudentsTable = ({
 }) => {
 
   const classes = useStyles();
-  
+
   const handleDeleteStudent = async (studentId) => {
     try {
       await sApi.deleteStudent(studentId);
