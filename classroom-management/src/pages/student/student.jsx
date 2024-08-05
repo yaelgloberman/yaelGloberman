@@ -8,11 +8,7 @@ import { useStyles } from "./student.style";
 
 // Services
 import * as cApi from "../../services/classService";
-import * as sApi from "../../services/studentService";
 
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { setStudents } from "../../redux/slices/studentsSlice";
 
 // Components
 import { ErrorSnackbar, GenericDialog, StudentsTable } from "../../components";
