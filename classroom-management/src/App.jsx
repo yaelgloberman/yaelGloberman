@@ -4,7 +4,7 @@ import React from "react";
 import { ThemeProvider } from "./themeContext";
 
 //React router
-import Routes from "./AppRoutes";
+import AppRoutes from "./AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // Component
@@ -21,7 +21,7 @@ const App = () => {
       <ThemeProvider>
         <Router>
           <MenuAppBar />
-          <Routes />
+          <AppRoutes />
         </Router>
       </ThemeProvider>
     </QueryClientProvider>

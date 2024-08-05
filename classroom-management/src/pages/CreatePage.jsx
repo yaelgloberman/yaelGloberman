@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
 
 //Component
-import ErrorSnackbar from "../../ErrorSnackbar";
-import CreateClass from "../CreateClass/CreateClass";
-import CreateStudent from "../CreateStudent/CreateStudent";
+import {ErrorSnackbar} from "../components";
+import { CreateClass, CreateStudent } from "../components/Create";
 
-const Create = () => {
+const CreatePage = () => {
   const [error, setError] = useState({});
   const [snackbarMessage, setSnackbarMessage] = useState({
     open: false,
@@ -24,9 +23,9 @@ const Create = () => {
   };
 
   return (
-    <Box display="flex" sx={{ marginTop: "3.125rem" }}  >
-      <Grid container justifyContent="space-around" >
-      <CreateClass
+    <Box display="flex" sx={{ marginTop: "3.125rem" }}>
+      <Grid container justifyContent="space-around">
+        <CreateClass
           error={error}
           setError={setError}
           setSnackbarMessage={setSnackbarMessage}
@@ -45,4 +44,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreatePage;

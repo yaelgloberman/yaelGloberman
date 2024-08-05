@@ -5,17 +5,17 @@ import { Grid } from "@mui/material";
 
 
 // Components
-import OneClass from "../OneClass/OneClass";
-import ErrorSnackbar from "../../ErrorSnackbar";
-import {GenericDialog} from '../../../components'
+import OneClass from "../components/OneClass/OneClass";
+import {ErrorSnackbar,GenericDialog} from "../components";
 
 // Services
-import * as api from "../../../services/classService";
+import * as api from "../services/classService";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { deleteClass, setClasses } from "../../../redux/slices/classesSlice";
-const Classes = () => {
+import { deleteClass, setClasses } from "../redux/slices/classesSlice";
+
+const ClassPage = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
@@ -121,4 +121,4 @@ const Classes = () => {
   );
 };
 
-export default Classes;
+export default ClassPage;
