@@ -10,7 +10,6 @@ import { ThemeProvider } from "./themeContext";
 import AppRoutes from "./AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 
-
 // React query
 import { QueryClient, QueryClientProvider } from "react-query";
 
