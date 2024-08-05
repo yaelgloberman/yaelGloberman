@@ -6,11 +6,12 @@ import FormField from "../FormField/FormField";
 // Style
 import { useStyles } from "./CreateStudent.style";
 
+// Service
+import * as api from "../../../services/studentService";
+
 // Mui
 import { Button, Grid, Typography } from "@mui/material";
 
-// Service
-import * as api from "../../../services/studentService";
 
 
 const CreateStudent = ({ error, setError, setSnackbarMessage }) => {

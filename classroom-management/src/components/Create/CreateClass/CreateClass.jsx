@@ -94,6 +94,7 @@ const CreateClass = ({ error, setError, setSnackbarMessage }) => {
             setError={setError}
           />
         </Grid>
+        
         <Button
           variant="contained"
           className={classes.buttom}

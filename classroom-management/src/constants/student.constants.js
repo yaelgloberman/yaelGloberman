@@ -1,5 +1,3 @@
-
-
 export const TABLE_HEADER = [
   "ID",
   "First Name",
@@ -9,5 +7,6 @@ export const TABLE_HEADER = [
   "Assign",
   "Delete",
 ];
+
 export const TABLE_BODY = ["id", "firstName", "lastName", "age", "profession"];
 
