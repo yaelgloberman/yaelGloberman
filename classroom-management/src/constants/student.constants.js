@@ -1,6 +1,8 @@
-import Classes from "../components/Classes/Classes/Classes";
-import Create from "../components/Create/Create/Create";
-import Students from "../components/Students/Students/Students";
+// import Classes from "../components/Classes/Classes/Classes";
+// import Create from "../components/Create/Create/Create";
+// import Students from "../components/Students/Students/Students";
+
+import {Classes, Students, Create} from '../components'
 
 export const TABLE_HEADER = [
   "ID",

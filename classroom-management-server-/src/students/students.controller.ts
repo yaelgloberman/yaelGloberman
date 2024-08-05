@@ -36,11 +36,16 @@ export class StudentController {
   async asignStudentToClass(
     @Param('id') id: string,
     @Param('classId') classId: number,
-    
   ) {
-     await this.studentService.asignStudentToClass(id, classId);
+    await this.studentService.asignStudentToClass(id, classId);
   }
 
+  @Put(':id')
+  async unAsignStudentFronClass(@Param('id') id: string) {
+    console.log("------------------------------rrrrrrrrrrrrrrrrrrrrr", id);
+    
+    await this.studentService.unAsignStudentFronClass(id);
+  }
 
   @Delete(':id')
   async deleteStudent(@Param('id') id: string) {

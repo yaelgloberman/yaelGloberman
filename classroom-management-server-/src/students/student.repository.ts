@@ -17,13 +17,12 @@ export class StudentRepository {
     return Student.create(newStudent);
   }
 
-  async asignStudentToClass(id: string, classId:number) {
+  async asignStudentToClass(id: string, classId: number) {
     await Student.update({ classId: classId }, { where: { id } });
   }
 
   async unAsignStudentFronClass(id: string) {
-    const student = await Student.update({ classId: null }, { where: { id } });
-    return student;
+    await Student.update({ classId: null }, { where: { id } });
   }
 
   async deleteStudent(id: string) {

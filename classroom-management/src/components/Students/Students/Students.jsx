@@ -27,7 +27,8 @@ import * as sApi from "../../../services/studentService";
 
 // Components
 import ErrorSnackbar from "../../ErrorSnackbar";
-import GenericDialog from "../../GenericDialog/GenericDialog";
+// import GenericDialog from "../../GenericDialog/GenericDialog";
+import {GenericDialog} from '../../../components'
 
 // Constant
 import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
