@@ -8,7 +8,7 @@ import Routes from "./AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // Component
-import MenuAppBar from "./components/MenueAppBar/MenuAppBar";
+import MenuAppBar from "./components/MenuAppBar/MenuAppBar";
 
 //React query
 import { QueryClient, QueryClientProvider } from "react-query";
