@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-// Style
-import { useStyles } from "./MenuAppBar.style";
-
 // Constants
 import { PATHS } from "../../constants";
+
+// Style
+import { useStyles } from "./MenuAppBar.style";
 
 // Context
 import { ThemeContext } from "../../themeContext";

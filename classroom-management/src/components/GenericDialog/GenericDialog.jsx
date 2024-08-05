@@ -33,7 +33,6 @@ import SchoolIcon from "@mui/icons-material/School";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-
 const GenericDialog = ({
   dialogName,
   dialogTitle,
