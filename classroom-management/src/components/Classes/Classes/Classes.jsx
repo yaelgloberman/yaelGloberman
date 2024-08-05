@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 // Mui
 import { Grid } from "@mui/material";
 
-// Services
-import * as api from "../../../services/classService";
 
 // Components
 import OneClass from "../OneClass/OneClass";
 import ErrorSnackbar from "../../ErrorSnackbar";
-import GenericDialog from "../../GenericDialog/GenericDialog";
+import {GenericDialog} from '../../../components'
+
+// Services
+import * as api from "../../../services/classService";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";

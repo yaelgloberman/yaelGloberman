@@ -21,18 +21,18 @@ import {
 } from "../../../redux/slices/studentsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+// Components
+import ErrorSnackbar from "../../ErrorSnackbar";
+import {GenericDialog} from '../../../components'
+
 // Services
 import * as cApi from "../../../services/classService";
 import * as sApi from "../../../services/studentService";
 
-// Components
-import ErrorSnackbar from "../../ErrorSnackbar";
-// import GenericDialog from "../../GenericDialog/GenericDialog";
-import {GenericDialog} from '../../../components'
 
 // Constant
-import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
 import { useStyles } from "./Students.style";
+import { TABLE_BODY, TABLE_HEADER } from "../../../constants";
 
 const Students = () => {
   const dispatch = useDispatch();
