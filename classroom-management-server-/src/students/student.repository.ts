@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Student } from './student.entity';
 import { CreateStudentDto } from './dto/create-student.dto';
-import { UpdateStudentDto } from './dto/update-student.dto';
 
 @Injectable()
 export class StudentRepository {
@@ -10,7 +9,9 @@ export class StudentRepository {
   }
 
   async getAllStudents() {
-    return await Student.findAll();
+    return await Student.findAll({
+      order: ['firstName'],
+    });
   }
 
   async createStudent(newStudent: CreateStudentDto) {
@@ -26,7 +27,7 @@ export class StudentRepository {
   }
 
   async deleteStudent(id: string) {
-     await Student.destroy({
+    await Student.destroy({
       where: { id },
     });
   }

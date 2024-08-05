@@ -50,7 +50,6 @@ export class ClassService {
       if (!myClass) {
         throw new NotFoundException('class not found');
       }
-
       if (myClass.students.length > 0) {
         throw new ConflictException(
           'Cannot delete class when students are assigned',
@@ -58,7 +57,15 @@ export class ClassService {
       }
       await this.classRepository.deleteClass(id);
     } catch (error) {
-      throw new InternalServerErrorException();
+      if (error.status == '409') {
+        throw new ConflictException(error.response.message);
+      } else if (error.status == '404') {
+        throw new NotFoundException(error.response.message);
+      } else {
+        {
+          throw new InternalServerErrorException();
+        }
+      }
     }
   }
 }
