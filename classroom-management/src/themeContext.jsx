@@ -37,7 +37,7 @@ const ThemeProvider = ({ children }) => {
           },
         },
         typography: {
-          fontFamily: '"Heebo",  sans-serif',
+          fontFamily: '"Heebo",  sans-serif'
         },
       }),
     [primaryColor]

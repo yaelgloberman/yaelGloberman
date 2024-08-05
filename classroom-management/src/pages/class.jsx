@@ -15,7 +15,7 @@ import * as api from "../services/classService";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteClass, setClasses } from "../redux/slices/classesSlice";
 
-const ClassPage = () => {
+const Class = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [students, setStudents] = useState([]);
@@ -121,4 +121,4 @@ const ClassPage = () => {
   );
 };
 
-export default ClassPage;
+export default Class;
