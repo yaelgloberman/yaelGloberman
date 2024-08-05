@@ -1,4 +1,4 @@
-//Mui 
+//Mui
 import {
   Button,
   Paper,
@@ -20,18 +20,19 @@ import * as sApi from "../../services/studentService";
 import { TABLE_BODY, TABLE_HEADER } from "../../constants";
 
 // Redux
-import { deleteStudent } from "../../redux/slices/studentsSlice";
-
+import { deleteStudent, setStudents } from "../../redux/slices/studentsSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const StudentsTable = ({
-  students,
   fetchClasses,
   setSnackbarMessage,
   setStudentId,
   setOpen,
 }) => {
-
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const students = useSelector((state) => state.students.students);
 
   const handleDeleteStudent = async (studentId) => {
     try {
@@ -58,7 +59,22 @@ const StudentsTable = ({
     setStudentId(studentId);
     setOpen(true);
   };
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const data = await sApi.getAllStudents();
+        dispatch(setStudents(data));
+      } catch (error) {
+        setSnackbarMessage({
+          open: true,
+          severity: "error",
+          message: "Failed to fetch students.",
+        });
+      }
+    };
 
+    fetchStudents();
+  }, [dispatch]);
   return (
     <TableContainer component={Paper} sx={{ width: "70vw" }}>
       <Table aria-label="students table">
