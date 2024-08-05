@@ -42,8 +42,6 @@ export class StudentController {
 
   @Put(':id')
   async unAsignStudentFronClass(@Param('id') id: string) {
-    console.log("------------------------------rrrrrrrrrrrrrrrrrrrrr", id);
-    
     await this.studentService.unAsignStudentFronClass(id);
   }
 

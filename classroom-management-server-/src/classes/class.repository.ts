@@ -32,7 +32,7 @@ export class ClassRepository {
   }
 
   async getAvailableClasses() {
-    const classes = await Class.findAll({
+    return await Class.findAll({
       attributes: {
         include: [
           [
@@ -55,10 +55,10 @@ export class ClassRepository {
       ),
       raw: true,
     });
-    return classes;
+    
   }
 
   async deleteClass(id: number) {
-    await Class.destroy({ where: { id } });
+     await Class.destroy({ where: { id } });
   }
 }

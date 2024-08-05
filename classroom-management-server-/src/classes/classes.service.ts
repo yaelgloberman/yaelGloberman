@@ -17,7 +17,6 @@ export class ClassService {
       return await this.classRepository.getAllClasses();
     } catch (error) {
       throw new NotFoundException('Classes not found');
-
     }
   }
 

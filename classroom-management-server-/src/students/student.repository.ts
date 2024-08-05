@@ -26,7 +26,7 @@ export class StudentRepository {
   }
 
   async deleteStudent(id: string) {
-    return await Student.destroy({
+     await Student.destroy({
       where: { id },
     });
   }
