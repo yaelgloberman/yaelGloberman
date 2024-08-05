@@ -7,7 +7,7 @@ import { Box, Grid } from "@mui/material";
 import { useStyles } from "./student.style";
 
 // Services
-import * as cApi from "../../services/classService";
+import * as api from "../../services/classService";
 
 
 // Components
@@ -28,7 +28,7 @@ const Student = () => {
 
   const fetchClasses = async () => {
     try {
-      const data = await cApi.getAvailableClasses();
+      const data = await api.getAvailableClasses();
       setClasses(data);
     } catch (error) {
       console.error("Error fetching classes:", error);
